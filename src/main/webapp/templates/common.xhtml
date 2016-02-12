@@ -9,23 +9,28 @@ and open the template in the editor.
        xmlns:h="http://java.sun.com/jsf/html"
    xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Authentic Banana</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div style="border-width:2px; border-color:green; border-style:solid;">
+        <div style="background-color: black; color: white; text-align: center; padding: 5px;">
          <ui:insert name="header" >
             <ui:include src="/templates/header.xhtml" />
          </ui:insert> 
       </div>
       <br/>
-      <div style="border-width:2px; border-color:black; border-style:solid;">
+      <div style="line-height:30px; background-color: #eeeeee; height: 300px; width: 100px; float: left; padding: 5px">
+         <ui:insert name="nav" >
+            <ui:include src="/templates/nav.xhtml" />
+         </ui:insert>    
+      </div>
+      <div style="width: 350px; float: left; padding: 10px;">
          <ui:insert name="content" >
             <ui:include src="/templates/contents.xhtml" />
          </ui:insert>    
       </div>
       <br/>
-      <div style="border-width:2px; border-color:red; border-style:solid;">
+      <div style="background-color: black; color: white; clear: both; text-align: center; padding: 5px">
          <ui:insert name="footer" >
             <ui:include src="/templates/footer.xhtml" />
          </ui:insert>
