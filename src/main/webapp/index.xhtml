@@ -11,11 +11,30 @@
         <ui:composition template="templates/common.xhtml">
          <ui:define name="header">
             <h2>Authentic Banana</h2> 
+            <img src="IMG/Banana.png" alt=""/>
          </ui:define>			
          <ui:define name="content">
-            <h2>Page2 content</h2>
-            <h:outputText value="#{msg.greeting}"/>
-                <img src="IMG/Banana.png" alt=""/>
+             <h:outputText value="#{msg.greeting}"/>
+
+             <h:outputText value="#{msg.login}"/>
+        
+            <h:form>
+            <p>
+                <h:outputLabel for="username" value="#{msg.username} : "/> 
+                <h:inputText id="username" value="#{webShopManager.currentUsername}" />
+            </p>
+            <p>
+                <h:outputLabel for="password" value="#{msg.password}: "/> 
+                <h:inputSecret id="password" value="#{webShopManager.currentPassword}" />
+            </p>
+            <p>
+                <h:commandButton value="#{msg.login}" action="#{webShopManager.loginCustomer}"/>
+            </p>
+            <p rendered="#{webShopManager.error != null}">
+                <h:outputText value="#{webShopManager.error}" style="color:red"/>
+            </p>
+             </h:form>
+            
          </ui:define> 
          <ui:define name="footer">
             <h2>Page2 Footer</h2>
