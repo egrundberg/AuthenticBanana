@@ -20,9 +20,25 @@ public interface CompetenceDTO {
     public Long getCompetenceId();
 
     public void setCompetenceId(Long competenceId);
-    public String getName();
+     /**
+     * @return the name_se
+     */
+    public String getName_se();
 
-    public void setName(String name);
+    /**
+     * @param name_se the name_se to set
+     */
+    public void setName_se(String name_se);
+
+    /**
+     * @return the name_en
+     */
+    public String getName_en();
+
+    /**
+     * @param name_en the name_en to set
+     */
+    public void setName_en(String name_en);
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection();
 

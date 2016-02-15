@@ -40,8 +40,10 @@ public class Role implements Serializable, RoleDTO {
     @Column(name = "ROLE_ID")
     private Long roleId;
     @Size(max = 255)
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NAME_SE")
+    private String name_se;
+     @Column(name = "NAME_EN")
+    private String name_en;
     @OneToMany(mappedBy = "roleId")
     private Collection<Person> personCollection;
 
@@ -60,12 +62,33 @@ public class Role implements Serializable, RoleDTO {
         this.roleId = roleId;
     }
 
-    public String getName() {
-        return name;
+
+    /**
+     * @return the name_se
+     */
+    public String getName_se() {
+        return name_se;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param name_se the name_se to set
+     */
+    public void setName_se(String name_se) {
+        this.name_se = name_se;
+    }
+
+    /**
+     * @return the name_en
+     */
+    public String getName_en() {
+        return name_en;
+    }
+
+    /**
+     * @param name_en the name_en to set
+     */
+    public void setName_en(String name_en) {
+        this.name_en = name_en;
     }
 
     @XmlTransient
@@ -101,5 +124,6 @@ public class Role implements Serializable, RoleDTO {
     public String toString() {
         return "is1200.authenticbanana.model.Role[ roleId=" + roleId + " ]";
     }
+
     
 }

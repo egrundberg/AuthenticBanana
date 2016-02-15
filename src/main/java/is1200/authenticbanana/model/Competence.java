@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Competence.findAll", query = "SELECT c.competenceId FROM Competence c"),
     @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c.competenceId FROM Competence c WHERE c.competenceId = :competenceId"),
-    @NamedQuery(name = "Competence.findByName", query = "SELECT c.competenceId FROM Competence c WHERE c.name = :name")})
+    @NamedQuery(name = "Competence.findNameSE", query = "SELECT c.competenceId FROM Competence c WHERE c.name_se = :name"),
+    @NamedQuery(name = "Competence.findByNameEN", query = "SELECT c.competenceId FROM Competence c WHERE c.name_en = :name")
+})
 public class Competence implements Serializable, CompetenceDTO {
 
     private static final long serialVersionUID = 1L;
@@ -40,8 +42,12 @@ public class Competence implements Serializable, CompetenceDTO {
     @Column(name = "COMPETENCE_ID")
     private Long competenceId;
     @Size(max = 255)
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NAME_SE")
+    private String name_se;
+     @Size(max = 255)
+    @Column(name = "NAME_EN")
+    private String name_en;
+  
     @OneToMany(mappedBy = "competenceId")
     private Collection<CompetenceProfile> competenceProfileCollection;
 
@@ -60,13 +66,35 @@ public class Competence implements Serializable, CompetenceDTO {
         this.competenceId = competenceId;
     }
 
-    public String getName() {
-        return name;
+    
+      /**
+     * @return the name_se
+     */
+    public String getName_se() {
+        return name_se;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param name_se the name_se to set
+     */
+    public void setName_se(String name_se) {
+        this.name_se = name_se;
     }
+
+    /**
+     * @return the name_en
+     */
+    public String getName_en() {
+        return name_en;
+    }
+
+    /**
+     * @param name_en the name_en to set
+     */
+    public void setName_en(String name_en) {
+        this.name_en = name_en;
+    }
+ 
 
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
@@ -101,5 +129,7 @@ public class Competence implements Serializable, CompetenceDTO {
     public String toString() {
         return "is1200.authenticbanana.model.Competence[ competenceId=" + competenceId + " ]";
     }
+
+  
     
 }

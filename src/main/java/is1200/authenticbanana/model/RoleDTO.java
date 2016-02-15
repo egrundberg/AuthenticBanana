@@ -19,9 +19,26 @@ public interface RoleDTO {
 
     public void setRoleId(Long roleId);
 
-    public String getName();
-    public void setName(String name);
+  
+    /**
+     * @return the name_se
+     */
+    public String getName_se();
 
+    /**
+     * @param name_se the name_se to set
+     */
+    public void setName_se(String name_se);
+
+    /**
+     * @return the name_en
+     */
+    public String getName_en();
+
+    /**
+     * @param name_en the name_en to set
+     */
+    public void setName_en(String name_en);
     @XmlTransient
     public Collection<Person> getPersonCollection();
 
