@@ -32,10 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "AVAILABILITY")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Availability.findAll", query = "SELECT a FROM Availability a"),
+    @NamedQuery(name = "Availability.findAll", query = "SELECT a.availabilityId FROM Availability a"),
     @NamedQuery(name = "Availability.findByAvailabilityId", query = "SELECT a FROM Availability a WHERE a.availabilityId = :availabilityId"),
-    @NamedQuery(name = "Availability.findByFromDate", query = "SELECT a FROM Availability a WHERE a.fromDate = :fromDate"),
-    @NamedQuery(name = "Availability.findByToDate", query = "SELECT a FROM Availability a WHERE a.toDate = :toDate")})
+    @NamedQuery(name = "Availability.findByFromDate", query = "SELECT a.availabilityId FROM Availability a WHERE a.fromDate = :fromDate"),
+    @NamedQuery(name = "Availability.findByToDate", query = "SELECT a.availabilityId FROM Availability a WHERE a.toDate = :toDate")})
 public class Availability implements Serializable, AvailabilityDTO {
 
     private static final long serialVersionUID = 1L;

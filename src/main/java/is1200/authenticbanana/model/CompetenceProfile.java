@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "COMPETENCE_PROFILE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CompetenceProfile.findAll", query = "SELECT c FROM CompetenceProfile c"),
-    @NamedQuery(name = "CompetenceProfile.findByCompetenceProfileId", query = "SELECT c FROM CompetenceProfile c WHERE c.competenceProfileId = :competenceProfileId"),
-    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience")})
+    @NamedQuery(name = "CompetenceProfile.findAll", query = "SELECT c.competenceProfileId FROM CompetenceProfile c"),
+    @NamedQuery(name = "CompetenceProfile.findByCompetenceProfileId", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.competenceProfileId = :competenceProfileId"),
+    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience")})
 public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     private static final long serialVersionUID = 1L;
@@ -90,7 +90,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (competenceProfileId != null ? competenceProfileId.hashCode() : 0);
+        hash += (competenceProfileId != null ?   competenceProfileId.hashCode() : 0);
         return hash;
     }
 
