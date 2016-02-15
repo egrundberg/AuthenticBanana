@@ -9,6 +9,7 @@ import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -41,7 +42,9 @@ public class ApplicationFacade {
         return returnPerson(i);
     }
 
-    public String getRoleName(Role roleId) {
+    public String getRoleName(Role roleId, Locale local) {
+        
+        if(local.getLanguage().equals(new Locale("se").getLanguage())))
         return em.find(Role.class, roleId.getRoleId()).getName();
     }
 
