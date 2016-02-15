@@ -91,12 +91,12 @@ public class ApplicationManager implements Serializable {
         if (user == null) {
             return "failure";
         } else {
-            return applicationFacade.getRoleName(user.getRoleId());
+            return applicationFacade.getRoleName(user.getRoleId(), local);
         }
     }
     // </editor-fold>
     
     public String changeLocale(){
-        
-    }
+        String hej = "hej";
+   return hej; }
 }
