@@ -32,6 +32,11 @@ public class ApplicationManager implements Serializable {
     private String password;
     private PersonDTO user;
     Locale local = Locale.getDefault();
+    private String firstName;
+    private String surname;
+    private int ssn;
+    private String mail;
+
     
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
@@ -78,6 +83,62 @@ public class ApplicationManager implements Serializable {
     public void setUser(PersonDTO user) {
         this.user = user;
     }
+    
+        /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the surname
+     */
+    public String getSurname() {
+        return surname;
+    }
+
+    /**
+     * @param surname the surname to set
+     */
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    /**
+     * @return the ssn
+     */
+    public int getSsn() {
+        return ssn;
+    }
+
+    /**
+     * @param ssn the ssn to set
+     */
+    public void setSsn(int ssn) {
+        this.ssn = ssn;
+    }
+
+    /**
+     * @return the mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail the mail to set
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
@@ -99,4 +160,6 @@ public class ApplicationManager implements Serializable {
     public String changeLocale(){
         String hej = "hej";
    return hej; }
+
+
 }
