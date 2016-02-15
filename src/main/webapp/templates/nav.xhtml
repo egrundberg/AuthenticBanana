@@ -14,12 +14,14 @@ and open the template in the editor.
     </head>
     <body>
         <ui:composition> 
+                <h:form>
                 <p>
                     <h:commandButton value="#{msg.register}" action="#{applicationManager.registerLink}"/>
                 </p>
                 <p>
                     <h:commandButton value="#{msg.login}" action="#{applicationManager.loginLink}"/>
-                </p>            
+                </p>
+                </h:form>
       </ui:composition>	
     </body>
 </html>

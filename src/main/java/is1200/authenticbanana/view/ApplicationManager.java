@@ -34,6 +34,10 @@ public class ApplicationManager implements Serializable {
     Locale swedishLocale = new Locale("sv");
     Locale noSwedishLocale = new Locale("en", "GB");
     private String location = Locale.getDefault().getLanguage();
+    private String firstName;
+    private String surname;
+    private int ssn;
+    private String mail;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
