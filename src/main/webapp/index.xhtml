@@ -35,6 +35,41 @@
             </p>
              </h:form>
             
+             <h:form>
+               
+                <p>
+                    <h:outputLabel for="fname" value="#{msg.firstName} : "/> 
+                    <h:inputText id="username" value="#{applicationManager.currentUsername}" />
+                </p>
+                <p>
+                    <h:outputLabel for="surname" value="#{msg.surname} : "/> 
+                    <h:inputText id="username" value="#{applicationManager.currentUsername}" />
+                </p>
+                <p>
+                    <h:outputLabel for="username" value="#{msg.username} : "/> 
+                    <h:inputText id="username" value="#{applicationManager.currentUsername}" />
+                </p>
+                <p>
+                    <h:outputLabel for="password" value="#{msg.password}: "/> 
+                    <h:inputSecret id="password" value="#{applicationManager.currentPassword}" />
+                </p>
+                <p>
+                    <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
+                    <h:inputSecret id="password" value="#{applicationManager.currentPassword}" />
+                </p>
+                <p>
+                    <h:outputLabel for="mail" value="#{msg.mail}: "/> 
+                    <h:inputSecret id="password" value="#{applicationManager.currentPassword}" />
+                </p>
+                <p>
+                    <h:commandButton value="#{msg.register}" action="#{applicationManager.loginCustomer}"/>
+                </p>
+                <p rendered="#{applicationManager.error != null}">
+                    <h:outputText value="#{applicationManager.error}" style="color:red"/>
+                </p>
+            </h:form>
+            
+             
          </ui:define> 
          <ui:define name="footer">
             <h2>Page2 Footer</h2>
