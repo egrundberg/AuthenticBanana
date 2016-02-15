@@ -142,6 +142,14 @@ public class ApplicationManager implements Serializable {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
+   public String registerLink(){
+       return "success";
+   }
+   
+   public String loginLink(){
+       return "success";
+   }
+
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
         return "";
