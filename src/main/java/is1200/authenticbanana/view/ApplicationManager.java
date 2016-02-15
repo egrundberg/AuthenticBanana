@@ -8,6 +8,7 @@ package is1200.authenticbanana.view;
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.model.PersonDTO;
 import java.io.Serializable;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,7 +31,8 @@ public class ApplicationManager implements Serializable {
     @Size(min=8)
     private String password;
     private PersonDTO user;
-
+    Locale local = Locale.getDefault();
+    
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
     }
@@ -92,6 +94,7 @@ public class ApplicationManager implements Serializable {
             return applicationFacade.getRoleName(user.getRoleId());
         }
     }
-
     // </editor-fold>
+    
+    public 
 }

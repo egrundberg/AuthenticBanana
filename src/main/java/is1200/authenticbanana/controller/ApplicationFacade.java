@@ -42,7 +42,7 @@ public class ApplicationFacade {
     }
 
     public String getRoleName(Role roleId) {
-        return em.find(Role.class, roleId.getRoleId()).getName();
+        return em.find(Role.class, roleId.getRoleId()).getName_se();
     }
 
     private PersonDTO returnPerson(List i) {
