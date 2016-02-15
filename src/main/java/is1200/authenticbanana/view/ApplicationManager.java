@@ -25,14 +25,16 @@ public class ApplicationManager implements Serializable {
     @EJB
     private ApplicationFacade applicationFacade;
     @NotNull
-    @Size(min=4, max=32)
+    @Size(min = 4, max = 32)
     private String username;
     @NotNull
-    @Size(min=8)
+    @Size(min = 8)
     private String password;
     private PersonDTO user;
-    Locale local = Locale.getDefault();
-    
+    Locale swedishLocale = new Locale("sv");
+    Locale noSwedishLocale = new Locale("en", "GB");
+    private String location = Locale.getDefault().getLanguage();
+
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
     }
@@ -91,12 +93,33 @@ public class ApplicationManager implements Serializable {
         if (user == null) {
             return "failure";
         } else {
-            return applicationFacade.getRoleName(user.getRoleId());
+            return applicationFacade.getRoleName(user.getRoleId(), Locale.getDefault());
         }
     }
     // </editor-fold>
-    
-    public String changeLocale(){
-        
+
+    public String changeLocale() {
+        if (Locale.getDefault().getLanguage().equals(swedishLocale.getLanguage())) {
+            location = Locale.getDefault().getLanguage();
+            Locale.setDefault(noSwedishLocale);
+        } else {
+            location = Locale.getDefault().getLanguage();
+            Locale.setDefault(swedishLocale);
+        }
+        return "";
+    }
+
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

@@ -43,9 +43,12 @@ public class ApplicationFacade {
     }
 
     public String getRoleName(Role roleId, Locale local) {
-        
-        if(local.getLanguage().equals(new Locale("se").getLanguage())))
-        return em.find(Role.class, roleId.getRoleId()).getName();
+
+        if (local.getLanguage().equals("sv")) {
+            return em.find(Role.class, roleId.getRoleId()).getName_se();
+        } else {
+            return em.find(Role.class, roleId.getRoleId()).getName_en();
+        }
     }
 
     private PersonDTO returnPerson(List i) {
