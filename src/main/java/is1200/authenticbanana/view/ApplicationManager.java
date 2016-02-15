@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -170,9 +171,11 @@ public class ApplicationManager implements Serializable {
         if (Locale.getDefault().getLanguage().equals(swedishLocale.getLanguage())) {
             location = Locale.getDefault().getLanguage();
             Locale.setDefault(noSwedishLocale);
+            FacesContext.getCurrentInstance().getViewRoot().setLocale(noSwedishLocale);
         } else {
             location = Locale.getDefault().getLanguage();
             Locale.setDefault(swedishLocale);
+            FacesContext.getCurrentInstance().getViewRoot().setLocale(swedishLocale);
         }
         return "";
     }

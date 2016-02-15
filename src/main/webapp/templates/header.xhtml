@@ -6,14 +6,20 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <ui:composition> 
-         <h1>Default Header</h1>
+        <ui:composition>
+            <h2>Authentic Banana</h2> 
+            <img src="IMG/Banana.png" alt=""/>
+            <h:form>
+                 <h2><h:outputLabel value="#{applicationManager.location}"/></h2>
+                 <h:commandButton class="button" value="Change locale" action="#{applicationManager.changeLocale}"/>
+             </h:form>
       </ui:composition>	
     </body>
 </html>

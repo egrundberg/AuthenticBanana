@@ -9,16 +9,6 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/common.xhtml">
-         <ui:define name="header">
-            <h2>Authentic Banana</h2> 
-            <img src="IMG/Banana.png" alt=""/>
-         </ui:define>	
-         <ui:define name="content">
-             <h:form>
-                 <h2><h:outputLabel value="#{applicationManager.location}"/></h2>
-                 <h:commandButton class="button" value="Change locale" action="#{applicationManager.changeLocale}"/>
-             </h:form>
-         </ui:define> 
          <ui:define name="footer">
             <h2>Page2 Footer</h2>
          </ui:define>			
