@@ -22,11 +22,11 @@
                
                 <p>
                     <h:outputLabel for="fname" value="#{msg.firstName} : "/> 
-                    <h:inputText id="username" value="#{applicationManager.firstName}" />
+                    <h:inputText id="firstname" value="#{applicationManager.firstName}" />
                 </p>
                 <p>
                     <h:outputLabel for="surname" value="#{msg.surname} : "/> 
-                    <h:inputText id="username" value="#{applicationManager.surname}" />
+                    <h:inputText id="surname" value="#{applicationManager.surname}" />
                 </p>
                 <p>
                     <h:outputLabel for="username" value="#{msg.username} : "/> 
@@ -38,14 +38,14 @@
                 </p>
                 <p>
                     <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
-                    <h:inputSecret id="password" value="#{applicationManager.ssn}" />
+                    <h:inputText id="ssn" value="#{applicationManager.ssn}" />
                 </p>
                 <p>
                     <h:outputLabel for="mail" value="#{msg.mail}: "/> 
-                    <h:inputSecret id="password" value="#{applicationManager.mail}" />
+                    <h:inputText id="mail" value="#{applicationManager.mail}" />
                 </p>
                 <p>
-                    <h:commandButton value="#{msg.register}" action="#{applicationManager.username}"/>
+                    <h:commandButton value="#{msg.register}" action="#{applicationManager.loginUser}"/>
                 </p>
                  
              </h:form>
