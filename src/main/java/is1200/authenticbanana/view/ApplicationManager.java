@@ -96,5 +96,7 @@ public class ApplicationManager implements Serializable {
     }
     // </editor-fold>
     
-    public 
+    public String changeLocale(){
+        
+    }
 }
