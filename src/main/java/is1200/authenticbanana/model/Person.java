@@ -30,13 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "PERSON")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username"),
-    @NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE p.name = :name"),
-    @NamedQuery(name = "Person.findBySurname", query = "SELECT p FROM Person p WHERE p.surname = :surname"),
-    @NamedQuery(name = "Person.findBySsn", query = "SELECT p FROM Person p WHERE p.ssn = :ssn"),
-    @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email"),
-    @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password")})
+    @NamedQuery(name = "Person.findAll", query = "SELECT p.username FROM Person p"),
+    @NamedQuery(name = "Person.findByUsername", query = "SELECT p.username FROM Person p WHERE p.username = :username"),
+    @NamedQuery(name = "Person.findByName", query = "SELECT p.username FROM Person p WHERE p.name = :name"),
+    @NamedQuery(name = "Person.findBySurname", query = "SELECT p.username FROM Person p WHERE p.surname = :surname"),
+    @NamedQuery(name = "Person.findBySsn", query = "SELECT p.username FROM Person p WHERE p.ssn = :ssn"),
+    @NamedQuery(name = "Person.findByEmail", query = "SELECT p.username FROM Person p WHERE p.email = :email"),
+    @NamedQuery(name = "Person.findByPassword", query = "SELECT p.username FROM Person p WHERE p.password = :password"),
+    @NamedQuery(name = "Person.findByUsernameAndPassword", query = "SELECT p.username FROM Person p WHERE p.password = :password AND p.username = :username")})
 public class Person implements Serializable, PersonDTO {
 
     private static final long serialVersionUID = 1L;

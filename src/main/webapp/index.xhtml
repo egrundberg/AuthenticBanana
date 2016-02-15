@@ -12,26 +12,26 @@
          <ui:define name="header">
             <h2>Authentic Banana</h2> 
             <img src="IMG/Banana.png" alt=""/>
-         </ui:define>			
+         </ui:define>	
          <ui:define name="content">
              <h:outputText value="#{msg.greeting}"/>
-
+             <br/>
              <h:outputText value="#{msg.login}"/>
         
             <h:form>
             <p>
                 <h:outputLabel for="username" value="#{msg.username} : "/> 
-                <h:inputText id="username" value="#{webShopManager.currentUsername}" />
+                <h:inputText id="username" value="#{applicationManager.username}" />
             </p>
             <p>
                 <h:outputLabel for="password" value="#{msg.password}: "/> 
-                <h:inputSecret id="password" value="#{webShopManager.currentPassword}" />
+                <h:inputSecret id="password" value="#{applicationManager.password}" />
             </p>
             <p>
-                <h:commandButton value="#{msg.login}" action="#{webShopManager.loginCustomer}"/>
+                <h:commandButton value="#{msg.login}" action="#{applicationManager.loginUser}"/>
             </p>
-            <p rendered="#{webShopManager.error != null}">
-                <h:outputText value="#{webShopManager.error}" style="color:red"/>
+            <p rendered="#{applicationManager.user != null}">
+                <h:outputText value="#{applicationManager.user.name}" style="color:red"/>
             </p>
              </h:form>
             
