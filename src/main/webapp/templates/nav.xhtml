@@ -6,14 +6,20 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <ui:composition> 
-         <h1>Default nav</h1>
+                <p>
+                    <h:commandButton value="#{msg.register}" action="#{applicationManager.registerLink}"/>
+                </p>
+                <p>
+                    <h:commandButton value="#{msg.login}" action="#{applicationManager.loginLink}"/>
+                </p>            
       </ui:composition>	
     </body>
 </html>
