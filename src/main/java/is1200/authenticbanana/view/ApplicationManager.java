@@ -32,9 +32,6 @@ public class ApplicationManager implements Serializable {
     @Size(min = 8)
     private String password;
     private PersonDTO user;
-    Locale swedishLocale = new Locale("sv");
-    Locale noSwedishLocale = new Locale("en", "GB");
-    private String location = Locale.getDefault().getLanguage();
     private String firstName;
     private String surname;
     private int ssn;
@@ -85,8 +82,8 @@ public class ApplicationManager implements Serializable {
     public void setUser(PersonDTO user) {
         this.user = user;
     }
-    
-        /**
+
+    /**
      * @return the firstName
      */
     public String getFirstName() {
@@ -144,13 +141,13 @@ public class ApplicationManager implements Serializable {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
-   public String registerLink(){
-       return "success";
-   }
-   
-   public String loginLink(){
-       return "success";
-   }
+    public String registerLink() {
+        return "success";
+    }
+
+    public String loginLink() {
+        return "success";
+    }
 
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
@@ -166,31 +163,19 @@ public class ApplicationManager implements Serializable {
         }
     }
     // </editor-fold>
-
-    public String changeLocale() {
-        if (Locale.getDefault().getLanguage().equals(swedishLocale.getLanguage())) {
-            location = Locale.getDefault().getLanguage();
-            Locale.setDefault(noSwedishLocale);
-            FacesContext.getCurrentInstance().getViewRoot().setLocale(noSwedishLocale);
-        } else {
-            location = Locale.getDefault().getLanguage();
-            Locale.setDefault(swedishLocale);
-            FacesContext.getCurrentInstance().getViewRoot().setLocale(swedishLocale);
-        }
+    //<editor-fold defaultstate="collapsed" desc="L10n">
+    
+    public String enLocale() {
+        Locale.setDefault(new Locale("en"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         return "";
     }
 
-    /**
-     * @return the location
-     */
-    public String getLocation() {
-        return location;
+    public String svLocale() {
+        Locale.setDefault(new Locale("sv"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
+        return "";
     }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    
+    //</editor-fold>
 }
