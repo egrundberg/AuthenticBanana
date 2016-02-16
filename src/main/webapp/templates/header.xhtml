@@ -11,14 +11,15 @@ and open the template in the editor.
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="CSS/style.css"/>
     </head>
     <body>
         <ui:composition>
             <h2>Authentic Banana</h2> 
             <img src="IMG/Banana.png" alt=""/>
             <h:form>
-                 <h2><h:outputLabel value="#{applicationManager.location}"/></h2>
-                 <h:commandButton class="button" value="Change locale" action="#{applicationManager.changeLocale}"/>
+                <h:commandButton image="IMG/flaggor_02.png" action="#{applicationManager.changeLocale()}"/>
+                 <h:commandButton image="IMG/flaggor_01.png" action="#{applicationManager.changeLocale()}"/>
              </h:form>
       </ui:composition>	
     </body>

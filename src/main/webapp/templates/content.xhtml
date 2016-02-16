@@ -14,17 +14,7 @@ and open the template in the editor.
     </head>
     <body>
         <ui:composition> 
-            <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
-            <h:form>
-                    <p>
-                        <h:outputLabel for="username" value="Username : "/> 
-                        <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
-                        <h:commandButton class="button" value="Login" action="#{applicationManager.findUser}"/>
-                    </p>
-                    <p rendered="#{applicationManager.user != null}">
-                        <h:outputText value="#{applicationManager.user.name}" style="color:red"/>
-                    </p>
-                </h:form>
+            
       </ui:composition>	
     </body>
 </html>

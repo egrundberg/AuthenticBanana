@@ -9,8 +9,20 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/common.xhtml">
-         <ui:define name="footer">
-            <h2>Page2 Footer</h2>
+         <ui:define name="content">
+            <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
+            <h:form>
+                    <p>
+                        <h:outputLabel for="username" value="#{msg.username}"/> 
+                        <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
+                        <h:outputLabel for="username" value="#{msg.password}"/> 
+                        <h:inputText class="inputtext" id="password" value="#{applicationManager.password}"/>
+                        <h:commandButton class="button" value="Login" action="#{applicationManager.loginUser}"/>
+                    </p>
+                    <p rendered="#{applicationManager.user != null}">
+                        <h:outputText value="#{applicationManager.user.name}" style="color:red"/>
+                    </p>
+                </h:form>
          </ui:define>			
       </ui:composition> 
 
