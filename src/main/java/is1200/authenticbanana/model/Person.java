@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -47,20 +48,20 @@ public class Person implements Serializable, PersonDTO {
     @Size(min = 1, max = 255)
     @Column(name = "USERNAME")
     private String username;
-    @Size(max = 255)
+    @Size(min=1,max = 255)
     @Column(name = "NAME")
     private String name;
-    @Size(max = 255)
+    @Size(min=1,max = 255)
     @Column(name = "SURNAME")
     private String surname;
-    @Size(max = 255)
+    @Size(min = 4, max = 255)    
     @Column(name = "SSN")
     private String ssn;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 255)
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(min = 7,max = 255)
     @Column(name = "EMAIL")
     private String email;
-    @Size(max = 255)
+    @Size(min = 4,max = 255)
     @Column(name = "PASSWORD")
     private String password;
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")

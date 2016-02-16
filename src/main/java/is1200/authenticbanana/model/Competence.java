@@ -44,7 +44,7 @@ public class Competence implements Serializable, CompetenceDTO {
     @Size(max = 255)
     @Column(name = "NAME_SE")
     private String name_se;
-     @Size(max = 255)
+    @Size(max = 255)
     @Column(name = "NAME_EN")
     private String name_en;
   
