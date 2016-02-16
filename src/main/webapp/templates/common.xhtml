@@ -11,11 +11,12 @@ and open the template in the editor.
     <h:head>
         <title>Authentic Banana</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="../CSS/style.css" />
     </h:head>
     <h:body>
         <div>
-         <ui:insert name="header" >
-            <ui:include src="/templates/header.xhtml" />
+         <ui:insert name="header" class="header">
+            <ui:include src="/templates/header.xhtml"/>
          </ui:insert> 
       </div>
       <br/>

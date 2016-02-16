@@ -6,7 +6,9 @@
 package is1200.authenticbanana.view;
 
 import is1200.authenticbanana.controller.ApplicationFacade;
+import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
+import is1200.authenticbanana.model.Role;
 import java.io.Serializable;
 import java.util.Locale;
 import javax.ejb.EJB;
@@ -25,20 +27,38 @@ public class ApplicationManager implements Serializable {
 
     @EJB
     private ApplicationFacade applicationFacade;
+
+    /**
+     * Login variables
+     */
     @NotNull
     @Size(min = 4, max = 32)
     private String username;
     @NotNull
     @Size(min = 8)
     private String password;
+
     private PersonDTO user;
-    Locale swedishLocale = new Locale("sv");
-    Locale noSwedishLocale = new Locale("en", "GB");
-    private String location = Locale.getDefault().getLanguage();
-    private String firstName;
+
+    /**
+     * New user variables
+     */
+    @Size(min = 1, max = 255)
+    private String newUsername;
+    @Size(min = 1, max = 255)
+    private String name;
+    @Size(min = 1, max = 255)
     private String surname;
-    private int ssn;
-    private String mail;
+    @Size(min = 4, max = 255)
+    private String ssn;
+    //@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(min = 7, max = 255)
+    private String email;
+    @NotNull
+    @Size(min = 4, max = 255)
+    private String newPassword;
+    @NotNull
+    private Role roleId;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
@@ -87,17 +107,17 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * @return the firstName
+     * @return the name
      */
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param name the name to set
      */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -117,14 +137,14 @@ public class ApplicationManager implements Serializable {
     /**
      * @return the ssn
      */
-    public int getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
     /**
      * @param ssn the ssn to set
      */
-    public void setSsn(int ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
@@ -132,22 +152,41 @@ public class ApplicationManager implements Serializable {
      * @return the mail
      */
     public String getMail() {
-        return mail;
+        return email;
     }
 
     /**
      * @param mail the mail to set
      */
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail(String email) {
+        this.email = email;
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
+    /**
+     * Register new user
+     *
+     * @return
+     */
     public String registerLink() {
         return "success";
     }
 
+    public String registerUser() {
+        if (applicationFacade.findPerson(newUsername) != null) {
+            applicationFacade.registerUser(createPersonDTO());
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+
+    /**
+     * ??
+     *
+     * @return
+     */
     public String loginLink() {
         return "success";
     }
@@ -162,12 +201,13 @@ public class ApplicationManager implements Serializable {
         if (user == null) {
             return "failure";
         } else {
-            return applicationFacade.getRoleName(user.getRoleId(), Locale.getDefault());
+            return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
         }
     }
     // </editor-fold>
 
-    public String setSvLocale(){
+    //<editor-fold defaultstate="collapsed" desc="Set Locale">
+    public String setSvLocale() {
         Locale.setDefault(new Locale("sv"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         return "";
@@ -177,5 +217,18 @@ public class ApplicationManager implements Serializable {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         return "";
+    }
+//</editor-fold>
+
+    private PersonDTO createPersonDTO() {
+        PersonDTO person = new Person();
+        person.setUsername(newUsername);
+        person.setPassword(newPassword);
+        person.setName(name);
+        person.setSurname(surname);
+        person.setEmail(email);
+        person.setSsn(ssn);
+        person.setRoleId(roleId);
+        return person;
     }
 }

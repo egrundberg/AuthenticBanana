@@ -9,11 +9,6 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/common.xhtml">
-         <ui:define name="header">
-            <h2>Authentic Banana</h2> 
-            <img src="IMG/Banana.png" alt=""/>
-         </ui:define>
-            
          <ui:define name="content">
 
              <h:outputText value="#{msg.newUser}"/>
@@ -22,7 +17,7 @@
                
                 <p>
                     <h:outputLabel for="fname" value="#{msg.firstName} : "/> 
-                    <h:inputText id="firstname" value="#{applicationManager.firstName}" />
+                    <h:inputText id="firstname" value="#{applicationManager.name}" />
                 </p>
                 <p>
                     <h:outputLabel for="surname" value="#{msg.surname} : "/> 
@@ -30,11 +25,11 @@
                 </p>
                 <p>
                     <h:outputLabel for="username" value="#{msg.username} : "/> 
-                    <h:inputText id="username" value="#{applicationManager.username}" />
+                    <h:inputText id="username" value="#{applicationManager.newUsername}" />
                 </p>
                 <p>
                     <h:outputLabel for="password" value="#{msg.password}: "/> 
-                    <h:inputSecret id="password" value="#{applicationManager.password}" />
+                    <h:inputSecret id="password" value="#{applicationManager.newPassword}" />
                 </p>
                 <p>
                     <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
@@ -42,10 +37,10 @@
                 </p>
                 <p>
                     <h:outputLabel for="mail" value="#{msg.mail}: "/> 
-                    <h:inputText id="mail" value="#{applicationManager.mail}" />
+                    <h:inputText id="mail" value="#{applicationManager.email}" />
                 </p>
                 <p>
-                    <h:commandButton value="#{msg.register}" action="#{applicationManager.loginUser}"/>
+                    <h:commandButton value="#{msg.register}" action="#{applicationManager.registerUser}"/>
                 </p>
                  
              </h:form>
