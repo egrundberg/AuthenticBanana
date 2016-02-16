@@ -9,11 +9,6 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/common.xhtml">
-         <ui:define name="header">
-            <h2>Authentic Banana</h2> 
-            <img src="IMG/Banana.png" alt=""/>
-         </ui:define>
-            
          <ui:define name="content">
 
              <h:outputText value="#{msg.newUser}"/>
@@ -42,7 +37,7 @@
                 </p>
                 <p>
                     <h:outputLabel for="mail" value="#{msg.mail}: "/> 
-                    <h:inputText id="mail" value="#{applicationManager.mail}" />
+                    <h:inputText id="mail" value="#{applicationManager.email}" />
                 </p>
                 <p>
                     <h:commandButton value="#{msg.register}" action="#{applicationManager.registerUser}"/>

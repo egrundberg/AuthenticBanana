@@ -43,7 +43,6 @@ public class ApplicationManager implements Serializable {
     /**
      * New user variables
      */
-    @NotNull
     @Size(min = 1, max = 255)
     private String newUsername;
     @Size(min = 1, max = 255)
@@ -52,7 +51,7 @@ public class ApplicationManager implements Serializable {
     private String surname;
     @Size(min = 4, max = 255)
     private String ssn;
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    //@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(min = 7, max = 255)
     private String email;
     @NotNull
