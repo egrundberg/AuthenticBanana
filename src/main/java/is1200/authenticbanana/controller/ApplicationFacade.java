@@ -58,4 +58,8 @@ public class ApplicationFacade {
         Person found = em.find(Person.class, i.get(0));
         return found;
     }
+
+    public void registerUser(PersonDTO createPersonDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
