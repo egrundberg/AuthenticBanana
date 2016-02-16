@@ -15,6 +15,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -26,12 +28,16 @@ public class ApplicationFacade {
 
     @PersistenceContext(unitName = "is1200_AuthenticBanana_war_1.0PU")
     private EntityManager em;
+   private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
 
     public PersonDTO findPerson(String username) {
         List<String> i = em.createNamedQuery("Person.findByUsername")
                 .setParameter("username", username)
                 .getResultList();
+        
+        
         return returnPerson(i);
+        
     }
 
     public PersonDTO loginPerson(String username, String password) {
@@ -39,6 +45,7 @@ public class ApplicationFacade {
                 .setParameter("username", username)
                 .setParameter("password", password)
                 .getResultList();
+        log.error("Michelle är bäst");
         return returnPerson(i);
     }
 
