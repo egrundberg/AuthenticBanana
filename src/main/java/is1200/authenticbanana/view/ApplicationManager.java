@@ -85,8 +85,8 @@ public class ApplicationManager implements Serializable {
     public void setUser(PersonDTO user) {
         this.user = user;
     }
-    
-        /**
+
+    /**
      * @return the firstName
      */
     public String getFirstName() {
@@ -144,13 +144,13 @@ public class ApplicationManager implements Serializable {
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
-   public String registerLink(){
-       return "success";
-   }
-   
-   public String loginLink(){
-       return "success";
-   }
+    public String registerLink() {
+        return "success";
+    }
+
+    public String loginLink() {
+        return "success";
+    }
 
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
@@ -167,30 +167,15 @@ public class ApplicationManager implements Serializable {
     }
     // </editor-fold>
 
-    public String changeLocale() {
-        if (Locale.getDefault().getLanguage().equals(swedishLocale.getLanguage())) {
-            location = Locale.getDefault().getLanguage();
-            Locale.setDefault(noSwedishLocale);
-            FacesContext.getCurrentInstance().getViewRoot().setLocale(noSwedishLocale);
-        } else {
-            location = Locale.getDefault().getLanguage();
-            Locale.setDefault(swedishLocale);
-            FacesContext.getCurrentInstance().getViewRoot().setLocale(swedishLocale);
-        }
+    public String setSvLocale(){
+        Locale.setDefault(new Locale("sv"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         return "";
     }
 
-    /**
-     * @return the location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
+    public String setEnLocale() {
+        Locale.setDefault(new Locale("en"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
+        return "";
     }
 }
