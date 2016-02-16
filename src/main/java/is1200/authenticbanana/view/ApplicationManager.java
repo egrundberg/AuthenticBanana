@@ -28,6 +28,8 @@ public class ApplicationManager implements Serializable {
     @EJB
     private ApplicationFacade applicationFacade;
 
+    private final static Logger log
+    
     /**
      * Login variables
      */
@@ -37,6 +39,7 @@ public class ApplicationManager implements Serializable {
     @NotNull
     @Size(min = 8)
     private String password;
+    private int loginsFailed = 0;
 
     private PersonDTO user;
 
@@ -152,14 +155,70 @@ public class ApplicationManager implements Serializable {
      * @return the mail
      */
     public String getMail() {
+        return getEmail();
+    }
+
+    /**
+     * @param email the mail to set
+     */
+    public void setMail(String email) {
+        this.setEmail(email);
+    }
+    
+    /**
+     * @return the newUsername
+     */
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    /**
+     * @param newUsername the newUsername to set
+     */
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
+    }
+
+    /**
+     * @return the newPassword
+     */
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword the newPassword to set
+     */
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+    
+    /**
+     * @return the email
+     */
+    public String getEmail() {
         return email;
     }
 
     /**
-     * @param mail the mail to set
+     * @param email the email to set
      */
-    public void setMail(String email) {
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the roleId
+     */
+    public Role getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * @param roleId the roleId to set
+     */
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     // </editor-fold>
@@ -174,7 +233,7 @@ public class ApplicationManager implements Serializable {
     }
 
     public String registerUser() {
-        if (applicationFacade.findPerson(newUsername) != null) {
+        if (applicationFacade.findPerson(getNewUsername()) != null) {
             applicationFacade.registerUser(createPersonDTO());
             return "success";
         } else {
@@ -199,13 +258,15 @@ public class ApplicationManager implements Serializable {
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
+            loginsFailed++;
+            if(loginsFailed == 3){
+            }
             return "failure";
         } else {
             return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
         }
     }
     // </editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     public String setSvLocale() {
         Locale.setDefault(new Locale("sv"));
@@ -222,13 +283,15 @@ public class ApplicationManager implements Serializable {
 
     private PersonDTO createPersonDTO() {
         PersonDTO person = new Person();
-        person.setUsername(newUsername);
-        person.setPassword(newPassword);
+        person.setUsername(getNewUsername());
+        person.setPassword(getNewPassword());
         person.setName(name);
         person.setSurname(surname);
-        person.setEmail(email);
+        person.setEmail(getEmail());
         person.setSsn(ssn);
-        person.setRoleId(roleId);
+        person.setRoleId(getRoleId());
         return person;
     }
+
+    
 }
