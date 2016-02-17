@@ -6,6 +6,7 @@
 package is1200.authenticbanana.view;
 
 import is1200.authenticbanana.controller.ApplicationFacade;
+import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
+import org.apache.logging.log4j.*;
 
 /**
  *
@@ -24,12 +26,12 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "applicationManager")
 @SessionScoped
 public class ApplicationManager implements Serializable {
-
+    
     @EJB
     private ApplicationFacade applicationFacade;
-
-    private final static Logger log
     
+    private final static Logger log = LogManager.getLogger(ApplicationManager.class);
+
     /**
      * Login variables
      */
@@ -40,7 +42,7 @@ public class ApplicationManager implements Serializable {
     @Size(min = 8)
     private String password;
     private int loginsFailed = 0;
-
+    
     private PersonDTO user;
 
     /**
@@ -164,7 +166,7 @@ public class ApplicationManager implements Serializable {
     public void setMail(String email) {
         this.setEmail(email);
     }
-    
+
     /**
      * @return the newUsername
      */
@@ -192,7 +194,7 @@ public class ApplicationManager implements Serializable {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-    
+
     /**
      * @return the email
      */
@@ -224,17 +226,22 @@ public class ApplicationManager implements Serializable {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
-     * Register new user
+     * ??
      *
      * @return
      */
     public String registerLink() {
         return "success";
     }
-
+    
     public String registerUser() {
-        if (applicationFacade.findPerson(getNewUsername()) != null) {
-            applicationFacade.registerUser(createPersonDTO());
+        if (applicationFacade.findPerson(newUsername) == null) {
+            try {
+                applicationFacade.registerUser(createPersonDTO());
+            } catch (DataBaseException ex) {
+                log.error(ex.getMessage());
+                return "failure";
+            }
             return "success";
         } else {
             return "failure";
@@ -249,23 +256,26 @@ public class ApplicationManager implements Serializable {
     public String loginLink() {
         return "success";
     }
-
+    
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
         return "";
     }
-
+    
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
             loginsFailed++;
-            if(loginsFailed == 3){
+            if (loginsFailed == 3) {
+                log.error("Login failed three times in a row");
             }
             return "failure";
         } else {
+            loginsFailed = 0;
             return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
         }
     }
+
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     public String setSvLocale() {
@@ -273,7 +283,7 @@ public class ApplicationManager implements Serializable {
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         return "";
     }
-
+    
     public String setEnLocale() {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
@@ -283,15 +293,13 @@ public class ApplicationManager implements Serializable {
 
     private PersonDTO createPersonDTO() {
         PersonDTO person = new Person();
-        person.setUsername(getNewUsername());
-        person.setPassword(getNewPassword());
+        person.setUsername(newUsername);
+        person.setPassword(newPassword);
         person.setName(name);
         person.setSurname(surname);
-        person.setEmail(getEmail());
+        person.setEmail(email);
         person.setSsn(ssn);
-        person.setRoleId(getRoleId());
+        person.setRoleId(roleId);
         return person;
     }
-
-    
 }

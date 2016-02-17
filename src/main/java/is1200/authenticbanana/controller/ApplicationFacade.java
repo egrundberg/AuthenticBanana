@@ -5,6 +5,7 @@
  */
 package is1200.authenticbanana.controller;
 
+import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
@@ -66,7 +67,11 @@ public class ApplicationFacade {
         return found;
     }
 
-    public void registerUser(PersonDTO createPersonDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void registerUser(PersonDTO person) throws DataBaseException {
+        if(em.find(Person.class, person.getUsername()) == null){
+            em.persist(person);
+        } else {
+            throw new DataBaseException("Could not create user");
+        }  
     }
 }
