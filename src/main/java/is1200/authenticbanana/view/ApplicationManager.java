@@ -17,7 +17,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -29,8 +30,9 @@ public class ApplicationManager implements Serializable {
     
     @EJB
     private ApplicationFacade applicationFacade;
+
     
-    private final static Logger log = LogManager.getLogger(ApplicationManager.class);
+   private final static Logger log = LogManager.getLogger(ApplicationManager.class);
 
     /**
      * Login variables
@@ -66,8 +68,7 @@ public class ApplicationManager implements Serializable {
     private Role roleId;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
-    public ApplicationManager() {
-    }
+    public ApplicationManager() {  }
 
     /**
      * @return the username
