@@ -29,16 +29,16 @@ public class ApplicationFacade {
 
     @PersistenceContext(unitName = "is1200_AuthenticBanana_war_1.0PU")
     private EntityManager em;
-   private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
+    private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
+    private int loginsFailed = 0;
 
     public PersonDTO findPerson(String username) {
         List<String> i = em.createNamedQuery("Person.findByUsername")
                 .setParameter("username", username)
                 .getResultList();
-        
-        
+
         return returnPerson(i);
-        
+
     }
 
     public PersonDTO loginPerson(String username, String password) {
@@ -61,17 +61,23 @@ public class ApplicationFacade {
 
     private PersonDTO returnPerson(List i) {
         if (i.isEmpty()) {
+            loginsFailed++;
+            if (loginsFailed == 3) {
+                log.error("Login failed three times in a row");
+                loginsFailed = 0;
+            }
             return null;
         }
         Person found = em.find(Person.class, i.get(0));
+        loginsFailed = 0;
         return found;
     }
 
     public void registerUser(PersonDTO person) throws DataBaseException {
-        if(em.find(Person.class, person.getUsername()) == null){
+        if (em.find(Person.class, person.getUsername()) == null) {
             em.persist(person);
         } else {
             throw new DataBaseException("Could not create user");
-        }  
+        }
     }
 }

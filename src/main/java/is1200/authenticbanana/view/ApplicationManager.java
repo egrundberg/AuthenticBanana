@@ -27,12 +27,11 @@ import org.apache.logging.log4j.Logger;
 @ManagedBean(name = "applicationManager")
 @SessionScoped
 public class ApplicationManager implements Serializable {
-    
+
     @EJB
     private ApplicationFacade applicationFacade;
 
-    
-   private final static Logger log = LogManager.getLogger(ApplicationManager.class);
+    private final static Logger log = LogManager.getLogger(ApplicationManager.class);
 
     /**
      * Login variables
@@ -43,8 +42,7 @@ public class ApplicationManager implements Serializable {
     @NotNull
     @Size(min = 8)
     private String password;
-    private int loginsFailed = 0;
-    
+
     private PersonDTO user;
 
     /**
@@ -64,11 +62,14 @@ public class ApplicationManager implements Serializable {
     @NotNull
     @Size(min = 4, max = 255)
     private String newPassword;
+
+    //RoleID is never set
     @NotNull
     private Role roleId;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
-    public ApplicationManager() {  }
+    public ApplicationManager() {
+    }
 
     /**
      * @return the username
@@ -234,7 +235,7 @@ public class ApplicationManager implements Serializable {
     public String registerLink() {
         return "success";
     }
-    
+
     public String registerUser() {
         if (applicationFacade.findPerson(newUsername) == null) {
             try {
@@ -257,22 +258,17 @@ public class ApplicationManager implements Serializable {
     public String loginLink() {
         return "success";
     }
-    
+
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
         return "";
     }
-    
+
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
-            loginsFailed++;
-            if (loginsFailed == 3) {
-                log.error("Login failed three times in a row");
-            }
             return "failure";
         } else {
-            loginsFailed = 0;
             return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
         }
     }
@@ -284,7 +280,7 @@ public class ApplicationManager implements Serializable {
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         return "";
     }
-    
+
     public String setEnLocale() {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
@@ -300,7 +296,9 @@ public class ApplicationManager implements Serializable {
         person.setSurname(surname);
         person.setEmail(email);
         person.setSsn(ssn);
-        person.setRoleId(roleId);
+        Role r = new Role();
+        r.setRoleId(1L);
+        person.setRoleId(r);
         return person;
     }
 }
