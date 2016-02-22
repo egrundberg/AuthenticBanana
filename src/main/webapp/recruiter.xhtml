@@ -12,10 +12,18 @@ and open the template in the editor.
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
     </head>
     <body>
-        <ui:composition> 
-           <h4><h:outputLabel value="#{msg.ABinfo}"/></h4>
-      </ui:composition>	
+        <ui:composition template="templates/common.xhtml">
+            <ui:define name="content">
+            <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
+
+            </ui:define>
+        
+        
+        </ui:composition> 
+
+        <div>TODO write content</div>
     </body>
 </html>

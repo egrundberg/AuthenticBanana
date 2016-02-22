@@ -13,15 +13,17 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <ui:composition> 
-                <h:form>
-                <p>
-                    <h:commandButton value="#{msg.register}" action="#{applicationManager.registerLink}"/>
-                </p>
-                <p>
-                    <h:commandButton value="#{msg.login}" action="#{applicationManager.loginLink}"/>
-                </p>
-                </h:form>
+      <ui:composition>
+       	 
+     
+            <ul>
+                <li><h:link value="Login page" outcome="index" /></li>
+                <li><h:link value="Register" outcome="register" /></li>
+                <li><h:link value="Lediga tjänster" outcome="positions" /></li>
+                <li><h:link value="My Page" outcome="profile" /></li>
+
+            </ul>
+         
       </ui:composition>	
     </body>
 </html>
