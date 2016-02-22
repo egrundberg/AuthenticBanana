@@ -16,7 +16,7 @@
                         <h:outputLabel for="username" value="#{msg.username}"/> 
                         <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
                         <h:outputLabel for="username" value="#{msg.password}"/> 
-                        <h:inputText class="inputtext" id="password" value="#{applicationManager.password}"/>
+                        <h:inputSecret class="inputtext" id="password" value="#{applicationManager.password}"/>
                         <h:commandButton class="button" value="Login" action="#{applicationManager.loginUser}"/>
                     </p>
                     <p rendered="#{applicationManager.user != null}">

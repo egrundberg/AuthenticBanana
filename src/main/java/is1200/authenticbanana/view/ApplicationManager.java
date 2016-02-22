@@ -32,7 +32,11 @@ public class ApplicationManager implements Serializable {
     private ApplicationFacade applicationFacade;
 
     private final static Logger log = LogManager.getLogger(ApplicationManager.class);
-
+    
+    private PersonDTO user;
+    
+    private Locale locale = Locale.getDefault();
+    
     /**
      * Login variables
      */
@@ -42,9 +46,7 @@ public class ApplicationManager implements Serializable {
     @NotNull
     @Size(min = 8)
     private String password;
-
-    private PersonDTO user;
-
+    
     /**
      * New user variables
      */
@@ -278,12 +280,14 @@ public class ApplicationManager implements Serializable {
     public String setSvLocale() {
         Locale.setDefault(new Locale("sv"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
+        locale = new Locale("sv");
         return "";
     }
 
     public String setEnLocale() {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
+        locale = new Locale("en");
         return "";
     }
 //</editor-fold>
@@ -297,8 +301,22 @@ public class ApplicationManager implements Serializable {
         person.setEmail(email);
         person.setSsn(ssn);
         Role r = new Role();
-        r.setRoleId(1L);
+        r.setRoleId(2L);
         person.setRoleId(r);
         return person;
+    }
+
+    /**
+     * @return the locale
+     */
+    public Locale getLocale() {
+        return locale;
+    }
+
+    /**
+     * @param locale the locale to set
+     */
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

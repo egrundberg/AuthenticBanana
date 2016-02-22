@@ -74,10 +74,15 @@ public class ApplicationFacade {
     }
 
     public void registerUser(PersonDTO person) throws DataBaseException {
-        if (em.find(Person.class, person.getUsername()) == null) {
-            em.persist(person);
-        } else {
+        if (em.find(Person.class, person.getUsername()) != null) {
             throw new DataBaseException("Could not create user");
+        } else {
+            try {
+                em.persist(person);
+            } catch (Exception ex) {
+                log.error(ex.getMessage());
+                throw new DataBaseException("Could not create user");
+            }
         }
     }
 }
