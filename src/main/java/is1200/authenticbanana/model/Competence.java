@@ -6,19 +6,18 @@
 package is1200.authenticbanana.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,27 +28,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Competence.findAll", query = "SELECT c.competenceId FROM Competence c"),
-    @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c.competenceId FROM Competence c WHERE c.competenceId = :competenceId"),
-    @NamedQuery(name = "Competence.findNameSE", query = "SELECT c.competenceId FROM Competence c WHERE c.name_se = :name"),
-    @NamedQuery(name = "Competence.findByNameEN", query = "SELECT c.competenceId FROM Competence c WHERE c.name_en = :name")
-})
-public class Competence implements Serializable, CompetenceDTO {
+    @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c.competenceId FROM Competence c WHERE c.competenceId = :competenceId")})
+public class Competence implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "COMPETENCE_ID")
     private Long competenceId;
-    @Size(max = 255)
-    @Column(name = "NAME_SE")
-    private String name_se;
-    @Size(max = 255)
-    @Column(name = "NAME_EN")
-    private String name_en;
-  
-    @OneToMany(mappedBy = "competenceId")
-    private Collection<CompetenceProfile> competenceProfileCollection;
+    @JoinColumn(name = "NAME", referencedColumnName = "L_ID")
+    @ManyToOne
+    private Language name;
 
     public Competence() {
     }
@@ -66,43 +56,12 @@ public class Competence implements Serializable, CompetenceDTO {
         this.competenceId = competenceId;
     }
 
-    
-      /**
-     * @return the name_se
-     */
-    public String getName_se() {
-        return name_se;
+    public Language getName() {
+        return name;
     }
 
-    /**
-     * @param name_se the name_se to set
-     */
-    public void setName_se(String name_se) {
-        this.name_se = name_se;
-    }
-
-    /**
-     * @return the name_en
-     */
-    public String getName_en() {
-        return name_en;
-    }
-
-    /**
-     * @param name_en the name_en to set
-     */
-    public void setName_en(String name_en) {
-        this.name_en = name_en;
-    }
- 
-
-    @XmlTransient
-    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
-        return competenceProfileCollection;
-    }
-
-    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
-        this.competenceProfileCollection = competenceProfileCollection;
+    public void setName(Language name) {
+        this.name = name;
     }
 
     @Override
@@ -129,7 +88,5 @@ public class Competence implements Serializable, CompetenceDTO {
     public String toString() {
         return "is1200.authenticbanana.model.Competence[ competenceId=" + competenceId + " ]";
     }
-
-  
     
 }
