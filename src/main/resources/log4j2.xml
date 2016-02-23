@@ -10,8 +10,14 @@
             <PatternLayout pattern="${PATTERN}"/>
         </Console>
         <RollingFile name="fileWriter"
-                     fileName="${LOG_DIR}/error.log"
+                     fileName="C:/Users/Erik/error.log"
                      filePattern="${ARCHIVE}/error.log.%d{yyyy-MM-dd-hh-mm}.gz">
+            <PatternLayout pattern="${PATTERN}"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+        <RollingFile name="fileWriter2"
+                     fileName="C:/Users/Erik/warning.log"
+                     filePattern="${ARCHIVE}/warning.log.%d{yyyy-MM-dd-hh-mm}.gz">
             <PatternLayout pattern="${PATTERN}"/>
             <TimeBasedTriggeringPolicy/>
         </RollingFile>
@@ -20,6 +26,10 @@
         <Root level="ERROR">
             <AppenderRef ref="STDOUT"/>
             <AppenderRef ref="fileWriter"/>
+        </Root>
+        <Root level="WARNING">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="fileWriter2"/>
         </Root>
     </Loggers>
 </Configuration>

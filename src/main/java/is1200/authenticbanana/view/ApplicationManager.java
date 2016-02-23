@@ -13,10 +13,12 @@ import is1200.authenticbanana.model.Role;
 import java.io.Serializable;
 import java.util.Locale;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,25 +34,24 @@ public class ApplicationManager implements Serializable {
     private ApplicationFacade applicationFacade;
 
     private final static Logger log = LogManager.getLogger(ApplicationManager.class);
-    
+
     private PersonDTO user;
-    
+
     private Locale locale = Locale.getDefault();
-    
+
     /**
      * Login variables
      */
     @NotNull
-    @Size(min = 4, max = 32)
+    @Size(min = 1, max = 255)
     private String username;
     @NotNull
-    @Size(min = 8)
     private String password;
-    
+
     /**
      * New user variables
      */
-    @Size(min = 1, max = 255)
+    @Size(min = 4, max = 255, message = "{usernameSizeError}")
     private String newUsername;
     @Size(min = 1, max = 255)
     private String name;
@@ -66,8 +67,8 @@ public class ApplicationManager implements Serializable {
     private String newPassword;
 
     //RoleID is never set
-    @NotNull
-    private Role roleId;
+    private final static long RECRUITER = 1L;
+    private final static long APPLICANT = 2L;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     public ApplicationManager() {
@@ -214,17 +215,17 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * @return the roleId
+     * @return the locale
      */
-    public Role getRoleId() {
-        return roleId;
+    public Locale getLocale() {
+        return locale;
     }
 
     /**
-     * @param roleId the roleId to set
+     * @param locale the locale to set
      */
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     // </editor-fold>
@@ -269,10 +270,38 @@ public class ApplicationManager implements Serializable {
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
-            return "failure";
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Incorrect Username and Passowrd",
+                            "Please enter correct username and Password"));
+            return "login";
         } else {
+            HttpSession session = SessionBean.getSession();
+            session.setAttribute("username", user);
             return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
         }
+    }
+    
+    //logout event, invalidate session
+    public String logoutUser() {
+        HttpSession session = SessionBean.getSession();
+        session.invalidate();
+        return "index";
+    }
+
+    private PersonDTO createPersonDTO() {
+        PersonDTO person = new Person();
+        person.setUsername(newUsername);
+        person.setPassword(newPassword);
+        person.setName(name);
+        person.setSurname(surname);
+        person.setEmail(email);
+        person.setSsn(ssn);
+        Role r = new Role();
+        r.setRoleId(APPLICANT);
+        person.setRoleId(r);
+        return person;
     }
 
     // </editor-fold>
@@ -291,32 +320,4 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 //</editor-fold>
-
-    private PersonDTO createPersonDTO() {
-        PersonDTO person = new Person();
-        person.setUsername(newUsername);
-        person.setPassword(newPassword);
-        person.setName(name);
-        person.setSurname(surname);
-        person.setEmail(email);
-        person.setSsn(ssn);
-        Role r = new Role();
-        r.setRoleId(2L);
-        person.setRoleId(r);
-        return person;
-    }
-
-    /**
-     * @return the locale
-     */
-    public Locale getLocale() {
-        return locale;
-    }
-
-    /**
-     * @param locale the locale to set
-     */
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
 }
