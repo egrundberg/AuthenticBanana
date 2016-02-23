@@ -51,5 +51,9 @@ public interface PersonDTO {
     public Collection<CompetenceProfile> getCompetenceProfileCollection();
 
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection);
+  @XmlTransient
+    public Collection<Application> getApplicationCollection();
 
+    public void setApplicationCollection(Collection<Application> applicationCollection);
+    
 }

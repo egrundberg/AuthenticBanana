@@ -6,19 +6,18 @@
 package is1200.authenticbanana.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,27 +28,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r.roleId FROM Role r"),
-    @NamedQuery(name = "Role.findByRoleId", query = "SELECT r.roleId FROM Role r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "Role.findNameSE", query = "SELECT r.roleId FROM Role r WHERE r.name_se = :name"),
-    @NamedQuery(name = "Role.findNameEN", query = "SELECT r.roleId FROM Role r WHERE r.name_en = :name")
-
-
-})
-public class Role implements Serializable, RoleDTO {
+    @NamedQuery(name = "Role.findByRoleId", query = "SELECT r.name FROM Role r WHERE r.roleId = :roleId")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ROLE_ID")
     private Long roleId;
-    @Size(max = 255)
-    @Column(name = "NAME_SE")
-    private String name_se;
-     @Column(name = "NAME_EN")
-    private String name_en;
-    @OneToMany(mappedBy = "roleId")
-    private Collection<Person> personCollection;
+    @JoinColumn(name = "NAME", referencedColumnName = "L_ID")
+    @ManyToOne
+    private Language name;
 
     public Role() {
     }
@@ -66,42 +56,12 @@ public class Role implements Serializable, RoleDTO {
         this.roleId = roleId;
     }
 
-
-    /**
-     * @return the name_se
-     */
-    public String getName_se() {
-        return name_se;
+    public Language getName() {
+        return name;
     }
 
-    /**
-     * @param name_se the name_se to set
-     */
-    public void setName_se(String name_se) {
-        this.name_se = name_se;
-    }
-
-    /**
-     * @return the name_en
-     */
-    public String getName_en() {
-        return name_en;
-    }
-
-    /**
-     * @param name_en the name_en to set
-     */
-    public void setName_en(String name_en) {
-        this.name_en = name_en;
-    }
-
-    @XmlTransient
-    public Collection<Person> getPersonCollection() {
-        return personCollection;
-    }
-
-    public void setPersonCollection(Collection<Person> personCollection) {
-        this.personCollection = personCollection;
+    public void setName(Language name) {
+        this.name = name;
     }
 
     @Override
@@ -128,6 +88,5 @@ public class Role implements Serializable, RoleDTO {
     public String toString() {
         return "is1200.authenticbanana.model.Role[ roleId=" + roleId + " ]";
     }
-
     
 }

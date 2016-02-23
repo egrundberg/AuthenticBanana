@@ -41,8 +41,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Person.findByUsernameAndPassword", query = "SELECT p.username FROM Person p WHERE p.password = :password AND p.username = :username")})
 public class Person implements Serializable, PersonDTO {
 
+    @OneToMany(mappedBy = "username")
+    private Collection<Application> applicationCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -178,6 +182,15 @@ public class Person implements Serializable, PersonDTO {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Person[ username=" + username + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
     
 }
