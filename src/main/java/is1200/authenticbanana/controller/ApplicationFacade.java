@@ -6,6 +6,8 @@
 package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.Language;
+import is1200.authenticbanana.model.LanguagePK;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
@@ -68,11 +70,15 @@ public class ApplicationFacade {
      * @return
      */
     public String getRoleName(Role roleId, Locale local) {
-
-        if (local.getLanguage().equals("sv")) {
-            return em.find(Role.class, roleId.getRoleId()).getName_se();
+        String roleName = em.find(Role.class, roleId.getRoleId()).getName();
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setLang(local.getLanguage());
+        languagePK.setL_id(roleName);
+        String word = em.find(Language.class, languagePK).getWord();
+        if (word != null) {
+            return word;
         } else {
-            return em.find(Role.class, roleId.getRoleId()).getName_en();
+            return "No role?";
         }
     }
 
