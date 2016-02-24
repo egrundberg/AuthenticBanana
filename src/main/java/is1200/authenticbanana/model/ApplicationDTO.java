@@ -11,15 +11,39 @@ package is1200.authenticbanana.model;
  */
 public interface ApplicationDTO {
     
-    
-      public Long getAppId();
+    /**
+     *
+     * @return
+     */
+    public Long getAppId();
+
+    /**
+     *
+     * @param appId
+     */
     public void setAppId(Long appId);
 
+    /**
+     *
+     * @return
+     */
     public String getPLetter();
 
+    /**
+     *
+     * @param pLetter
+     */
     public void setPLetter(String pLetter);
 
+    /**
+     *
+     * @return
+     */
     public Person getUsername();
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(Person username);    
 }

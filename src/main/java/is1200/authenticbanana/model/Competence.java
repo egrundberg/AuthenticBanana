@@ -41,25 +41,48 @@ public class Competence implements Serializable {
     @ManyToOne
     private Language name;
 
+    /**
+     *
+     */
     public Competence() {
     }
 
+    /**
+     *
+     * @param competenceId
+     */
     public Competence(Long competenceId) {
         this.competenceId = competenceId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getCompetenceId() {
         return competenceId;
     }
 
+    /**
+     *
+     * @param competenceId
+     */
     public void setCompetenceId(Long competenceId) {
         this.competenceId = competenceId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Language getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(Language name) {
         this.name = name;
     }

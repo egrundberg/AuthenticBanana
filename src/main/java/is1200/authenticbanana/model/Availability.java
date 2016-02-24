@@ -57,9 +57,16 @@ public class Availability implements Serializable, AvailabilityDTO {
     @ManyToOne
     private Person username;
 
+    /**
+     *
+     */
     public Availability() {
     }
 
+    /**
+     *
+     * @param availabilityId
+     */
     public Availability(Long availabilityId) {
         this.availabilityId = availabilityId;
     }
@@ -76,6 +83,10 @@ public class Availability implements Serializable, AvailabilityDTO {
         return fromDate;
     }
 
+    /**
+     *
+     * @param fromDate
+     */
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }

@@ -54,60 +54,115 @@ public class Language implements Serializable {
     @OneToMany(mappedBy = "name")
     private Collection<Competence> competenceCollection;
 
+    /**
+     *
+     */
     public Language() {
     }
 
+    /**
+     *
+     * @param lId
+     */
     public Language(String lId) {
         this.lId = lId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLId() {
         return lId;
     }
 
+    /**
+     *
+     * @param lId
+     */
     public void setLId(String lId) {
         this.lId = lId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLang() {
         return lang;
     }
 
+    /**
+     *
+     * @param lang
+     */
     public void setLang(String lang) {
         this.lang = lang;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWord() {
         return word;
     }
 
+    /**
+     *
+     * @param word
+     */
     public void setWord(String word) {
         this.word = word;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Role> getRoleCollection() {
         return roleCollection;
     }
 
+    /**
+     *
+     * @param roleCollection
+     */
     public void setRoleCollection(Collection<Role> roleCollection) {
         this.roleCollection = roleCollection;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<AvailableJobs> getAvailableJobsCollection() {
         return availableJobsCollection;
     }
 
+    /**
+     *
+     * @param availableJobsCollection
+     */
     public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection) {
         this.availableJobsCollection = availableJobsCollection;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Competence> getCompetenceCollection() {
         return competenceCollection;
     }
 
+    /**
+     *
+     * @param competenceCollection
+     */
     public void setCompetenceCollection(Collection<Competence> competenceCollection) {
         this.competenceCollection = competenceCollection;
     }

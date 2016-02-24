@@ -11,10 +11,19 @@ package is1200.authenticbanana.execptions;
  */
 public class DataBaseException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public DataBaseException(String message) {
         super(message);
     }
 
+    /**
+     *
+     * @param message
+     * @param throwable
+     */
     public DataBaseException(String message, Throwable throwable) {
         super(message, throwable);
     }

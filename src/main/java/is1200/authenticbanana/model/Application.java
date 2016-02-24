@@ -45,33 +45,64 @@ public class Application implements Serializable {
     @ManyToOne
     private Person username;
 
+    /**
+     *
+     */
     public Application() {
     }
 
+    /**
+     *
+     * @param appId
+     */
     public Application(Long appId) {
         this.appId = appId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getAppId() {
         return appId;
     }
 
+    /**
+     *
+     * @param appId
+     */
     public void setAppId(Long appId) {
         this.appId = appId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPLetter() {
         return pLetter;
     }
 
+    /**
+     *
+     * @param pLetter
+     */
     public void setPLetter(String pLetter) {
         this.pLetter = pLetter;
     }
 
+    /**
+     *
+     * @return
+     */
     public Person getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(Person username) {
         this.username = username;
     }

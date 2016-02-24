@@ -59,57 +59,112 @@ public class AvailableJobs implements Serializable {
     @ManyToOne
     private Language description;
 
+    /**
+     *
+     */
     public AvailableJobs() {
     }
 
+    /**
+     *
+     * @param jobId
+     */
     public AvailableJobs(Long jobId) {
         this.jobId = jobId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getJobId() {
         return jobId;
     }
 
+    /**
+     *
+     * @param jobId
+     */
     public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFromPeriod() {
         return fromPeriod;
     }
 
+    /**
+     *
+     * @param fromPeriod
+     */
     public void setFromPeriod(Date fromPeriod) {
         this.fromPeriod = fromPeriod;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getToPeriod() {
         return toPeriod;
     }
 
+    /**
+     *
+     * @param toPeriod
+     */
     public void setToPeriod(Date toPeriod) {
         this.toPeriod = toPeriod;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getApplicationDate() {
         return applicationDate;
     }
 
+    /**
+     *
+     * @param applicationDate
+     */
     public void setApplicationDate(Date applicationDate) {
         this.applicationDate = applicationDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Competence getCompetenceId() {
         return competenceId;
     }
 
+    /**
+     *
+     * @param competenceId
+     */
     public void setCompetenceId(Competence competenceId) {
         this.competenceId = competenceId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Language getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(Language description) {
         this.description = description;
     }

@@ -41,25 +41,48 @@ public class Role implements Serializable {
     @ManyToOne
     private Language name;
 
+    /**
+     *
+     */
     public Role() {
     }
 
+    /**
+     *
+     * @param roleId
+     */
     public Role(Long roleId) {
         this.roleId = roleId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getRoleId() {
         return roleId;
     }
 
+    /**
+     *
+     * @param roleId
+     */
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Language getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(Language name) {
         this.name = name;
     }

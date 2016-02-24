@@ -78,83 +78,162 @@ public class Person implements Serializable, PersonDTO {
     @OneToMany(mappedBy = "username")
     private Collection<CompetenceProfile> competenceProfileCollection;
 
+    /**
+     *
+     */
     public Person() {
     }
 
+    /**
+     *
+     * @param username
+     */
     public Person(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     *
+     * @param surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSsn() {
         return ssn;
     }
 
+    /**
+     *
+     * @param ssn
+     */
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public Role getRoleId() {
         return roleId;
     }
 
+    /**
+     *
+     * @param roleId
+     */
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Availability> getAvailabilityCollection() {
         return availabilityCollection;
     }
 
+    /**
+     *
+     * @param availabilityCollection
+     */
     public void setAvailabilityCollection(Collection<Availability> availabilityCollection) {
         this.availabilityCollection = availabilityCollection;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
         return competenceProfileCollection;
     }
 
+    /**
+     *
+     * @param competenceProfileCollection
+     */
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
         this.competenceProfileCollection = competenceProfileCollection;
     }
@@ -184,11 +263,19 @@ public class Person implements Serializable, PersonDTO {
         return "is1200.authenticbanana.model.Person[ username=" + username + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;
     }
 
+    /**
+     *
+     * @param applicationCollection
+     */
     public void setApplicationCollection(Collection<Application> applicationCollection) {
         this.applicationCollection = applicationCollection;
     }

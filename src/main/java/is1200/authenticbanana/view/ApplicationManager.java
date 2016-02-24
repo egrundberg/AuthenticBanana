@@ -71,6 +71,10 @@ public class ApplicationManager implements Serializable {
     private final static long APPLICANT = 2L;
 
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
+
+    /**
+     *
+     */
     public ApplicationManager() {
     }
 
@@ -239,6 +243,10 @@ public class ApplicationManager implements Serializable {
         return "success";
     }
 
+    /**
+     *
+     * @return
+     */
     public String registerUser() {
         if (applicationFacade.findPerson(newUsername) == null) {
             try {
@@ -262,11 +270,19 @@ public class ApplicationManager implements Serializable {
         return "success";
     }
 
+    /**
+     *
+     * @return
+     */
     public String findUser() {
         setUser(applicationFacade.findPerson(getUsername()));
         return "";
     }
 
+    /**
+     *
+     * @return
+     */
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
@@ -284,6 +300,11 @@ public class ApplicationManager implements Serializable {
     }
     
     //logout event, invalidate session
+
+    /**
+     *
+     * @return
+     */
     public String logoutUser() {
         HttpSession session = SessionBean.getSession();
         session.invalidate();
@@ -306,6 +327,11 @@ public class ApplicationManager implements Serializable {
 
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
+
+    /**
+     *
+     * @return
+     */
     public String setSvLocale() {
         Locale.setDefault(new Locale("sv"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
@@ -313,6 +339,10 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 
+    /**
+     *
+     * @return
+     */
     public String setEnLocale() {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));

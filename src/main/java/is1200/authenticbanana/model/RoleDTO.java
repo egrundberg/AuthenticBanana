@@ -14,13 +14,22 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 public interface RoleDTO {
     
-    
-     public Long getRoleId();
+    /**
+     *
+     * @return
+     */
+    public Long getRoleId();
 
+    /**
+     *
+     * @param roleId
+     */
     public void setRoleId(Long roleId);
 
-  
- 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name);
 
     /**
@@ -28,11 +37,17 @@ public interface RoleDTO {
      */
     public String getName();
 
-  
-
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Person> getPersonCollection();
 
+    /**
+     *
+     * @param personCollection
+     */
     public void setPersonCollection(Collection<Person> personCollection);
 
     

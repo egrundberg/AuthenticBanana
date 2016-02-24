@@ -21,17 +21,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
+/**
+ *
+ * @author michelle
+ */
 @WebFilter(filterName = "AuthFilter", urlPatterns = { "*.xhtml" })
 public class AuthorizationFilter implements Filter {
  
+    /**
+     *
+     */
     public AuthorizationFilter() {
     }
  
+    /**
+     *
+     * @param filterConfig
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
  
     }
  
+    /**
+     *
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
@@ -54,6 +74,9 @@ public class AuthorizationFilter implements Filter {
         }
     }
  
+    /**
+     *
+     */
     @Override
     public void destroy() {
  

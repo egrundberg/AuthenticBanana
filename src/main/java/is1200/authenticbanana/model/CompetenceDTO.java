@@ -14,11 +14,16 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 public interface CompetenceDTO {
     
-    
-    
-    
+    /**
+     *
+     * @return
+     */
     public Long getCompetenceId();
 
+    /**
+     *
+     * @param competenceId
+     */
     public void setCompetenceId(Long competenceId);
      /**
      * @return the name_se
@@ -39,9 +44,18 @@ public interface CompetenceDTO {
      * @param name_en the name_en to set
      */
     public void setName_en(String name_en);
+
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection();
 
+    /**
+     *
+     * @param competenceProfileCollection
+     */
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection);
 
     

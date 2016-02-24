@@ -32,6 +32,11 @@ public class ApplicationFacade {
     private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
     private int loginsFailed = 0;
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public PersonDTO findPerson(String username) {
         List<String> i = em.createNamedQuery("Person.findByUsername")
                 .setParameter("username", username)
@@ -41,6 +46,12 @@ public class ApplicationFacade {
 
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public PersonDTO loginPerson(String username, String password) {
         List<String> i = em.createNamedQuery("Person.findByUsernameAndPassword")
                 .setParameter("username", username)
@@ -50,6 +61,12 @@ public class ApplicationFacade {
         return returnPerson(i);
     }
 
+    /**
+     *
+     * @param roleId
+     * @param local
+     * @return
+     */
     public String getRoleName(Role roleId, Locale local) {
 
         if (local.getLanguage().equals("sv")) {
@@ -73,6 +90,11 @@ public class ApplicationFacade {
         return found;
     }
 
+    /**
+     *
+     * @param person
+     * @throws DataBaseException
+     */
     public void registerUser(PersonDTO person) throws DataBaseException {
         if (em.find(Person.class, person.getUsername()) != null) {
             throw new DataBaseException("Could not create user");

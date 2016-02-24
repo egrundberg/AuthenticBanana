@@ -31,6 +31,10 @@ public interface AvailabilityDTO {
      */
     public Date getFromDate();
 
+    /**
+     *
+     * @param fromDate
+     */
     public void setFromDate(Date fromDate);
 
     /**

@@ -13,21 +13,52 @@ import java.math.BigDecimal;
  */
 public interface CompetenceProfileDTO {
     
-    
+    /**
+     *
+     * @return
+     */
     public Long getCompetenceProfileId();
 
+    /**
+     *
+     * @param competenceProfileId
+     */
     public void setCompetenceProfileId(Long competenceProfileId);
 
+    /**
+     *
+     * @return
+     */
     public BigDecimal getYearsOfExperience();
 
+    /**
+     *
+     * @param yearsOfExperience
+     */
     public void setYearsOfExperience(BigDecimal yearsOfExperience);
 
+    /**
+     *
+     * @return
+     */
     public Competence getCompetenceId();
 
+    /**
+     *
+     * @param competenceId
+     */
     public void setCompetenceId(Competence competenceId);
 
+    /**
+     *
+     * @return
+     */
     public Person getUsername();
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(Person username);
 
     

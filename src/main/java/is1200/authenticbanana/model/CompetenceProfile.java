@@ -51,41 +51,80 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
     @ManyToOne
     private Person username;
 
+    /**
+     *
+     */
     public CompetenceProfile() {
     }
 
+    /**
+     *
+     * @param competenceProfileId
+     */
     public CompetenceProfile(Long competenceProfileId) {
         this.competenceProfileId = competenceProfileId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getCompetenceProfileId() {
         return competenceProfileId;
     }
 
+    /**
+     *
+     * @param competenceProfileId
+     */
     public void setCompetenceProfileId(Long competenceProfileId) {
         this.competenceProfileId = competenceProfileId;
     }
 
+    /**
+     *
+     * @return
+     */
     public BigDecimal getYearsOfExperience() {
         return yearsOfExperience;
     }
 
+    /**
+     *
+     * @param yearsOfExperience
+     */
     public void setYearsOfExperience(BigDecimal yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    /**
+     *
+     * @return
+     */
     public Competence getCompetenceId() {
         return competenceId;
     }
 
+    /**
+     *
+     * @param competenceId
+     */
     public void setCompetenceId(Competence competenceId) {
         this.competenceId = competenceId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Person getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(Person username) {
         this.username = username;
     }

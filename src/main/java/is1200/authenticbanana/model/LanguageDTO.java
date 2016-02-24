@@ -14,30 +14,79 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 public interface LanguageDTO {
     
-     public String getLId();
+    /**
+     *
+     * @return
+     */
+    public String getLId();
 
+    /**
+     *
+     * @param lId
+     */
     public void setLId(String lId);
 
+    /**
+     *
+     * @return
+     */
     public String getLang();
 
+    /**
+     *
+     * @param lang
+     */
     public void setLang(String lang);
 
+    /**
+     *
+     * @return
+     */
     public String getWord();
 
+    /**
+     *
+     * @param word
+     */
     public void setWord(String word);
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Role> getRoleCollection();
 
+    /**
+     *
+     * @param roleCollection
+     */
     public void setRoleCollection(Collection<Role> roleCollection);
+
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<AvailableJobs> getAvailableJobsCollection();
 
+    /**
+     *
+     * @param availableJobsCollection
+     */
     public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection);
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Competence> getCompetenceCollection();
 
+    /**
+     *
+     * @param competenceCollection
+     */
     public void setCompetenceCollection(Collection<Competence> competenceCollection);
     
 }
