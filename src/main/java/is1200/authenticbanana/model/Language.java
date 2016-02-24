@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,6 +34,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Language.findAll", query = "SELECT l.lId FROM Language l"),
     @NamedQuery(name = "Language.findByLId", query = "SELECT l.word FROM Language l WHERE l.lId = :lId"),
     @NamedQuery(name = "Language.findByLang", query = "SELECT l.lang FROM Language l WHERE l.lang = :lang")})
+
+//
+//@Embeddable
+//public class LanguagePK implements Serializable { 
+//    @Column
+//    private String fieldA;
+//    @Column
+//    private String fieldB;
+//}
+
+
 public class Language implements Serializable {
 
     @EmbeddedId

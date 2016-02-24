@@ -60,9 +60,6 @@ public class AvailableJobs implements Serializable {
     @JoinColumn(name = "COMPETENCE_ID", referencedColumnName = "COMPETENCE_ID")
     @ManyToOne
     private Competence competenceId;
-    @JoinColumn(name = "DESCRIPTION", referencedColumnName = "L_ID")
-    @ManyToOne
-    private Language description;
 
     /**
      *
@@ -158,21 +155,6 @@ public class AvailableJobs implements Serializable {
         this.competenceId = competenceId;
     }
 
-    /**
-     *
-     * @return gets the description of the position
-     */
-    public Language getDescription() {
-        return description;
-    }
-
-    /**
-     *
-     * @param description
-     */
-    public void setDescription(Language description) {
-        this.description = description;
-    }
 
     @Override
     public int hashCode() {

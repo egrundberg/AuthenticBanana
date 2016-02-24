@@ -49,9 +49,7 @@ public class Competence implements Serializable {
     @Basic(optional = false)
     @Column(name = "COMPETENCE_ID")
     private Long competenceId;
-    @JoinColumn(name = "NAME", referencedColumnName = "L_ID")
-    @ManyToOne
-    private Language name;
+  
 
     /**
      *
@@ -83,21 +81,6 @@ public class Competence implements Serializable {
         this.competenceId = competenceId;
     }
 
-    /**
-     *
-     * @return the specific name of that word in specified language
-     */
-    public Language getName() {
-        return name;
-    }
-
-    /**
-     *
-     * @param name
-     */
-    public void setName(Language name) {
-        this.name = name;
-    }
 
     @Override
     public int hashCode() {
