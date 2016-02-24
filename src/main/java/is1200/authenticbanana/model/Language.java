@@ -58,6 +58,7 @@ public class Language implements Serializable {
     @Column(name = "L_ID")
     private String lId;
     @Size(max = 255)
+    @Id
     @Column(name = "LANG")
     private String lang;
     @Lob
