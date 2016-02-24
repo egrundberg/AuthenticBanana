@@ -6,6 +6,7 @@
 package is1200.authenticbanana.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,15 +35,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Role.findByRoleId", query = "SELECT r.name FROM Role r WHERE r.roleId = :roleId")})
 public class Role implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "NAME")
+    private String name;
+    @OneToMany(mappedBy = "roleId")
+    private Collection<Person> personCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ROLE_ID")
     private Long roleId;
-    @JoinColumn(name = "NAME", referencedColumnName = "L_ID")
-    @ManyToOne
-    private Language name;
+   
 
     /**
      *
@@ -71,23 +79,7 @@ public class Role implements Serializable {
         this.roleId = roleId;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Language getName() {
-        return name;
-    }
 
-    /**
-     *
-     * @param name
-     */
-    public void setName(Language name) {
-        this.name = name;
-    }
-
-    @Override
     public int hashCode() {
         int hash = 0;
         hash += (roleId != null ? roleId.hashCode() : 0);
@@ -110,6 +102,23 @@ public class Role implements Serializable {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Role[ roleId=" + roleId + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlTransient
+    public Collection<Person> getPersonCollection() {
+        return personCollection;
+    }
+
+    public void setPersonCollection(Collection<Person> personCollection) {
+        this.personCollection = personCollection;
     }
     
 }

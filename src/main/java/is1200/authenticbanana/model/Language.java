@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -33,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Language.findByLId", query = "SELECT l.word FROM Language l WHERE l.lId = :lId"),
     @NamedQuery(name = "Language.findByLang", query = "SELECT l.lang FROM Language l WHERE l.lang = :lang")})
 public class Language implements Serializable {
+
+    @EmbeddedId
+    protected is1200.authenticbanana.model.LanguagePK languagePK;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,7 +74,7 @@ public class Language implements Serializable {
 
     /**
      *
-     * @return
+     * @return the id of the specific language
      */
     public String getLId() {
         return lId;
@@ -190,6 +194,14 @@ public class Language implements Serializable {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Language[ lId=" + lId + " ]";
+    }
+
+    public is1200.authenticbanana.model.LanguagePK getLanguagePK() {
+        return languagePK;
+    }
+
+    public void setLanguagePK(is1200.authenticbanana.model.LanguagePK languagePK) {
+        this.languagePK = languagePK;
     }
     
 }

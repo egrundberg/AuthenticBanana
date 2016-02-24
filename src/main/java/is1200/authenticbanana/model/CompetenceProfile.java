@@ -67,7 +67,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return gets the competence profile id
      */
     public Long getCompetenceProfileId() {
         return competenceProfileId;
@@ -83,7 +83,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return the years of experience of that person
      */
     public BigDecimal getYearsOfExperience() {
         return yearsOfExperience;
@@ -99,7 +99,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return gets the id of that person's competence
      */
     public Competence getCompetenceId() {
         return competenceId;
@@ -115,7 +115,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return gets the username of the applicant
      */
     public Person getUsername() {
         return username;

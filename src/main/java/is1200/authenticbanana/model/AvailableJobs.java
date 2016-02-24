@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,6 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AvailableJobs.findByToPeriod", query = "SELECT a.toPeriod FROM AvailableJobs a WHERE a.toPeriod = :toPeriod"),
     @NamedQuery(name = "AvailableJobs.findByApplicationDate", query = "SELECT a.applicationDate FROM AvailableJobs a WHERE a.applicationDate = :applicationDate")})
 public class AvailableJobs implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,7 +80,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return the id of the specific job
      */
     public Long getJobId() {
         return jobId;
@@ -91,7 +96,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return gets the period from which the applicant can work
      */
     public Date getFromPeriod() {
         return fromPeriod;
@@ -107,7 +112,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return gets the period from which the applicant can work to
      */
     public Date getToPeriod() {
         return toPeriod;
@@ -123,7 +128,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return the last day when the application can be made
      */
     public Date getApplicationDate() {
         return applicationDate;
@@ -139,7 +144,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return gets the id of the competence which is necessary by the applicant
      */
     public Competence getCompetenceId() {
         return competenceId;
@@ -155,7 +160,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return gets the description of the position
      */
     public Language getDescription() {
         return description;
@@ -192,6 +197,14 @@ public class AvailableJobs implements Serializable {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.AvailableJobs[ jobId=" + jobId + " ]";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }

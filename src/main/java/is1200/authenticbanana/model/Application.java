@@ -61,7 +61,7 @@ public class Application implements Serializable {
 
     /**
      *
-     * @return
+     * @return the application's Id
      */
     public Long getAppId() {
         return appId;
@@ -77,7 +77,7 @@ public class Application implements Serializable {
 
     /**
      *
-     * @return
+     * @return personal letter from the application
      */
     public String getPLetter() {
         return pLetter;
@@ -93,7 +93,7 @@ public class Application implements Serializable {
 
     /**
      *
-     * @return
+     * @return the username of the applicant
      */
     public Person getUsername() {
         return username;

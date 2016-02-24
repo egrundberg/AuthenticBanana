@@ -6,6 +6,7 @@
 package is1200.authenticbanana.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Competence.findAll", query = "SELECT c.competenceId FROM Competence c"),
     @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c.competenceId FROM Competence c WHERE c.competenceId = :competenceId")})
 public class Competence implements Serializable {
+
+    @Size(max = 255)
+    @Column(name = "NAME")
+    private String name;
+    @OneToMany(mappedBy = "competenceId")
+    private Collection<CompetenceProfile> competenceProfileCollection;
+    @OneToMany(mappedBy = "competenceId")
+    private Collection<AvailableJobs> availableJobsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,7 +69,7 @@ public class Competence implements Serializable {
 
     /**
      *
-     * @return
+     * @return the competence id
      */
     public Long getCompetenceId() {
         return competenceId;
@@ -73,7 +85,7 @@ public class Competence implements Serializable {
 
     /**
      *
-     * @return
+     * @return the specific name of that word in specified language
      */
     public Language getName() {
         return name;
@@ -110,6 +122,32 @@ public class Competence implements Serializable {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Competence[ competenceId=" + competenceId + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlTransient
+    public Collection<CompetenceProfile> getCompetenceProfileCollection() {
+        return competenceProfileCollection;
+    }
+
+    public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
+        this.competenceProfileCollection = competenceProfileCollection;
+    }
+
+    @XmlTransient
+    public Collection<AvailableJobs> getAvailableJobsCollection() {
+        return availableJobsCollection;
+    }
+
+    public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection) {
+        this.availableJobsCollection = availableJobsCollection;
     }
     
 }
