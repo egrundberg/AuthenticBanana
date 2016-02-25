@@ -15,13 +15,15 @@
                     <p>
                         <h:outputLabel for="username" value="#{msg.username}"/> 
                         <h:inputText class="inputtext" id="username" value="#{applicationManager.username}" required = "true" />
-                        <h:message for="username" />
+                        <h:message for="username" style="color:red"/>
                     
                     </p>
                         
                     <p>
-                        <h:outputLabel for="username" value="#{msg.password}"/> 
+                        <h:outputLabel for="password" value="#{msg.password}"/> 
                         <h:inputSecret class="inputtext" id="password" value="#{applicationManager.password}"/>
+                        <h:message for="password" style="color:red"/>
+                    
                     </p>
                     <p>
                         <h:commandButton class="button" value="#{msg.login}" action="#{applicationManager.loginUser}"/>
