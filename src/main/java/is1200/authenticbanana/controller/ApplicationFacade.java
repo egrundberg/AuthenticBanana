@@ -70,14 +70,16 @@ public class ApplicationFacade {
      * @return
      */
     public String getRoleName(Role roleId, Locale local) {
+        log.error("Get role");
         String roleName = em.find(Role.class, roleId.getRoleId()).getName();
         LanguagePK languagePK = new LanguagePK();
         languagePK.setLang(local.getLanguage());
         languagePK.setL_id(roleName);
-        String word = em.find(Language.class, languagePK).getWord();
+        Language word = em.find(Language.class, languagePK);
         if (word != null) {
-            return word;
+            return word.getWord();
         } else {
+            log.error("No role");
             return "No role?";
         }
     }
