@@ -42,7 +42,7 @@ public class ApplicationManager implements Serializable {
     /**
      * Login variables
      */
-    @NotNull
+    @NotNull(message = "{usernameNull}")
     @Size(min = 1, max = 255)
     private String username;
     @NotNull(message = "{passwordNull}")
