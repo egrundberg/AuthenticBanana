@@ -45,7 +45,7 @@ public class ApplicationManager implements Serializable {
     @NotNull
     @Size(min = 1, max = 255)
     private String username;
-    @NotNull
+    @NotNull(message = "{passwordNull}")
     private String password;
 
     /**
