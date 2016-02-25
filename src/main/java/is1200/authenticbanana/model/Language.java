@@ -64,12 +64,6 @@ public class Language implements Serializable {
     @Lob
     @Column(name = "WORD")
     private String word;
-    @OneToMany(mappedBy = "name")
-    private Collection<Role> roleCollection;
-    @OneToMany(mappedBy = "description")
-    private Collection<AvailableJobs> availableJobsCollection;
-    @OneToMany(mappedBy = "name")
-    private Collection<Competence> competenceCollection;
 
     /**
      *
@@ -131,57 +125,6 @@ public class Language implements Serializable {
      */
     public void setWord(String word) {
         this.word = word;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlTransient
-    public Collection<Role> getRoleCollection() {
-        return roleCollection;
-    }
-
-    /**
-     *
-     * @param roleCollection
-     */
-    public void setRoleCollection(Collection<Role> roleCollection) {
-        this.roleCollection = roleCollection;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlTransient
-    public Collection<AvailableJobs> getAvailableJobsCollection() {
-        return availableJobsCollection;
-    }
-
-    /**
-     *
-     * @param availableJobsCollection
-     */
-    public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection) {
-        this.availableJobsCollection = availableJobsCollection;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @XmlTransient
-    public Collection<Competence> getCompetenceCollection() {
-        return competenceCollection;
-    }
-
-    /**
-     *
-     * @param competenceCollection
-     */
-    public void setCompetenceCollection(Collection<Competence> competenceCollection) {
-        this.competenceCollection = competenceCollection;
     }
 
     @Override

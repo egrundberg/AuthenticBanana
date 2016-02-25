@@ -96,6 +96,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getUsername() {
         return username;
     }
@@ -104,6 +106,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param username
      */
+        @Override
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -112,6 +116,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getName() {
         return name;
     }
@@ -120,6 +126,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param name
      */
+        @Override
+
     public void setName(String name) {
         this.name = name;
     }
@@ -128,6 +136,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getSurname() {
         return surname;
     }
@@ -136,6 +146,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param surname
      */
+        @Override
+
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -144,6 +156,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getSsn() {
         return ssn;
     }
@@ -152,6 +166,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param ssn
      */
+        @Override
+
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
@@ -160,6 +176,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getEmail() {
         return email;
     }
@@ -168,6 +186,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param email
      */
+        @Override
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -176,6 +196,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public String getPassword() {
         return password;
     }
@@ -184,6 +206,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param password
      */
+        @Override
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -192,6 +216,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @return
      */
+        @Override
+
     public Role getRoleId() {
         return roleId;
     }
@@ -200,6 +226,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param roleId
      */
+        @Override
+
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
@@ -209,6 +237,8 @@ public class Person implements Serializable, PersonDTO {
      * @return
      */
     @XmlTransient
+        @Override
+
     public Collection<Availability> getAvailabilityCollection() {
         return availabilityCollection;
     }
@@ -217,6 +247,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param availabilityCollection
      */
+        @Override
+
     public void setAvailabilityCollection(Collection<Availability> availabilityCollection) {
         this.availabilityCollection = availabilityCollection;
     }
@@ -226,6 +258,8 @@ public class Person implements Serializable, PersonDTO {
      * @return
      */
     @XmlTransient
+        @Override
+
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
         return competenceProfileCollection;
     }
@@ -234,6 +268,8 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param competenceProfileCollection
      */
+        @Override
+
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
         this.competenceProfileCollection = competenceProfileCollection;
     }
@@ -268,6 +304,7 @@ public class Person implements Serializable, PersonDTO {
      * @return
      */
     @XmlTransient
+    @Override
     public Collection<Application> getApplicationCollection() {
         return applicationCollection;
     }
@@ -276,6 +313,7 @@ public class Person implements Serializable, PersonDTO {
      *
      * @param applicationCollection
      */
+    @Override
     public void setApplicationCollection(Collection<Application> applicationCollection) {
         this.applicationCollection = applicationCollection;
     }
