@@ -33,7 +33,7 @@ public interface RoleDTO {
     public void setName(String name);
 
     /**
-     * @return the name_en
+     * @return the name
      */
     public String getName();
 

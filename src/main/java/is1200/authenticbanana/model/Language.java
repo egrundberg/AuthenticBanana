@@ -51,14 +51,14 @@ public class Language implements Serializable {
     protected is1200.authenticbanana.model.LanguagePK languagePK;
 
     private static final long serialVersionUID = 1L;
-    @Id
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "L_ID")
     private String lId;
     @Size(max = 255)
-    @Id
+    
     @Column(name = "LANG")
     private String lang;
     @Lob

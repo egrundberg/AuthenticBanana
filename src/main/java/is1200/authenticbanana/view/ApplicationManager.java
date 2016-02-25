@@ -52,18 +52,30 @@ public class ApplicationManager implements Serializable {
      * New user variables
      */
     @Size(min = 4, max = 255, message = "{usernameSizeError}")
-    private String newUsername;
-    @Size(min = 1, max = 255)
-    private String name;
-    @Size(min = 1, max = 255)
-    private String surname;
-    @Size(min = 4, max = 255)
-    private String ssn;
-    //@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(min = 7, max = 255)
-    private String email;
     @NotNull
-    @Size(min = 4, max = 255)
+    private String newUsername;
+    
+    @Size(min = 1, max = 255, message = "{nameSizeError}")
+    @NotNull
+    private String name;
+    
+    @Size(min = 1, max = 255, message = "{surnameSizeError}")
+    @NotNull
+    private String surname;
+    
+    @Size(min = 4, max = 255, message = "{ssnSizeError}")
+    @NotNull
+    private String ssn;
+    
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|"
+            + "}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9"
+            + "-]*[a-z0-9])?", message = "{invalidEmail")
+    @Size(min = 4, max = 255, message = "{emailSizeError}")
+    @NotNull
+    private String email;
+    
+    @NotNull
+    @Size(min = 4, max = 255, message = "{passwordSizeError}")
     private String newPassword;
 
     //RoleID is never set
@@ -286,12 +298,7 @@ public class ApplicationManager implements Serializable {
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Incorrect Username and Passowrd",
-                            "Please enter correct username and Password"));
-            return "login";
+            return "";
         } else {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
