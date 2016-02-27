@@ -13,6 +13,7 @@
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
                 <h:form>
                     <p>Welcome #{applicationManager.user.name}</p>
+                    <p>Year: #{applicantManager.date}</p>
                     <h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink>
                 </h:form>
             </ui:define>			

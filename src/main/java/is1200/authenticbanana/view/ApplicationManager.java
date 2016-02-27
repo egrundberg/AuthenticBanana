@@ -7,10 +7,12 @@ package is1200.authenticbanana.view;
 
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -32,6 +34,7 @@ public class ApplicationManager implements Serializable {
 
     @EJB
     private ApplicationFacade applicationFacade;
+    private ApplicantManager applicantManager;
 
     private final static Logger log = LogManager.getLogger(ApplicationManager.class);
 
@@ -302,7 +305,7 @@ public class ApplicationManager implements Serializable {
         } else {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
-            return applicationFacade.getRoleName(user.getRoleId(), new Locale("en"));
+            return applicationFacade.getRoleName(user.getRoleId());
         }
     }
     
@@ -333,6 +336,16 @@ public class ApplicationManager implements Serializable {
     }
 
     // </editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
+    
+    public String createApplicantManager()
+    {
+        applicantManager = new ApplicantManager();
+        applicantManager.setUser(user);
+        return "";
+    }
+    
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
 
     /**
@@ -343,6 +356,7 @@ public class ApplicationManager implements Serializable {
         Locale.setDefault(new Locale("sv"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         locale = new Locale("sv");
+        applicationFacade.setLocale(locale);
         return "";
     }
 
@@ -354,6 +368,7 @@ public class ApplicationManager implements Serializable {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         locale = new Locale("en");
+        applicationFacade.setLocale(locale);
         return "";
     }
 //</editor-fold>
