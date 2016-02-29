@@ -152,6 +152,7 @@ public class ApplicationFacade {
         for (Long jobId : list) {
             AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
             LanguagePK lPK = generateLanguagePK(availableJob.getDescription(), locale.getLanguage());
+            availableJob.setDescription(getWord(lPK));
             availableJobs.add(availableJob);
         }
         return availableJobs;

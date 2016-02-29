@@ -75,6 +75,21 @@ public class AvailableJobs implements Serializable {
     public AvailableJobs(Long jobId) {
         this.jobId = jobId;
     }
+    
+    /**
+     *
+     * @param job
+     */
+    public AvailableJobs(AvailableJobs job) {
+        this.jobId = job.getJobId();
+        this.applicationDate = job.getApplicationDate();
+        this.competenceId = job.getCompetenceId();
+        this.description = job.getDescription();
+        this.fromPeriod = job.getFromPeriod();
+        this.toPeriod = job.getToPeriod();
+    }
+    
+    
 
     /**
      *
