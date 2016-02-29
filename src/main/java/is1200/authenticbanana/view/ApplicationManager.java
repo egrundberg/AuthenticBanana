@@ -39,7 +39,7 @@ public class ApplicationManager implements Serializable {
     private final static Logger LOG = LogManager.getLogger(ApplicationManager.class);
 
     private PersonDTO user;
-
+    private String error;
     private Locale locale = Locale.getDefault();
 
     /**
@@ -290,15 +290,10 @@ public class ApplicationManager implements Serializable {
      * @return
      */
     public String findUser() {
-        if (getUsername() == null) {
-            if (applicationFacade.findPerson(getUsername()) == null) {
-                return "";
-            } else {
-                return "NotNull";
-            }
-        } else {
-            return "";
+        if (applicationFacade.findPerson(getUsername()) != null) {
+
         }
+        return "";
     }
 
     /**
@@ -308,6 +303,7 @@ public class ApplicationManager implements Serializable {
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
+            setError("NotNull");
             return "";
         } else {
             HttpSession session = SessionBean.getSession();
@@ -386,4 +382,18 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 //</editor-fold>
+
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
 }
