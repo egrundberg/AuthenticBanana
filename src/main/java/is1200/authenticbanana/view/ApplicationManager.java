@@ -39,7 +39,7 @@ public class ApplicationManager implements Serializable {
     private final static Logger LOG = LogManager.getLogger(ApplicationManager.class);
 
     private PersonDTO user;
-    private String error;
+    private String error = null;
     private Locale locale = Locale.getDefault();
 
     /**
@@ -303,9 +303,10 @@ public class ApplicationManager implements Serializable {
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
-            setError("NotNull");
+            error = "NotNull";
             return "";
         } else {
+            error = null;
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
             return applicationFacade.getRoleName(user.getRoleId());
