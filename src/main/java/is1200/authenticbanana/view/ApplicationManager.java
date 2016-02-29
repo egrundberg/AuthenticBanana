@@ -291,7 +291,11 @@ public class ApplicationManager implements Serializable {
      */
     public String findUser() {
         if (getUsername() == null) {
-            return applicationFacade.findPerson(getUsername()).getName();
+            if (applicationFacade.findPerson(getUsername()) == null) {
+                return "";
+            } else {
+                return "NotNull";
+            }
         } else {
             return "";
         }
