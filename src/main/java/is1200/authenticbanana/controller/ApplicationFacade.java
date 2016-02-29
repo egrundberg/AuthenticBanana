@@ -12,11 +12,14 @@ import is1200.authenticbanana.model.LanguagePK;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +37,7 @@ public class ApplicationFacade {
     private EntityManager em;
     private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
     private int loginsFailed = 0;
-    private Locale locale;
+    private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
     //<editor-fold defaultstate="collapsed" desc="Login/Register">
     
@@ -138,8 +141,28 @@ public class ApplicationFacade {
 
     
 
-    public List<AvailableJobs> getAvailableJobs(String date) {
-        
+    public List<AvailableJobs> getAvailableJobs() {
+        List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
+                .getResultList();
+        if (list.isEmpty()) {
+            log.error("No jobs");
+            return null;
+        }
+        List<AvailableJobs> availableJobs = new ArrayList<>();
+        for (Long jobId : list) {
+            AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
+            LanguagePK lPK = generateLanguagePK(availableJob.getDescription(), locale.getLanguage());
+            availableJobs.add(availableJob);
+        }
+        return availableJobs;
+    }
+    
+    private LanguagePK generateLanguagePK(String word, String language)
+    {
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setL_id(word);
+        languagePK.setLang(language);
+        return languagePK;
     }
 
     /**

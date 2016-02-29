@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -13,7 +14,17 @@
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
                 <h:form>
                     <p>Welcome #{applicationManager.user.name}</p>
-                    <p>Year: #{applicantManager.date}</p>
+                    <p>Date: #{applicantManager.date}</p>
+                    <table>
+                        <th>msg.description</th>
+                        <c:forEach var="job" items="#{applicantManager.availableJobs}">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{job.description}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                     <h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink>
                 </h:form>
             </ui:define>			

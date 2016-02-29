@@ -13,7 +13,9 @@ import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,10 +40,10 @@ public class ApplicantManager implements Serializable {
 
     @EJB
     private ApplicationFacade applicationFacade;
-
+    private final static Logger LOG = LogManager.getLogger(ApplicationFacade.class);
     private PersonDTO user;
     private List<AvailableJobs> availableJobs;
-    private String date;
+    private Date date = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
@@ -65,7 +67,9 @@ public class ApplicantManager implements Serializable {
      * @return the availableJobs
      */
     public List<AvailableJobs> getAvailableJobs() {
-        return applicationFacade.getAvailableJobs(date);
+        LOG.error("Find jobs for date " + date);
+        availableJobs = applicationFacade.getAvailableJobs();
+        return availableJobs;
     }
 
     /**
@@ -78,15 +82,14 @@ public class ApplicantManager implements Serializable {
     /**
      * @return the date
      */
-    public String getDate() {
-        date = sdf.format(calendar.getTime());
+    public Date getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
