@@ -34,16 +34,13 @@ import org.apache.logging.log4j.Logger;
 public class ApplicationFacade {
 
     //<editor-fold defaultstate="collapsed" desc="Variables">
-
     @PersistenceContext(unitName = "is1200_AuthenticBanana_war_1.0PU")
     private EntityManager em;
     private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
     private int loginsFailed = 0;
 
 //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Login/Register">
-    
     /**
      *
      * @param username
@@ -72,7 +69,7 @@ public class ApplicationFacade {
         log.error("Michelle är bäst");
         return returnPerson(i);
     }
-    
+
     private PersonDTO returnPerson(List i) {
         if (i.isEmpty()) {
             loginsFailed++;
@@ -104,19 +101,16 @@ public class ApplicationFacade {
             }
         }
     }
-    
-//</editor-fold>
 
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Language Stuff">
-    
-    private LanguagePK generateLanguagePK(String word, String language)
-    {
+    private LanguagePK generateLanguagePK(String word, String language) {
         LanguagePK languagePK = new LanguagePK();
         languagePK.setL_id(word);
         languagePK.setLang(language);
         return languagePK;
     }
-    
+
     /**
      *
      * @param roleId
@@ -152,8 +146,6 @@ public class ApplicationFacade {
     }
 
 //</editor-fold>
-    
-
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
                 .getResultList();
@@ -164,12 +156,13 @@ public class ApplicationFacade {
         List<AvailableJobs> availableJobs = new ArrayList<>();
         for (Long jobId : list) {
             AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
-            AvailableJobs job = new AvailableJobs(availableJob);
-            LanguagePK lPK = generateLanguagePK(job.getDescription(), locale.getLanguage());
-            job.setDescription(getWord(lPK));
-            Date date = Date();
-            if(job.getApplicationDate() > )
-            availableJobs.add(job);
+            Date date = new Date();
+            if (availableJob.getApplicationDate().after(date)) {
+                AvailableJobs job = new AvailableJobs(availableJob);
+                LanguagePK lPK = generateLanguagePK(job.getDescription(), locale.getLanguage());
+                job.setDescription(getWord(lPK));
+                availableJobs.add(job);
+            }
         }
         return availableJobs;
     }
