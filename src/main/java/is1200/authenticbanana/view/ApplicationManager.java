@@ -33,7 +33,6 @@ import org.apache.logging.log4j.Logger;
 public class ApplicationManager implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Variables">
-    
     @EJB
     private ApplicationFacade applicationFacade;
 
@@ -42,7 +41,7 @@ public class ApplicationManager implements Serializable {
     private PersonDTO user;
 
     private Locale locale = Locale.getDefault();
-    
+
     /**
      * Login variables
      */
@@ -85,10 +84,8 @@ public class ApplicationManager implements Serializable {
     //RoleID is never set
     private final static long RECRUITER = 1L;
     private final static long APPLICANT = 2L;
-    
 
     //</editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     /**
      *
@@ -251,7 +248,6 @@ public class ApplicationManager implements Serializable {
     }
 
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
      * ??
@@ -294,7 +290,11 @@ public class ApplicationManager implements Serializable {
      * @return
      */
     public String findUser() {
-        return applicationFacade.findPerson(getUsername()).getName();
+        if (getUsername() == null) {
+            return applicationFacade.findPerson(getUsername()).getName();
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -338,11 +338,9 @@ public class ApplicationManager implements Serializable {
     }
 
     // </editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
-    
     private List<AvailableJobs> availableJobs;
-    
+
     /**
      * @return the availableJobs
      */
@@ -360,7 +358,6 @@ public class ApplicationManager implements Serializable {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     /**
      *
