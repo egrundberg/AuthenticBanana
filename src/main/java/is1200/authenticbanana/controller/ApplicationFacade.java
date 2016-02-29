@@ -6,16 +6,20 @@
 package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.Language;
 import is1200.authenticbanana.model.LanguagePK;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +37,10 @@ public class ApplicationFacade {
     private EntityManager em;
     private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
     private int loginsFailed = 0;
+    private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
+    //<editor-fold defaultstate="collapsed" desc="Login/Register">
+    
     /**
      *
      * @param username
@@ -62,53 +69,7 @@ public class ApplicationFacade {
         log.error("Michelle är bäst");
         return returnPerson(i);
     }
-
-    /**
-     *
-     * @param roleId
-     * @param local
-     * @return
-     */
-    public String getRoleName(Role roleId, Locale local) {
-        log.error("Get role");
-        String roleName = em.find(Role.class, roleId.getRoleId()).getName();
-        LanguagePK languagePK = new LanguagePK();
-        languagePK.setLang(local.getLanguage());
-        languagePK.setL_id(roleName);
-        Language word = em.find(Language.class, languagePK);
-        if (word != null) {
-            return word.getWord();
-        } else {
-            log.error("No role");
-            return "No role?";
-        }
-    }
-
-    /**
-     *
-     * @param wordId
-     * @param local
-     * @return
-     */
-    public String getWord(String wordId, Locale local) {
-        LanguagePK languagePK = new LanguagePK();
-        languagePK.setLang(local.getLanguage());
-        languagePK.setL_id(wordId);
-        Language word = em.find(Language.class, languagePK);
-        if (word == null) {
-            log.error("No " + local.getLanguage() + " word");
-            languagePK.setLang("en");
-            word = em.find(Language.class, languagePK);
-            if (word == null) {
-                return "No word?";
-            } else {
-                return word.getWord();
-            }
-        } else {
-            return word.getWord();
-        }
-    }
-
+    
     private PersonDTO returnPerson(List i) {
         if (i.isEmpty()) {
             loginsFailed++;
@@ -139,5 +100,83 @@ public class ApplicationFacade {
                 throw new DataBaseException("Could not create user");
             }
         }
+    }
+    
+    //</editor-fold>
+
+    /**
+     *
+     * @param roleId
+     * @return
+     */
+    public String getRoleName(Role roleId) {
+        log.error("Get role");
+        String roleName = em.find(Role.class, roleId.getRoleId()).getName();
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setLang(new Locale("en").getLanguage());
+        languagePK.setL_id(roleName);
+        return getWord(languagePK);
+    }
+
+    /**
+     *
+     * @param languagePK
+     * @return
+     */
+    public String getWord(LanguagePK languagePK) {
+        Language word = em.find(Language.class, languagePK);
+        if (word == null) {
+            log.error("No " + locale.getLanguage() + " word");
+            languagePK.setLang("en");
+            word = em.find(Language.class, languagePK);
+            if (word == null) {
+                return "No word?";
+            } else {
+                return word.getWord();
+            }
+        } else {
+            return word.getWord();
+        }
+    }
+
+    
+
+    public List<AvailableJobs> getAvailableJobs() {
+        List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
+                .getResultList();
+        if (list.isEmpty()) {
+            log.error("No jobs");
+            return null;
+        }
+        List<AvailableJobs> availableJobs = new ArrayList<>();
+        for (Long jobId : list) {
+            AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
+            LanguagePK lPK = generateLanguagePK(availableJob.getDescription(), locale.getLanguage());
+            availableJob.setDescription(getWord(lPK));
+            availableJobs.add(availableJob);
+        }
+        return availableJobs;
+    }
+    
+    private LanguagePK generateLanguagePK(String word, String language)
+    {
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setL_id(word);
+        languagePK.setLang(language);
+        return languagePK;
+    }
+
+    /**
+     * @return the locale
+     */
+    public Locale getLocale() {
+        return locale;
+    }
+
+    /**
+     * @param locale the locale to set
+     */
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

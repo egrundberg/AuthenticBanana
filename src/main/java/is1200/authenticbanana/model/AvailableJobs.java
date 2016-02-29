@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AvailableJobs.findByJobId", query = "SELECT a.jobId FROM AvailableJobs a WHERE a.jobId = :jobId"),
     @NamedQuery(name = "AvailableJobs.findByFromPeriod", query = "SELECT a.fromPeriod FROM AvailableJobs a WHERE a.fromPeriod = :fromPeriod"),
     @NamedQuery(name = "AvailableJobs.findByToPeriod", query = "SELECT a.toPeriod FROM AvailableJobs a WHERE a.toPeriod = :toPeriod"),
-    @NamedQuery(name = "AvailableJobs.findByApplicationDate", query = "SELECT a.applicationDate FROM AvailableJobs a WHERE a.applicationDate = :applicationDate")})
+    @NamedQuery(name = "AvailableJobs.findByApplicationDate", query = "SELECT a.applicationDate FROM AvailableJobs a WHERE a.applicationDate = :applicationDate"),
+    @NamedQuery(name = "AvailableJobs.findBylateApplicationDate", query = "SELECT a.jobId FROM AvailableJobs a")})
 public class AvailableJobs implements Serializable {
 
     @Size(max = 255)
@@ -74,6 +75,21 @@ public class AvailableJobs implements Serializable {
     public AvailableJobs(Long jobId) {
         this.jobId = jobId;
     }
+    
+    /**
+     *
+     * @param job
+     */
+    public AvailableJobs(AvailableJobs job) {
+        this.jobId = job.getJobId();
+        this.applicationDate = job.getApplicationDate();
+        this.competenceId = job.getCompetenceId();
+        this.description = job.getDescription();
+        this.fromPeriod = job.getFromPeriod();
+        this.toPeriod = job.getToPeriod();
+    }
+    
+    
 
     /**
      *
