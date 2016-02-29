@@ -33,12 +33,15 @@ import org.apache.logging.log4j.Logger;
 @Stateful
 public class ApplicationFacade {
 
+    //<editor-fold defaultstate="collapsed" desc="Variables">
+
     @PersistenceContext(unitName = "is1200_AuthenticBanana_war_1.0PU")
     private EntityManager em;
     private final static Logger log = LogManager.getLogger(ApplicationFacade.class);
     private int loginsFailed = 0;
-    private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
+//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Login/Register">
     
     /**
@@ -102,8 +105,18 @@ public class ApplicationFacade {
         }
     }
     
-    //</editor-fold>
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Language Stuff">
+    
+    private LanguagePK generateLanguagePK(String word, String language)
+    {
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setL_id(word);
+        languagePK.setLang(language);
+        return languagePK;
+    }
+    
     /**
      *
      * @param roleId
@@ -126,7 +139,6 @@ public class ApplicationFacade {
     public String getWord(LanguagePK languagePK) {
         Language word = em.find(Language.class, languagePK);
         if (word == null) {
-            log.error("No " + locale.getLanguage() + " word");
             languagePK.setLang("en");
             word = em.find(Language.class, languagePK);
             if (word == null) {
@@ -139,9 +151,10 @@ public class ApplicationFacade {
         }
     }
 
+//</editor-fold>
     
 
-    public List<AvailableJobs> getAvailableJobs() {
+    public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
                 .getResultList();
         if (list.isEmpty()) {
@@ -151,32 +164,13 @@ public class ApplicationFacade {
         List<AvailableJobs> availableJobs = new ArrayList<>();
         for (Long jobId : list) {
             AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
-            LanguagePK lPK = generateLanguagePK(availableJob.getDescription(), locale.getLanguage());
-            availableJob.setDescription(getWord(lPK));
-            availableJobs.add(availableJob);
+            AvailableJobs job = new AvailableJobs(availableJob);
+            LanguagePK lPK = generateLanguagePK(job.getDescription(), locale.getLanguage());
+            job.setDescription(getWord(lPK));
+            Date date = Date();
+            if(job.getApplicationDate() > )
+            availableJobs.add(job);
         }
         return availableJobs;
-    }
-    
-    private LanguagePK generateLanguagePK(String word, String language)
-    {
-        LanguagePK languagePK = new LanguagePK();
-        languagePK.setL_id(word);
-        languagePK.setLang(language);
-        return languagePK;
-    }
-
-    /**
-     * @return the locale
-     */
-    public Locale getLocale() {
-        return locale;
-    }
-
-    /**
-     * @param locale the locale to set
-     */
-    public void setLocale(Locale locale) {
-        this.locale = locale;
     }
 }

@@ -32,16 +32,17 @@ import org.apache.logging.log4j.Logger;
 @SessionScoped
 public class ApplicationManager implements Serializable {
 
+    //<editor-fold defaultstate="collapsed" desc="Variables">
+    
     @EJB
     private ApplicationFacade applicationFacade;
-    private ApplicantManager applicantManager;
 
-    private final static Logger log = LogManager.getLogger(ApplicationManager.class);
+    private final static Logger LOG = LogManager.getLogger(ApplicationManager.class);
 
     private PersonDTO user;
 
     private Locale locale = Locale.getDefault();
-
+    
     /**
      * Login variables
      */
@@ -57,26 +58,26 @@ public class ApplicationManager implements Serializable {
     @Size(min = 4, max = 255, message = "{usernameSizeError}")
     @NotNull
     private String newUsername;
-    
+
     @Size(min = 1, max = 255, message = "{nameSizeError}")
     @NotNull
     private String name;
-    
+
     @Size(min = 1, max = 255, message = "{surnameSizeError}")
     @NotNull
     private String surname;
-    
+
     @Size(min = 4, max = 255, message = "{ssnSizeError}")
     @NotNull
     private String ssn;
-    
+
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|"
             + "}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9"
             + "-]*[a-z0-9])?", message = "{invalidEmail")
     @Size(min = 4, max = 255, message = "{emailSizeError}")
     @NotNull
     private String email;
-    
+
     @NotNull
     @Size(min = 4, max = 255, message = "{passwordSizeError}")
     private String newPassword;
@@ -84,9 +85,11 @@ public class ApplicationManager implements Serializable {
     //RoleID is never set
     private final static long RECRUITER = 1L;
     private final static long APPLICANT = 2L;
+    
 
+    //</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
-
     /**
      *
      */
@@ -248,6 +251,7 @@ public class ApplicationManager implements Serializable {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
      * ??
@@ -267,7 +271,7 @@ public class ApplicationManager implements Serializable {
             try {
                 applicationFacade.registerUser(createPersonDTO());
             } catch (DataBaseException ex) {
-                log.error(ex.getMessage());
+                LOG.error(ex.getMessage());
                 return "failure";
             }
             return "success";
@@ -290,8 +294,7 @@ public class ApplicationManager implements Serializable {
      * @return
      */
     public String findUser() {
-        setUser(applicationFacade.findPerson(getUsername()));
-        return "";
+        return applicationFacade.findPerson(getUsername()).getName();
     }
 
     /**
@@ -308,9 +311,8 @@ public class ApplicationManager implements Serializable {
             return applicationFacade.getRoleName(user.getRoleId());
         }
     }
-    
-    //logout event, invalidate session
 
+    //logout event, invalidate session
     /**
      *
      * @return
@@ -336,18 +338,30 @@ public class ApplicationManager implements Serializable {
     }
 
     // </editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
     
-    public String createApplicantManager()
-    {
-        applicantManager = new ApplicantManager();
-        applicantManager.setUser(user);
-        return "";
-    }
+    private List<AvailableJobs> availableJobs;
     
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Set Locale">
+    /**
+     * @return the availableJobs
+     */
+    public List<AvailableJobs> getAvailableJobs() {
+        LOG.error("Find jobs for date " + "DATE");
+        availableJobs = applicationFacade.getAvailableJobs(locale);
+        return availableJobs;
+    }
 
+    /**
+     * @param availableJobs the availableJobs to set
+     */
+    public void setAvailableJobs(List<AvailableJobs> availableJobs) {
+        this.availableJobs = availableJobs;
+    }
+
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Set Locale">
     /**
      *
      * @return
@@ -356,7 +370,6 @@ public class ApplicationManager implements Serializable {
         Locale.setDefault(new Locale("sv"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
         locale = new Locale("sv");
-        applicationFacade.setLocale(locale);
         return "";
     }
 
@@ -368,7 +381,7 @@ public class ApplicationManager implements Serializable {
         Locale.setDefault(new Locale("en"));
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
         locale = new Locale("en");
-        applicationFacade.setLocale(locale);
+        LOG.error("Set locale");
         return "";
     }
 //</editor-fold>

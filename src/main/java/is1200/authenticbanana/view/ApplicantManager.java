@@ -44,11 +44,45 @@ public class ApplicantManager implements Serializable {
     private PersonDTO user;
     private List<AvailableJobs> availableJobs;
     private Date date = new Date();
+    private Locale locale = Locale.getDefault();;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
 
     //public List<ApplicationDTO> //</editor-fold>
+    
+
+
+    
+    
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    /**
+     * @return the locale
+     */
+    public Locale getLocale() {
+        return locale;
+    }
+
+    /**
+     * @param locale the locale to set
+     */
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+    
     /**
      * @return the user
      */
@@ -63,33 +97,4 @@ public class ApplicantManager implements Serializable {
         this.user = user;
     }
 
-    /**
-     * @return the availableJobs
-     */
-    public List<AvailableJobs> getAvailableJobs() {
-        LOG.error("Find jobs for date " + date);
-        availableJobs = applicationFacade.getAvailableJobs();
-        return availableJobs;
-    }
-
-    /**
-     * @param availableJobs the availableJobs to set
-     */
-    public void setAvailableJobs(List<AvailableJobs> availableJobs) {
-        this.availableJobs = availableJobs;
-    }
-
-    /**
-     * @return the date
-     */
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * @param date the date to set
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
