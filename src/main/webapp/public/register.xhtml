@@ -9,9 +9,20 @@
     </h:head>
     <h:body>
         <ui:composition template="../templates/common.xhtml">
-         <ui:define name="content">
+         
+            <ui:define name="nav">
+              <div class="left">  
+                 <ul>
+                    <li><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.loginP}" outcome="index" /></li>
+                    <li><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.registerA}" outcome="register" /></li>
+                    <li><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positionsOff" /></li>
 
-             <h:outputText value="#{msg.newUser}"/>
+                 </ul>
+              </div>
+            </ui:define>
+            <ui:define name="content">
+            <div class="middle">
+                <h1><h:outputText value="#{msg.newUser}"/></h1>
             
              <h:form>
                
@@ -50,12 +61,10 @@
                 </p>
                  
              </h:form>
-            
+            </div>
          </ui:define> 
          
-            <ui:define name="footer">
-            <h2>Page2 Footer</h2>
-         </ui:define>			
+            		
       </ui:composition> 
 
     </h:body>

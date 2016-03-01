@@ -28,38 +28,7 @@
                 
                 <div class="picText">
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
-                <h:form>
-
-                    <h:outputLabel for="username" value="#{msg.username}"/> 
-                    <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
-                    <p>
-                        <c:if test ="${applicationManager.findUser()}">
-                            <p>#{msg.userdoesntexist}</p>                         
-                        </c:if>
-                        <h:message for="username" style="color:red"/>
-
-                    </p>
-
-                    <p>
-                        <h:outputLabel for="password" value="#{msg.password}"/> 
-                        <h:inputSecret class="inputtext" id="password" value="#{applicationManager.password}"/>
-                        <h:message for="password" style="color:red"/>
-
-                    </p>
-
-                    <p rendered="#{applicationManager.error != null}">
-                        <h:outputText value="#{msg.userdoesntexist}" style="color:red"/>
-                    </p>
-                    <p>
-
-                        <h:commandButton class="button" value="#{msg.login}" action="#{applicationManager.loginUser}"/>
-                    </p>
-
-
-                    <p rendered="#{applicationManager.user != null}">
-                        <h:outputText value="#{applicationManager.user.name}" style="color:red"/>
-                    </p>
-                </h:form>
+               
                 </div>
                 </div>
             </ui:define>			
