@@ -33,10 +33,11 @@
                     <h:outputLabel for="username" value="#{msg.username}"/> 
                     <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
                     <p>
-                        <c:if test ="${applicationManager.findUser()}">
-                            <p>#{msg.userdoesntexist}</p>                         
+                        <c:if test ="${applicationManager.error != null}">
+                            <p style="color:red;">#{msg.userdoesntexist}</p>   
+                            
                         </c:if>
-                        <h:message for="username" style="color:red"/>
+                     
 
                     </p>
 
@@ -47,9 +48,7 @@
 
                     </p>
 
-                    <p rendered="#{applicationManager.error != null}">
-                        <h:outputText value="#{msg.userdoesntexist}" style="color:red"/>
-                    </p>
+                  
                     <p>
 
                         <h:commandButton class="button" value="#{msg.login}" action="#{applicationManager.loginUser}"/>
