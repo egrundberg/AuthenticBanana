@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,11 +16,39 @@ and open the template in the editor.
     <body>
         <ui:composition template="../templates/common.xhtml">
 
-            
+         <ui:define name="nav">
+            <div class="left">    
+               <h:form>
+                <ul>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.home}" outcome="home" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.myProfile}" outcome="profile" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positions" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
+                </ul>
+                   </h:form>
+            </div>
+            </ui:define>
             
          <ui:define name="content">
-             <div>Lediga Tjänster:</div>
-         
+             <div class="middle">
+                 <div>#{msg.availableP}</div>
+             
+              <table>
+                        <th>#{msg.description}</th>
+                        <th>#{msg.applicationDate}</th>
+                        <c:forEach var="job" items="#{applicationManager.availableJobs}">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{job.description}"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{job.applicationDate}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+             
+             </div>
          </ui:define> 
          			
       </ui:composition> 

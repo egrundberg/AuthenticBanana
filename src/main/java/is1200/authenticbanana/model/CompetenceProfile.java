@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,8 +32,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CompetenceProfile.findAll", query = "SELECT c.competenceProfileId FROM CompetenceProfile c"),
     @NamedQuery(name = "CompetenceProfile.findByCompetenceProfileId", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.competenceProfileId = :competenceProfileId"),
-    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience")})
+    @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience"),
+    @NamedQuery(name = "CompetenceProfile.findTranslation", query = "SELECT c.trans FROM CompetenceProfile c WHERE c.trans = :trans")})
+
+
 public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
+
+    @Lob
+    @Column(name = "TRANS")
+    private String trans;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -152,6 +160,14 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.CompetenceProfile[ competenceProfileId=" + competenceProfileId + " ]";
+    }
+
+    public String getTrans() {
+        return trans;
+    }
+
+    public void setTrans(String trans) {
+        this.trans = trans;
     }
     
 }
