@@ -128,5 +128,6 @@ li p:hover {
     clear: both;
     padding: 5% 5%;
     text-align: center;
+    border: solid black;
   
 }
