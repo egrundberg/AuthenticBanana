@@ -34,6 +34,7 @@
                     <h:inputText class="inputtext" id="username" value="#{applicationManager.username}"/>
                     <p>
                         <c:if test ="${applicationManager.error != null}">
+                            
                             <p style="color:red;">#{msg.userdoesntexist}</p>   
                             
                         </c:if>
