@@ -7,6 +7,7 @@ package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.AvailableJobs;
+import is1200.authenticbanana.model.AvailableJobsDTO;
 import is1200.authenticbanana.model.Competence;
 import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Language;
@@ -188,5 +189,11 @@ public class ApplicationFacade {
             cpList.add(cpNew);
         }
         return cpList;
+    }
+
+    public AvailableJobs getCurrentJob(long jobID) {
+       
+        return em.find(AvailableJobs.class, jobID);
+        
     }
 }

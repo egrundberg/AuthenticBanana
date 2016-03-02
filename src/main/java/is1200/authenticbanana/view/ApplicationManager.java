@@ -8,6 +8,7 @@ package is1200.authenticbanana.view;
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.AvailableJobs;
+import is1200.authenticbanana.model.AvailableJobsDTO;
 import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
@@ -85,6 +86,8 @@ public class ApplicationManager implements Serializable {
     private final static long RECRUITER = 1L;
     private final static long APPLICANT = 2L;
     private String error;
+    private long jobID;
+    private AvailableJobs currentJob;
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
@@ -254,10 +257,10 @@ public class ApplicationManager implements Serializable {
      * ??
      *
      * @return
-     */
+     
     public String registerLink() {
         return "success";
-    }
+    }*/
 
     /**
      *
@@ -281,10 +284,10 @@ public class ApplicationManager implements Serializable {
      * ??
      *
      * @return
-     */
+     
     public String loginLink() {
         return "success";
-    }
+    }*/
 
     /**
      *
@@ -348,6 +351,27 @@ public class ApplicationManager implements Serializable {
         this.availableJobs = availableJobs;
     }
 
+    /**
+     * 
+     * @param jobID
+     */
+    
+    public String apply(long jobID){
+        this.jobID=jobID;
+        return "apply";
+    }
+    
+    public AvailableJobs getCurrentJob(){
+        currentJob = applicationFacade.getCurrentJob(jobID);
+        
+        return currentJob;
+    }
+    
+    public void setCurrentJob(AvailableJobs job){
+        currentJob = job;
+    }
+         
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     /**
@@ -373,7 +397,8 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 //</editor-fold>
-
+    
+//</editor-fold>
     /**
      * @return the competences
      */
