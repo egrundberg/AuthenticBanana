@@ -299,12 +299,17 @@ public class ApplicationManager implements Serializable {
         } else {
             error = null;
             HttpSession session = SessionBean.getSession();
-            session.setAttribute("username", user);
-            return applicationFacade.getRoleName(user.getRoleId());
+            String roleName = applicationFacade.getRoleName(user.getRoleId());
+            if (roleName.equals("recruiter")) {
+                session.setAttribute("recruiter", roleName);
+            } else {
+                session.setAttribute("applicant", roleName);
+            }
+            return roleName;
         }
     }
 
-    //logout event, invalidate session
+    //Logout, invalidate session
     /**
      *
      * @return

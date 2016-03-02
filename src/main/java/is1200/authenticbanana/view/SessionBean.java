@@ -5,10 +5,6 @@
  */
 package is1200.authenticbanana.view;
 
-/**
- *
- * @author Erik
- */
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,7 +37,7 @@ public class SessionBean {
      *
      * @return
      */
-    public static String getUserName() {
+    public static String getApplicant() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
         return session.getAttribute("username").toString();
