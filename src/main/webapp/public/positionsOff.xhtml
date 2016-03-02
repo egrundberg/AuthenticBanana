@@ -25,6 +25,21 @@
             <ui:define name="content">
                 <div class="middle">
                 <!--<img  src="../IMG/Banana.png" alt="Banana"/>-->
+                <div>#{msg.availableP}</div>
+                 <table>
+                        <th>#{msg.description}</th>
+                        <th>#{msg.applicationDate}</th>
+                        <c:forEach var="job" items="#{applicationManager.availableJobs}">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{job.description}"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{job.applicationDate}"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 
                 <div class="picText">
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
