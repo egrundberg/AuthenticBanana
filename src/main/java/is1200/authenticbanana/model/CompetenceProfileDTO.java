@@ -60,6 +60,11 @@ public interface CompetenceProfileDTO {
      * @param username
      */
     public void setUsername(Person username);
+    
+      public String getTrans();
+
+    public void setTrans(String trans);
+    
 
     
     
