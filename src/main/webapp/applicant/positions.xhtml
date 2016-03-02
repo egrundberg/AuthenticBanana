@@ -14,43 +14,31 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <ui:composition template="../templates/common.xhtml">
+        <ui:composition template="../templates/commonApp.xhtml">
 
-         <ui:define name="nav">
-            <div class="left">    
-               <h:form>
-                <ul>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.home}" outcome="home" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.myProfile}" outcome="profile" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positions" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
-                </ul>
-                   </h:form>
-            </div>
-            </ui:define>
-            
-         <ui:define name="content">
-             <div class="middle">
-                 <div>#{msg.availableP}</div>
-             
-              <table>
-                        <th>#{msg.description}</th>
-                        <th>#{msg.applicationDate}</th>
-                        <c:forEach var="job" items="#{applicationManager.availableJobs}">
-                            <tr>
-                                <td>
-                                    <h:outputText value="#{job.description}"/>
-                                </td>
-                                <td>
-                                    <h:outputText value="#{job.applicationDate}"/>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-             
-             </div>
-         </ui:define> 
-         			
-      </ui:composition> 
+            <ui:define name="content">
+                <div class="middle">
+                    <div>#{msg.availableP}</div>
+                    <h:form>
+                        <table>
+                            <th>#{msg.description}</th>
+                            <th>#{msg.applicationDate}</th>
+                            <c:forEach var="job" items="#{applicationManager.availableJobs}">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{job.description}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{job.applicationDate}"/>
+                                    </td>
+                                    <td><h:commandButton class="button" value="#{msg.apply}" action="#{applicationManager.apply(job.jobId)}"/></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </h:form>
+                </div>
+            </ui:define> 
+
+        </ui:composition> 
     </body>
 </html>

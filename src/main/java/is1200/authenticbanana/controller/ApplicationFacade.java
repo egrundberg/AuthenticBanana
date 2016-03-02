@@ -195,6 +195,7 @@ public class ApplicationFacade {
     public AvailableJobs getCurrentJob(long jobID) {
        
         return em.find(AvailableJobs.class, jobID);
+    } 
         
     public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
        

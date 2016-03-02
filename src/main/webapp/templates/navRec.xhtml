@@ -15,12 +15,13 @@ and open the template in the editor.
     <body>
       <ui:composition>
        	 <div class="left">    
+               <h:form>
                 <ul>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.loginP}" outcome="index" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.registerA}" outcome="register" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positionsOff" /></p></li>
-
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.home}" outcome="home" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.applications}" outcome="applications" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
                 </ul>
+                   </h:form>
             </div>
       </ui:composition>	
     </body>

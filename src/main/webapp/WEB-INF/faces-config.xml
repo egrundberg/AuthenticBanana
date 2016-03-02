@@ -21,33 +21,18 @@
             <from-outcome>recruiter</from-outcome>
             <to-view-id>/IMG/Banana.png</to-view-id>
         </navigation-case>
-        <navigation-case>
-            <from-action>#{applicationManager.registerLink}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/register.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{applicationManager.loginLink}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
+       
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/register.xhtml</from-view-id>
+        <from-view-id>/applicant/positions.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{applicationManager.loginLink}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-action>#{applicationManager.apply(job.jobId)}</from-action>
+            <from-outcome>apply</from-outcome>
+            <to-view-id>/applicant/apply.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/applicant/home.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/public/index.xhtml</to-view-id>
-        </navigation-case>
+   
         
-    </navigation-rule>
     <application>
         <resource-bundle>
             <base-name>text</base-name>
