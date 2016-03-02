@@ -51,13 +51,42 @@ and open the template in the editor.
 
                             </tr>
 
-                            <tr>
+                            
+                              <tr>
+                                <td>#{msg.fromdate}</td>
+                                   <td>#{msg.todate}</td>
 
-                                <td>DATES</td>
+                               
+                                <c:forEach var="dates" items="#{applicationManager.availabilityDates}">
+                              
+                                    <td>
+                                        <h:outputText value="#{dates.fromDate}"/><br></br>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{dates.toDate}"/><br></br>
+                                  
+                                    </td>
+                                    
+                                
+                                </c:forEach>
+                                   </tr>
+                            
+                             <tr>
+                             
 
-                                <td></td>
-
-                            </tr>
+                               
+                                <c:forEach var="dates" items="#{applicationManager.availabilityDates}">
+                              
+                                    <td>
+                                       
+                                  
+                                    </td>
+                                    
+                                
+                                </c:forEach>
+                                   </tr>
+                                 
+                         
 
                         </table>
 

@@ -7,6 +7,7 @@ package is1200.authenticbanana.view;
 
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.Availability;
 import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Person;
@@ -332,6 +333,7 @@ public class ApplicationManager implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
     private List<AvailableJobs> availableJobs;
     private List<CompetenceProfile> competences;
+    private List <Availability> availabilitydates;
 
     /**
      * @return the availableJobs
@@ -346,6 +348,15 @@ public class ApplicationManager implements Serializable {
      */
     public void setAvailableJobs(List<AvailableJobs> availableJobs) {
         this.availableJobs = availableJobs;
+    }
+
+    
+      /**
+     * @return the availableJobs
+     */
+    public List <Availability> getAvailabilityDates() {
+        availabilitydates = applicationFacade.getAvailableDates(locale, user);
+        return availabilitydates;
     }
 
     //</editor-fold>

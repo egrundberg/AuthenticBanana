@@ -6,6 +6,7 @@
 package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.Availability;
 import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.Competence;
 import is1200.authenticbanana.model.CompetenceProfile;
@@ -188,5 +189,17 @@ public class ApplicationFacade {
             cpList.add(cpNew);
         }
         return cpList;
+    }
+    public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
+       
+        List<Availability> list = em.createNamedQuery("Availability.findByUsername")
+                .setParameter("username", user)
+                .getResultList();
+        if (list.isEmpty()) {
+            log.error("No from-date");
+            return null;
+        }
+     
+        return list;
     }
 }
