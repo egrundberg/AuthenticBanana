@@ -15,42 +15,74 @@ and open the template in the editor.
     </head>
     <body>
         <ui:composition template="../templates/common.xhtml">
-        <ui:define name="nav">
-            <div class="left">    
-               <h:form>
-                <ul>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.home}" outcome="home" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.myProfile}" outcome="profile" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positions" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
-                </ul>
-                   </h:form>
-            </div>
+            <ui:define name="nav">
+                <div class="left">    
+                    <h:form>
+                        <ul>
+                            <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.home}" outcome="home" /></p></li>
+                            <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.myProfile}" outcome="profile" /></p></li>
+                            <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positions" /></p></li>
+                            <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
+                        </ul>
+                    </h:form>
+                </div>
             </ui:define>
-            
-         <ui:define name="content">
-             <div class="middle">
-             <div style="text-align: center;text-decoration:captiontext "><u>#{applicationManager.user.name}</u></div>
-             
-             <img src="../IMG/profile.jpg" alt=""/>
-             <div>Dina kompetenser 
-                 <table>
-                   <c:forEach var="competence" items="#{applicationManager.competences}">
+
+            <ui:define name="content">
+                <div class="middle">
+                    <div style="text-align: center;text-decoration:captiontext "><u>#{applicationManager.user.name}</u></div>
+                    <img src="../IMG/profile.jpg" alt=""/>
+                    <div>  
+
+                        <table border="1" width="40%" align="right">
                             <tr>
-                                <td>
-                                    <h:outputText value="#{competence.trans}"/>
-                                </td>
-                                <td>
-                                    <h:outputText value="#{competence.yearsOfExperience}"/>
-                                </td>
+
+                                <td>#{msg.ssn}</td>
+
+                                <td>#{applicationManager.user.ssn}</td>
+
                             </tr>
-                        </c:forEach>
-                    </table>
-             </div>
-             
-             </div>
-         </ui:define> 
-         			
-      </ui:composition> 
+
+                            <tr>
+
+                                <td>#{msg.mail}</td>
+
+                                <td>#{applicationManager.user.email}</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>DATES</td>
+
+                                <td></td>
+
+                            </tr>
+
+                        </table>
+
+
+                    </div>
+
+
+                    <div>#{msg.competence}
+                        <table>
+                            <c:forEach var="competence" items="#{applicationManager.competences}">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{competence.trans}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{competence.yearsOfExperience}"/>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+
+                </div>
+            </ui:define> 
+
+        </ui:composition> 
     </body>
 </html>
