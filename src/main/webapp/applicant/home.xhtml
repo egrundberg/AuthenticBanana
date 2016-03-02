@@ -10,7 +10,22 @@
     </h:head>
     <h:body>
         <ui:composition template="../templates/common.xhtml">
+           
+            <ui:define name="nav">
+            <div class="left">    
+               <h:form>
+                <ul>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="Home" outcome="home" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.myProfile}" outcome="profile" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positions" /></p></li>
+                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink></p></li>
+                </ul>
+                   </h:form>
+            </div>
+            </ui:define>
+            
             <ui:define name="content">
+                 <div class="middle">
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
                 <h:form>
                     <p>Welcome #{applicationManager.user.name}</p>
@@ -30,6 +45,7 @@
                     </table>
                     <h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink>
                 </h:form>
+                 </div>
             </ui:define>			
         </ui:composition> 
     </h:body>
