@@ -43,6 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AvailableJobs.findBylateApplicationDate", query = "SELECT a.jobId FROM AvailableJobs a")})
 public class AvailableJobs implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "JOB_TITLE")
+    private String jobTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobId")
     private Collection<Application> applicationCollection;
 
@@ -219,6 +223,14 @@ public class AvailableJobs implements Serializable {
 
     public void setApplicationCollection(Collection<Application> applicationCollection) {
         this.applicationCollection = applicationCollection;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
     
 }
