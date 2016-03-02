@@ -15,67 +15,47 @@ and open the template in the editor.
     </head>
     <body>
         <ui:composition template="../templates/commonApp.xhtml">
-        
-         <ui:define name="content">
-             <div class="middle">
-             <div style="text-align: center;text-decoration:captiontext "><u>#{applicationManager.user.name}</u></div>
-             
-             <img src="../IMG/profile.jpg" alt=""/>
-             <div>Dina kompetenser 
-                 <table>
-                   <c:forEach var="competence" items="#{applicationManager.competences}">
-                            <tr>
 
-                                <td>#{msg.ssn}</td>
+            <ui:define name="content">
+                <div class="middle">
+                    <div style="text-align: center;text-decoration:captiontext "><u>#{applicationManager.user.name}</u></div>
 
-                                <td>#{applicationManager.user.ssn}</td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>#{msg.mail}</td>
-
-                                <td>#{applicationManager.user.email}</td>
-
-                            </tr>
-
-                            
-                              <tr>
-                                <td>#{msg.fromdate}</td>
-                                   <td>#{msg.todate}</td>
-
-                               
-                                <c:forEach var="dates" items="#{applicationManager.availabilityDates}">
-                              
-                                    <td>
-                                        <h:outputText value="#{dates.fromDate}"/><br></br>
-                                    </td>
-                                    <td>
-                                        <h:outputText value="#{dates.toDate}"/><br></br>
-                                  
-                                    </td>
-                                    
-                                
-                                </c:forEach>
-                                   </tr>
-                            
+                    <img src="../IMG/profile.jpg" alt=""/>
+                    <div>
+                        <table border="1" width="40%" align="right">
                              <tr>
-                             
 
-                               
-                                <c:forEach var="dates" items="#{applicationManager.availabilityDates}">
+                                    <td>#{msg.ssn}</td>
+
+                                    <td>#{applicationManager.user.ssn}</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>#{msg.mail}</td>
+
+                                    <td>#{applicationManager.user.email}</td>
+
+                                </tr>
                               
-                                    <td>
-                                       
-                                  
-                                    </td>
-                                    
-                                
+
+                                <td>#{msg.fromdate}</td>
+                                <td>#{msg.todate}</td>
+
+
+                                <c:forEach var="dates" items="#{applicationManager.availabilityDates}">
+                                    <tr>
+
+                                        <td>
+                                            <h:outputText value="#{dates.fromDate}"/><br></br>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{dates.toDate}"/><br></br>
+
+                                        </td>
+                                    </tr>
                                 </c:forEach>
-                                   </tr>
-                                 
-                         
 
                         </table>
 
