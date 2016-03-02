@@ -6,8 +6,10 @@
 package is1200.authenticbanana.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +42,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AvailableJobs.findByApplicationDate", query = "SELECT a.applicationDate FROM AvailableJobs a WHERE a.applicationDate = :applicationDate"),
     @NamedQuery(name = "AvailableJobs.findBylateApplicationDate", query = "SELECT a.jobId FROM AvailableJobs a")})
 public class AvailableJobs implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobId")
+    private Collection<Application> applicationCollection;
 
     @Size(max = 255)
     @Column(name = "DESCRIPTION")
@@ -203,6 +210,15 @@ public class AvailableJobs implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @XmlTransient
+    public Collection<Application> getApplicationCollection() {
+        return applicationCollection;
+    }
+
+    public void setApplicationCollection(Collection<Application> applicationCollection) {
+        this.applicationCollection = applicationCollection;
     }
     
 }

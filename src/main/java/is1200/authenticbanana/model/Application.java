@@ -29,8 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Application.findAll", query = "SELECT a.appId FROM Application a"),
+    @NamedQuery(name = "Application.findJob", query = "SELECT a.jobid FROM Application a WHERE a.jobId =: jobId"),
     @NamedQuery(name = "Application.findByAppId", query = "SELECT a.appId FROM Application a WHERE a.appId = :appId")})
 public class Application implements Serializable {
+
+    @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
+    @ManyToOne(optional = false)
+    private AvailableJobs jobId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -130,6 +135,14 @@ public class Application implements Serializable {
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Application[ appId=" + appId + " ]";
+    }
+
+    public AvailableJobs getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(AvailableJobs jobId) {
+        this.jobId = jobId;
     }
     
 }
