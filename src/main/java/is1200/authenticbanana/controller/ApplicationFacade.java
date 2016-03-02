@@ -7,12 +7,16 @@ package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.AvailableJobs;
+import is1200.authenticbanana.model.Competence;
+import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Language;
 import is1200.authenticbanana.model.LanguagePK;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,7 +54,6 @@ public class ApplicationFacade {
         List<String> i = em.createNamedQuery("Person.findByUsername")
                 .setParameter("username", username)
                 .getResultList();
-
         return returnPerson(i);
 
     }
@@ -144,6 +147,15 @@ public class ApplicationFacade {
             return word.getWord();
         }
     }
+    
+        public String getCompetenceTranslations(Locale locale, Competence comp) {
+        log.error("Get Competence");
+        String compName = em.find(Competence.class, comp.getCompetenceId()).getName();
+        LanguagePK languagePK = new LanguagePK();
+        languagePK.setLang(locale.getLanguage());
+        languagePK.setL_id(compName);
+        return getWord(languagePK);
+    }
 
 //</editor-fold>
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
@@ -165,5 +177,22 @@ public class ApplicationFacade {
             }
         }
         return availableJobs;
+    }
+
+    public List<CompetenceProfile> getPersonCompetences(Locale locale, PersonDTO user) {
+        List<CompetenceProfile> cpList = new ArrayList<>();
+        List<CompetenceProfile> list = em.createNamedQuery("CompetenceProfile.findAllByUsername")
+                .setParameter("username", user)
+                .getResultList();
+        if (list.isEmpty()) {
+            log.error("No Competences");
+            return null;
+        }
+        for (CompetenceProfile cp : list) {
+            log.error("Compentece: " + cp.getUsername().getName());
+            Competence c = em.find(Competence.class, cp.getCompetenceId().getCompetenceId());
+            cpList.add(cp);
+        }
+        return cpList;
     }
 }

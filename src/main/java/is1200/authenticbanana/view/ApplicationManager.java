@@ -8,6 +8,7 @@ package is1200.authenticbanana.view;
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.AvailableJobs;
+import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
@@ -39,7 +40,6 @@ public class ApplicationManager implements Serializable {
     private final static Logger LOG = LogManager.getLogger(ApplicationManager.class);
 
     private PersonDTO user;
-    private String error = null;
     private Locale locale = Locale.getDefault();
 
     /**
@@ -84,6 +84,7 @@ public class ApplicationManager implements Serializable {
     //RoleID is never set
     private final static long RECRUITER = 1L;
     private final static long APPLICANT = 2L;
+    private String error;
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
@@ -289,17 +290,6 @@ public class ApplicationManager implements Serializable {
      *
      * @return
      */
-    public String findUser() {
-        if (applicationFacade.findPerson(getUsername()) != null) {
-
-        }
-        return "";
-    }
-
-    /**
-     *
-     * @return
-     */
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
@@ -341,12 +331,12 @@ public class ApplicationManager implements Serializable {
     // </editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
     private List<AvailableJobs> availableJobs;
+    private List<CompetenceProfile> competences;
 
     /**
      * @return the availableJobs
      */
     public List<AvailableJobs> getAvailableJobs() {
-        LOG.error("Find jobs for date " + "DATE");
         availableJobs = applicationFacade.getAvailableJobs(locale);
         return availableJobs;
     }
@@ -383,6 +373,21 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 //</editor-fold>
+
+    /**
+     * @return the competences
+     */
+    public List<CompetenceProfile> getCompetences() {
+        competences = applicationFacade.getPersonCompetences(locale, user);
+        return competences;
+    }
+
+    /**
+     * @param competences the competences to set
+     */
+    public void setCompetences(List<CompetenceProfile> competences) {
+        this.competences = competences;
+    }
 
     /**
      * @return the error

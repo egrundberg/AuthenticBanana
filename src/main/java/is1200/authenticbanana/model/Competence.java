@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Competence.findAll", query = "SELECT c.competenceId FROM Competence c"),
+    @NamedQuery(name = "Competence.findNameById", query = "SELECT c.name FROM Competence c WHERE c.competenceId = :competenceId"),
     @NamedQuery(name = "Competence.findByCompetenceId", query = "SELECT c.competenceId FROM Competence c WHERE c.competenceId = :competenceId")})
 public class Competence implements Serializable {
 

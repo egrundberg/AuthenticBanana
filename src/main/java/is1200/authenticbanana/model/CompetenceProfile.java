@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CompetenceProfile.findAll", query = "SELECT c.competenceProfileId FROM CompetenceProfile c"),
+    @NamedQuery(name = "CompetenceProfile.findAllByUsername", query = "SELECT c FROM CompetenceProfile c WHERE c.username = :username"),
     @NamedQuery(name = "CompetenceProfile.findByCompetenceProfileId", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.competenceProfileId = :competenceProfileId"),
     @NamedQuery(name = "CompetenceProfile.findByYearsOfExperience", query = "SELECT c.competenceProfileId FROM CompetenceProfile c WHERE c.yearsOfExperience = :yearsOfExperience"),
     @NamedQuery(name = "CompetenceProfile.findTranslation", query = "SELECT c.trans FROM CompetenceProfile c WHERE c.trans = :trans")})
@@ -63,6 +64,15 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      */
     public CompetenceProfile() {
+    }
+    
+    public CompetenceProfile(CompetenceProfile cp)
+    {
+        this.competenceId = cp.competenceId;
+        this.competenceProfileId = cp.competenceProfileId;
+        this.username = cp.username;
+        this.yearsOfExperience = cp.yearsOfExperience;
+        this.trans = cp.trans;
     }
 
     /**
@@ -162,10 +172,12 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
         return "is1200.authenticbanana.model.CompetenceProfile[ competenceProfileId=" + competenceProfileId + " ]";
     }
 
+    @Override
     public String getTrans() {
         return trans;
     }
 
+    @Override
     public void setTrans(String trans) {
         this.trans = trans;
     }
