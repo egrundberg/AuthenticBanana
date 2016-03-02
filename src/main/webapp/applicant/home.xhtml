@@ -29,20 +29,7 @@
                 <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
                 <h:form>
                     <p>Welcome #{applicationManager.user.name}</p>
-                    <table>
-                        <th>msg.description</th>
-                        <th>msg.applicationDate</th>
-                        <c:forEach var="job" items="#{applicationManager.availableJobs}">
-                            <tr>
-                                <td>
-                                    <h:outputText value="#{job.description}"/>
-                                </td>
-                                <td>
-                                    <h:outputText value="#{job.applicationDate}"/>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                   
                     <h:commandLink action="#{applicationManager.logoutUser}" value="Logout"></h:commandLink>
                 </h:form>
                  </div>
