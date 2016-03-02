@@ -147,17 +147,9 @@ public class ApplicationFacade {
             return word.getWord();
         }
     }
-    
-        public String getCompetenceTranslations(Locale locale, Competence comp) {
-        log.error("Get Competence");
-        String compName = em.find(Competence.class, comp.getCompetenceId()).getName();
-        LanguagePK languagePK = new LanguagePK();
-        languagePK.setLang(locale.getLanguage());
-        languagePK.setL_id(compName);
-        return getWord(languagePK);
-    }
 
 //</editor-fold>
+    
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
                 .getResultList();
@@ -189,9 +181,11 @@ public class ApplicationFacade {
             return null;
         }
         for (CompetenceProfile cp : list) {
-            log.error("Compentece: " + cp.getUsername().getName());
             Competence c = em.find(Competence.class, cp.getCompetenceId().getCompetenceId());
-            cpList.add(cp);
+            CompetenceProfile cpNew = new CompetenceProfile(cp);
+            cpNew.setTrans(getWord(generateLanguagePK(c.getName(), locale.getLanguage())));
+            log.error("Compentece: " + cpNew.getTrans() + ", " + cpNew.getYearsOfExperience() + " years");
+            cpList.add(cpNew);
         }
         return cpList;
     }
