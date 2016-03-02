@@ -7,6 +7,7 @@ package is1200.authenticbanana.view;
 
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.Availability;
 import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.AvailableJobsDTO;
 import is1200.authenticbanana.model.CompetenceProfile;
@@ -301,12 +302,17 @@ public class ApplicationManager implements Serializable {
         } else {
             error = null;
             HttpSession session = SessionBean.getSession();
-            session.setAttribute("username", user);
-            return applicationFacade.getRoleName(user.getRoleId());
+            String roleName = applicationFacade.getRoleName(user.getRoleId());
+            if (roleName.equals("recruiter")) {
+                session.setAttribute("recruiter", roleName);
+            } else {
+                session.setAttribute("applicant", roleName);
+            }
+            return roleName;
         }
     }
 
-    //logout event, invalidate session
+    //Logout, invalidate session
     /**
      *
      * @return
@@ -335,6 +341,7 @@ public class ApplicationManager implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
     private List<AvailableJobs> availableJobs;
     private List<CompetenceProfile> competences;
+    private List <Availability> availabilitydates;
 
     /**
      * @return the availableJobs
@@ -372,6 +379,15 @@ public class ApplicationManager implements Serializable {
     }
          
     
+    
+      /**
+     * @return the availableJobs
+     */
+    public List <Availability> getAvailabilityDates() {
+        availabilitydates = applicationFacade.getAvailableDates(locale, user);
+        return availabilitydates;
+    }
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     /**
