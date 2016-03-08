@@ -32,7 +32,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- *
+ * This class acts as a controller for fetching and storing data in a database
  * @author Erik
  */
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -48,9 +48,9 @@ public class ApplicationFacade {
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Login/Register">
     /**
-     *
-     * @param username
-     * @return
+     * Find a user with a specific username
+     * @param username The specific username
+     * @return a user if found, null otherwise
      */
     public PersonDTO findPerson(String username) {
         List<String> i = em.createNamedQuery("Person.findByUsername")
@@ -60,10 +60,10 @@ public class ApplicationFacade {
     }
 
     /**
-     *
-     * @param username
-     * @param password
-     * @return
+     * Find a user with matching username and password
+     * @param username The specific username
+     * @param password The specific password
+     * @return a user if found, null otherwise 
      */
     public PersonDTO loginPerson(String username, String password) {
         List<String> i = em.createNamedQuery("Person.findByUsernameAndPassword")
@@ -89,9 +89,9 @@ public class ApplicationFacade {
     }
 
     /**
-     *
-     * @param person
-     * @throws DataBaseException
+     * Adds a user to the database
+     * @param person The person to store in the database
+     * @throws DataBaseException if the user could not be added
      */
     public void registerUser(PersonDTO person) throws DataBaseException {
         if (em.find(Person.class, person.getUsername()) != null) {
@@ -116,9 +116,10 @@ public class ApplicationFacade {
     }
 
     /**
-     *
-     * @param roleId
-     * @return
+     * 
+     * @param roleId The id of the role
+     * @return the name of a roleId
+     * @see is1200.authenticbanana.model.Role
      */
     public String getRoleName(Role roleId) {
         log.error("Get role");
@@ -129,12 +130,7 @@ public class ApplicationFacade {
         return getWord(languagePK);
     }
 
-    /**
-     *
-     * @param languagePK
-     * @return
-     */
-    public String getWord(LanguagePK languagePK) {
+    private String getWord(LanguagePK languagePK) {
         Language word = em.find(Language.class, languagePK);
         if (word == null) {
             languagePK.setLang("en");
@@ -149,14 +145,7 @@ public class ApplicationFacade {
         }
     }
 
-    /**
-     *
-     * @param availableJob
-     * @param locale
-     * @return
-     */
-    public AvailableJobs setJobTranslations(AvailableJobs availableJob, Locale locale) {
-        //Available
+    private AvailableJobs setJobTranslations(AvailableJobs availableJob, Locale locale) {
         AvailableJobs job = new AvailableJobs(availableJob);
         LanguagePK lPKDesc = generateLanguagePK(job.getDescription(), locale.getLanguage());
         job.setDescription(getWord(lPKDesc));
@@ -166,11 +155,12 @@ public class ApplicationFacade {
     }
 
 //</editor-fold>
-
+    //<editor-fold defaultstate="collapsed" desc="Applicant methods">
+    
     /**
      *
-     * @param locale
-     * @return
+     * @param locale The locale to get the correct translations
+     * @return a list with all the jobs that are currently available for applications
      */
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
@@ -192,9 +182,9 @@ public class ApplicationFacade {
 
     /**
      *
-     * @param locale
-     * @param user
-     * @return
+     * @param locale The locale to get the correct translations
+     * @param user The specific user to find competences for
+     * @return a list of a specific persons competences, translated to the chosen locales language
      */
     public List<CompetenceProfile> getPersonCompetences(Locale locale, PersonDTO user) {
         List<CompetenceProfile> cpList = new ArrayList<>();
@@ -206,7 +196,6 @@ public class ApplicationFacade {
             return null;
         }
         for (CompetenceProfile cp : list) {
-            //Competence c = em.find(Competence.class, cp.getCompetenceId().getCompetenceId());
             CompetenceProfile cpNew = new CompetenceProfile(cp);
             cpNew.setTrans(getWord(generateLanguagePK(cp.getCompetenceId().getName(), locale.getLanguage())));
             log.error("Compentece: " + cpNew.getTrans() + ", " + cpNew.getYearsOfExperience() + " years");
@@ -217,9 +206,9 @@ public class ApplicationFacade {
 
     /**
      *
-     * @param jobID
-     * @param locale
-     * @return
+     * @param jobID The job to get translated
+     * @param locale The locale to get the correct translations
+     * @return a translated version of the job
      */
     public AvailableJobs getCurrentJob(long jobID, Locale locale) {
         return setJobTranslations(em.find(AvailableJobs.class, jobID), locale);
@@ -227,9 +216,9 @@ public class ApplicationFacade {
 
     /**
      *
-     * @param locale
-     * @param user
-     * @return
+     * @param locale The locale to get the correct translations
+     * @param user The specific user to find dates for
+     * @return a list with all the dates when a specific user is available, null if no dates are found
      */
     public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
         List<Availability> list = em.createNamedQuery("Availability.findByUsername")
@@ -241,4 +230,6 @@ public class ApplicationFacade {
         }
         return list;
     }
+
+//</editor-fold>
 }

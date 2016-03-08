@@ -6,7 +6,7 @@
 package is1200.authenticbanana.filter;
 
 /**
- *
+ * This class is used to filter unauthorized requests
  * @author Erik
  */
 import java.io.IOException;
@@ -45,7 +45,8 @@ public class AuthorizationFilter implements Filter {
     }
 
     /**
-     *
+     * Handles requests and redirects the user if it is not allowed to visit the
+     * requested page
      * @param request
      * @param response
      * @param chain
