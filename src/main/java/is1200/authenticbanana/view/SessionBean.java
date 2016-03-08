@@ -17,7 +17,7 @@ public class SessionBean {
  
     /**
      *
-     * @return
+     * @return the current session
      */
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance()
@@ -26,7 +26,7 @@ public class SessionBean {
  
     /**
      *
-     * @return
+     * @return the current request
      */
     public static HttpServletRequest getRequest() {
         return (HttpServletRequest) FacesContext.getCurrentInstance()

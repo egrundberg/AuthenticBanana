@@ -255,8 +255,11 @@ public class ApplicationManager implements Serializable {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
-     *
-     * @return
+     * The user registers. 
+     * If user was able to be registered
+     * @return success
+     * otherwise return failure
+     * 
      */
     public String registerUser() {
         if (applicationFacade.findPerson(newUsername) == null) {
@@ -273,8 +276,10 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Handles login.
+     * If user exists, session starts and roleName is set
+     * @return roleName
+     * otherwise return "" 
      */
     public String loginUser() {
         user = applicationFacade.loginPerson(username, password);
@@ -295,8 +300,9 @@ public class ApplicationManager implements Serializable {
     }
     
     /**
-     *
-     * @return
+     * Logout user.
+     * close session and sets user to null
+     * @return index
      */
     public String logoutUser() {
         HttpSession session = SessionBean.getSession();
@@ -341,9 +347,9 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * 
+     * Saves jobID for chosen available job
      * @param jobID
-     * @return 
+     * @return apply
      */
     
     public String apply(long jobID){
@@ -352,8 +358,8 @@ public class ApplicationManager implements Serializable {
     }
     
     /**
-     *
-     * @return
+     * 
+     * @return currentJob
      */
     public AvailableJobs getCurrentJob(){
         currentJob = applicationFacade.getCurrentJob(jobID, locale);
@@ -361,7 +367,7 @@ public class ApplicationManager implements Serializable {
     }
     
     /**
-     *
+     * Set currentJob
      * @param job
      */
     public void setCurrentJob(AvailableJobs job){
@@ -371,7 +377,7 @@ public class ApplicationManager implements Serializable {
     
     
      /**
-     * @return the availableJobs
+     * @return the available dates for user
      */
     public List <Availability> getAvailabilityDates() {
         availabilitydates = applicationFacade.getAvailableDates(locale, user);
@@ -381,8 +387,8 @@ public class ApplicationManager implements Serializable {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Set Locale">
     /**
-     *
-     * @return
+     * Set locale to sv
+     * @return ""
      */
     public String setSvLocale() {
         Locale.setDefault(new Locale("sv"));
@@ -392,8 +398,8 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Set locale to en
+     * @return ""
      */
     public String setEnLocale() {
         Locale.setDefault(new Locale("en"));
