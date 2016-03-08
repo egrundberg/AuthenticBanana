@@ -137,7 +137,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return gets the period from which the applicant can work to
+     * @return gets the period from which the applicant can work until
      */
     public Date getToPeriod() {
         return toPeriod;
@@ -223,7 +223,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return the description of the available position
      */
     public String getDescription() {
         return description;
@@ -239,7 +239,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return a collection of applications
      */
     @XmlTransient
     public Collection<Application> getApplicationCollection() {
@@ -256,7 +256,7 @@ public class AvailableJobs implements Serializable {
 
     /**
      *
-     * @return
+     * @return the title of the position
      */
     public String getJobTitle() {
         return jobTitle;

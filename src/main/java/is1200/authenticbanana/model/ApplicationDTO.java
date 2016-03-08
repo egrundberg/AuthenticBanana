@@ -13,7 +13,7 @@ public interface ApplicationDTO {
     
     /**
      *
-     * @return
+     * @return the application's ID
      */
     public Long getAppId();
 
@@ -25,7 +25,7 @@ public interface ApplicationDTO {
 
     /**
      *
-     * @return
+     * @return the applicant's cover letter
      */
     public String getPLetter();
 
@@ -37,7 +37,7 @@ public interface ApplicationDTO {
 
     /**
      *
-     * @return
+     * @return the applicant's username
      */
     public Person getUsername();
 

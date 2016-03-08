@@ -16,7 +16,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return username of the user
      */
     public String getUsername();
 
@@ -28,7 +28,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the persons first name
      */
     public String getName();
 
@@ -40,7 +40,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the persons surname
      */
     public String getSurname();
 
@@ -52,7 +52,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the persons social security number
      */
     public String getSsn();
 
@@ -64,7 +64,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the persons email
      */
     public String getEmail();
 
@@ -76,7 +76,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the persons password
      */
     public String getPassword();
 
@@ -88,7 +88,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return the id of the role that the user has
      */
     public Role getRoleId();
 
@@ -100,7 +100,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return a collection of the persons availability
      */
     @XmlTransient
     public Collection<Availability> getAvailabilityCollection();
@@ -113,7 +113,7 @@ public interface PersonDTO {
 
     /**
      *
-     * @return
+     * @return a collection of competences that the person has
      */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection();
@@ -124,17 +124,19 @@ public interface PersonDTO {
      */
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection);
 
-    /**
+     /**
      *
-     * @return
+     * @return a collection of the user's applications
      */
     @XmlTransient
+
     public Collection<Application> getApplicationCollection();
 
     /**
      *
      * @param applicationCollection
      */
+   
     public void setApplicationCollection(Collection<Application> applicationCollection);
     
 }

@@ -94,7 +94,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the username of the user
      */
         @Override
 
@@ -114,7 +114,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the first name of the user
      */
         @Override
 
@@ -134,7 +134,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the surname of the user
      */
         @Override
 
@@ -154,7 +154,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the social security number of the user
      */
         @Override
 
@@ -174,7 +174,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the email of the user
      */
         @Override
 
@@ -194,7 +194,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the password of the user
      */
         @Override
 
@@ -214,7 +214,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return the role-id that the has
      */
         @Override
 
@@ -234,7 +234,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return a collection of availabilities
      */
     @XmlTransient
         @Override
@@ -255,7 +255,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return a collection of competences that the user has
      */
     @XmlTransient
         @Override
@@ -314,7 +314,7 @@ public class Person implements Serializable, PersonDTO {
 
     /**
      *
-     * @return
+     * @return a collection of the user's applications
      */
     @XmlTransient
     @Override

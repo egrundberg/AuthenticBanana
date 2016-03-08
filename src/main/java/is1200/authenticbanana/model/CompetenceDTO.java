@@ -26,14 +26,17 @@ public interface CompetenceDTO {
      */
     public void setCompetenceId(Long competenceId);
      /**
-     * @return the name_se
+     * @return the name
      */
     public String getName();
 
     /**
      */
     public void setName(String name);
-
+   /**
+     *
+     * @return a collection of competence profiles
+     */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection();
 
@@ -43,5 +46,18 @@ public interface CompetenceDTO {
      */
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection);
 
+ 
+    /**
+     *
+     * @return a collection of available positions
+     */
+    @XmlTransient
+    public Collection<AvailableJobs> getAvailableJobsCollection();
+
+    /**
+     *
+     * @param availableJobsCollection
+     */
+    public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection);
     
 }

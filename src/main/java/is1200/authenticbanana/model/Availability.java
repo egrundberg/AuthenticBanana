@@ -72,14 +72,17 @@ public class Availability implements Serializable, AvailabilityDTO {
         this.availabilityId = availabilityId;
     }
 
+    @Override
     public Long getAvailabilityId() {
         return availabilityId;
     }
 
+    @Override
     public void setAvailabilityId(Long availabilityId) {
         this.availabilityId = availabilityId;
     }
 
+    @Override
     public Date getFromDate() {
         return fromDate;
     }
@@ -88,22 +91,27 @@ public class Availability implements Serializable, AvailabilityDTO {
      *
      * @param fromDate
      */
+    @Override
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
+    @Override
     public Date getToDate() {
         return toDate;
     }
 
+    @Override
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 
+    @Override
     public Person getUsername() {
         return username;
     }
 
+    @Override
     public void setUsername(Person username) {
         this.username = username;
     }

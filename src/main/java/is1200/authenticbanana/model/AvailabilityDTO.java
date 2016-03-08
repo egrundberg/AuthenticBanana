@@ -15,7 +15,7 @@ public interface AvailabilityDTO {
     
     /**
      *
-     * @return
+     * @return the availability ID
      */
     public Long getAvailabilityId();
 
@@ -27,19 +27,19 @@ public interface AvailabilityDTO {
 
     /**
      *
-     * @return
+     * @return the from date when the applicant is available
      */
     public Date getFromDate();
 
     /**
      *
-     * @param fromDate
+     * @param fromDate 
      */
     public void setFromDate(Date fromDate);
 
     /**
      *
-     * @return
+     * @return the to date when the applicant is available
      */
     public Date getToDate();
 
@@ -51,7 +51,7 @@ public interface AvailabilityDTO {
 
     /**
      *
-     * @return
+     * @return the username
      */
     public Person getUsername();
 

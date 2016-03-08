@@ -23,7 +23,7 @@ public class LanguagePK {
 
     /**
      *
-     * @return
+     * @return the id of the language
      */
     public String getL_id() {
         return L_id;
@@ -39,7 +39,7 @@ public class LanguagePK {
 
     /**
      *
-     * @return
+     * @return the language
      */
     public String getLang() {
         return Lang;

@@ -16,7 +16,7 @@ public interface RoleDTO {
     
     /**
      *
-     * @return
+     * @return the id of the specific role
      */
     public Long getRoleId();
 
@@ -33,22 +33,21 @@ public interface RoleDTO {
     public void setName(String name);
 
     /**
-     * @return the name
+     * @return the name of the role
      */
     public String getName();
 
-    /**
+    
+      /**
      *
-     * @return
+     * @return a collections of persons that has a specific role
      */
     @XmlTransient
     public Collection<Person> getPersonCollection();
-
     /**
      *
      * @param personCollection
      */
     public void setPersonCollection(Collection<Person> personCollection);
-
     
 }

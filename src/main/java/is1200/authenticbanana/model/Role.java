@@ -65,7 +65,7 @@ public class Role implements Serializable {
 
     /**
      *
-     * @return
+     * @return the id that a person has
      */
     public Long getRoleId() {
         return roleId;
@@ -118,7 +118,7 @@ public class Role implements Serializable {
 
     /**
      *
-     * @return
+     * @return the name of the role
      */
     public String getName() {
         return name;
@@ -134,7 +134,7 @@ public class Role implements Serializable {
 
     /**
      *
-     * @return
+     * @return a collections of persons that has a specific role
      */
     @XmlTransient
     public Collection<Person> getPersonCollection() {

@@ -15,7 +15,7 @@ public interface CompetenceProfileDTO {
     
     /**
      *
-     * @return
+     * @return the id of the competence profile
      */
     public Long getCompetenceProfileId();
 
@@ -27,7 +27,7 @@ public interface CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return the amount of years in experience
      */
     public BigDecimal getYearsOfExperience();
 
@@ -39,7 +39,7 @@ public interface CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return the id of the competence
      */
     public Competence getCompetenceId();
 
@@ -51,7 +51,7 @@ public interface CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return the user's username
      */
     public Person getUsername();
 
@@ -63,7 +63,7 @@ public interface CompetenceProfileDTO {
     
     /**
      *
-     * @return
+     * @return the translation of the word
      */
     public String getTrans();
 

@@ -122,7 +122,7 @@ public class Competence implements Serializable {
 
     /**
      *
-     * @return
+     * @return the name of the competence
      */
     public String getName() {
         return name;
@@ -138,7 +138,7 @@ public class Competence implements Serializable {
 
     /**
      *
-     * @return
+     * @return a collection of competence profiles
      */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
@@ -155,7 +155,7 @@ public class Competence implements Serializable {
 
     /**
      *
-     * @return
+     * @return a collection of available positions
      */
     @XmlTransient
     public Collection<AvailableJobs> getAvailableJobsCollection() {

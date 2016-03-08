@@ -5,7 +5,9 @@
  */
 package is1200.authenticbanana.model;
 
+import java.util.Collection;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -77,13 +79,38 @@ public interface AvailableJobsDTO {
      *
      * @return
      */
-    public Language getDescription();
+   public String getDescription();
 
-    /**
+     /**
      *
      * @param description
      */
-    public void setDescription(Language description);
+    public void setDescription(String description);
+
+    /**
+     *
+     * @return a collection of applications
+     */
+    @XmlTransient
+    public Collection<Application> getApplicationCollection();
+
+    /**
+     *
+     * @param applicationCollection
+     */
+    public void setApplicationCollection(Collection<Application> applicationCollection);
+
+    /**
+     *
+     * @return the title of the position
+     */
+    public String getJobTitle();
+
+    /**
+     *
+     * @param jobTitle
+     */
+    public void setJobTitle(String jobTitle);  
 
     
 }

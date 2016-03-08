@@ -16,7 +16,7 @@ public interface LanguageDTO {
     
     /**
      *
-     * @return
+     * @return the id of a language
      */
     public String getLId();
 
@@ -28,7 +28,7 @@ public interface LanguageDTO {
 
     /**
      *
-     * @return
+     * @return the language of the word
      */
     public String getLang();
 
@@ -40,7 +40,7 @@ public interface LanguageDTO {
 
     /**
      *
-     * @return
+     * @return the correct translation of the selected word/description
      */
     public String getWord();
 
@@ -65,7 +65,7 @@ public interface LanguageDTO {
 
     /**
      *
-     * @return
+     * @return a collection of the available positions
      */
     @XmlTransient
     public Collection<AvailableJobs> getAvailableJobsCollection();
@@ -78,7 +78,7 @@ public interface LanguageDTO {
 
     /**
      *
-     * @return
+     * @return a collection of competences
      */
     @XmlTransient
     public Collection<Competence> getCompetenceCollection();
@@ -89,4 +89,14 @@ public interface LanguageDTO {
      */
     public void setCompetenceCollection(Collection<Competence> competenceCollection);
     
+     /**
+     *
+     * @return the primary key of the table
+     */
+    public is1200.authenticbanana.model.LanguagePK getLanguagePK();
+    /**
+     *
+     * @param languagePK
+     */
+    public void setLanguagePK(is1200.authenticbanana.model.LanguagePK languagePK);
 }

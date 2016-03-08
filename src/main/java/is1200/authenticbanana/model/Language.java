@@ -100,7 +100,7 @@ public class Language implements Serializable {
 
     /**
      *
-     * @return
+     * @return the language of the selected word
      */
     public String getLang() {
         return lang;
@@ -116,7 +116,7 @@ public class Language implements Serializable {
 
     /**
      *
-     * @return
+     * @return the correct translation in the respective language
      */
     public String getWord() {
         return word;
@@ -170,7 +170,7 @@ public class Language implements Serializable {
 
     /**
      *
-     * @return
+     * @return the primary key of the table
      */
     public is1200.authenticbanana.model.LanguagePK getLanguagePK() {
         return languagePK;

@@ -91,6 +91,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @return gets the competence profile id
      */
+    @Override
     public Long getCompetenceProfileId() {
         return competenceProfileId;
     }
@@ -99,6 +100,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @param competenceProfileId
      */
+    @Override
     public void setCompetenceProfileId(Long competenceProfileId) {
         this.competenceProfileId = competenceProfileId;
     }
@@ -107,6 +109,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @return the years of experience of that person
      */
+    @Override
     public BigDecimal getYearsOfExperience() {
         return yearsOfExperience;
     }
@@ -115,6 +118,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @param yearsOfExperience
      */
+    @Override
     public void setYearsOfExperience(BigDecimal yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
@@ -123,6 +127,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @return gets the id of that person's competence
      */
+    @Override
     public Competence getCompetenceId() {
         return competenceId;
     }
@@ -131,6 +136,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @param competenceId
      */
+    @Override
     public void setCompetenceId(Competence competenceId) {
         this.competenceId = competenceId;
     }
@@ -139,6 +145,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @return gets the username of the applicant
      */
+    @Override
     public Person getUsername() {
         return username;
     }
@@ -147,6 +154,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
      *
      * @param username
      */
+    @Override
     public void setUsername(Person username) {
         this.username = username;
     }
@@ -191,7 +199,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
 
     /**
      *
-     * @return
+     * @return the translation of the selected word
      */
     @Override
     public String getTrans() {
