@@ -3,6 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
+/**
+ * is1200.authenticbanana.exceptions is a package for defining custom exceptions
+ */
 package is1200.authenticbanana.execptions;
 
 /**

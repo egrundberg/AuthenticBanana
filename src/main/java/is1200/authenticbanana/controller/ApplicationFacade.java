@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/**
+ * is1200.authenticbanana.controller is a package for comunication between the view and the database
+ */
 package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;

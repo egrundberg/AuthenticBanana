@@ -281,11 +281,11 @@ public class ApplicationManager implements Serializable {
      * @return roleName
      * otherwise return "" 
      */
-    public String loginUser() {
+    public String loginUser() throws NullPointerException {
         user = applicationFacade.loginPerson(username, password);
         if (user == null) {
             error = "NotNull";
-            return "";
+            throw new NullPointerException("Could not create user");
         } else {
             error = null;
             HttpSession session = SessionBean.getSession();
