@@ -111,6 +111,10 @@ public class Application implements Serializable {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -118,6 +122,11 @@ public class Application implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -131,15 +140,27 @@ public class Application implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Application[ appId=" + appId + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public AvailableJobs getJobId() {
         return jobId;
     }
 
+    /**
+     *
+     * @param jobId
+     */
     public void setJobId(AvailableJobs jobId) {
         this.jobId = jobId;
     }

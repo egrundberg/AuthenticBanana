@@ -66,6 +66,10 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
     public CompetenceProfile() {
     }
     
+    /**
+     *
+     * @param cp
+     */
     public CompetenceProfile(CompetenceProfile cp)
     {
         this.competenceId = cp.competenceId;
@@ -147,6 +151,10 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -154,6 +162,11 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -167,16 +180,28 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.CompetenceProfile[ competenceProfileId=" + competenceProfileId + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrans() {
         return trans;
     }
 
+    /**
+     *
+     * @param trans
+     */
     @Override
     public void setTrans(String trans) {
         this.trans = trans;

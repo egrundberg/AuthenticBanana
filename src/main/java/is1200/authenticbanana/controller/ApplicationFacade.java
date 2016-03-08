@@ -149,6 +149,12 @@ public class ApplicationFacade {
         }
     }
 
+    /**
+     *
+     * @param availableJob
+     * @param locale
+     * @return
+     */
     public AvailableJobs setJobTranslations(AvailableJobs availableJob, Locale locale) {
         //Available
         AvailableJobs job = new AvailableJobs(availableJob);
@@ -160,6 +166,12 @@ public class ApplicationFacade {
     }
 
 //</editor-fold>
+
+    /**
+     *
+     * @param locale
+     * @return
+     */
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
                 .getResultList();
@@ -178,6 +190,12 @@ public class ApplicationFacade {
         return availableJobs;
     }
 
+    /**
+     *
+     * @param locale
+     * @param user
+     * @return
+     */
     public List<CompetenceProfile> getPersonCompetences(Locale locale, PersonDTO user) {
         List<CompetenceProfile> cpList = new ArrayList<>();
         List<CompetenceProfile> list = em.createNamedQuery("CompetenceProfile.findAllByUsername")
@@ -197,10 +215,22 @@ public class ApplicationFacade {
         return cpList;
     }
 
+    /**
+     *
+     * @param jobID
+     * @param locale
+     * @return
+     */
     public AvailableJobs getCurrentJob(long jobID, Locale locale) {
         return setJobTranslations(em.find(AvailableJobs.class, jobID), locale);
     }
 
+    /**
+     *
+     * @param locale
+     * @param user
+     * @return
+     */
     public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
         List<Availability> list = em.createNamedQuery("Availability.findByUsername")
                 .setParameter("username", user)

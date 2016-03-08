@@ -21,18 +21,34 @@ public class LanguagePK {
     @Column
     private String Lang;
 
+    /**
+     *
+     * @return
+     */
     public String getL_id() {
         return L_id;
     }
 
+    /**
+     *
+     * @param L_id
+     */
     public void setL_id(String L_id) {
         this.L_id = L_id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLang() {
         return Lang;
     }
 
+    /**
+     *
+     * @param Lang
+     */
     public void setLang(String Lang) {
         this.Lang = Lang;
     }

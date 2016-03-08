@@ -79,13 +79,21 @@ public class Role implements Serializable {
         this.roleId = roleId;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public int hashCode() {
         int hash = 0;
         hash += (roleId != null ? roleId.hashCode() : 0);
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -99,24 +107,44 @@ public class Role implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Role[ roleId=" + roleId + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<Person> getPersonCollection() {
         return personCollection;
     }
 
+    /**
+     *
+     * @param personCollection
+     */
     public void setPersonCollection(Collection<Person> personCollection) {
         this.personCollection = personCollection;
     }

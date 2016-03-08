@@ -82,7 +82,10 @@ public class Competence implements Serializable {
         this.competenceId = competenceId;
     }
 
-
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -90,6 +93,11 @@ public class Competence implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -103,33 +111,61 @@ public class Competence implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Competence[ competenceId=" + competenceId + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<CompetenceProfile> getCompetenceProfileCollection() {
         return competenceProfileCollection;
     }
 
+    /**
+     *
+     * @param competenceProfileCollection
+     */
     public void setCompetenceProfileCollection(Collection<CompetenceProfile> competenceProfileCollection) {
         this.competenceProfileCollection = competenceProfileCollection;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public Collection<AvailableJobs> getAvailableJobsCollection() {
         return availableJobsCollection;
     }
 
+    /**
+     *
+     * @param availableJobsCollection
+     */
     public void setAvailableJobsCollection(Collection<AvailableJobs> availableJobsCollection) {
         this.availableJobsCollection = availableJobsCollection;
     }

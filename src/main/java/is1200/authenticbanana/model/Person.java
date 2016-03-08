@@ -274,6 +274,10 @@ public class Person implements Serializable, PersonDTO {
         this.competenceProfileCollection = competenceProfileCollection;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -281,6 +285,11 @@ public class Person implements Serializable, PersonDTO {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -294,6 +303,10 @@ public class Person implements Serializable, PersonDTO {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Person[ username=" + username + " ]";

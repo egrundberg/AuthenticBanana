@@ -61,8 +61,16 @@ public interface CompetenceProfileDTO {
      */
     public void setUsername(Person username);
     
-      public String getTrans();
+    /**
+     *
+     * @return
+     */
+    public String getTrans();
 
+    /**
+     *
+     * @param trans
+     */
     public void setTrans(String trans);
     
 

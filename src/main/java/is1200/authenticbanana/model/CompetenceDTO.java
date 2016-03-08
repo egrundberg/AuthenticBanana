@@ -31,7 +31,6 @@ public interface CompetenceDTO {
     public String getName();
 
     /**
-     * @param name_se the name_se to set
      */
     public void setName(String name);
 

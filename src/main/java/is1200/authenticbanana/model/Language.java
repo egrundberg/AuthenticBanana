@@ -47,6 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Language implements Serializable {
 
+    /**
+     *
+     */
     @EmbeddedId
     protected is1200.authenticbanana.model.LanguagePK languagePK;
 
@@ -127,6 +130,10 @@ public class Language implements Serializable {
         this.word = word;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -134,6 +141,11 @@ public class Language implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -147,15 +159,27 @@ public class Language implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "is1200.authenticbanana.model.Language[ lId=" + lId + " ]";
     }
 
+    /**
+     *
+     * @return
+     */
     public is1200.authenticbanana.model.LanguagePK getLanguagePK() {
         return languagePK;
     }
 
+    /**
+     *
+     * @param languagePK
+     */
     public void setLanguagePK(is1200.authenticbanana.model.LanguagePK languagePK) {
         this.languagePK = languagePK;
     }

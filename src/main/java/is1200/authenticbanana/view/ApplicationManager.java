@@ -293,8 +293,7 @@ public class ApplicationManager implements Serializable {
             return roleName;
         }
     }
-
-    //Logout, invalidate session
+    
     /**
      *
      * @return
@@ -352,11 +351,19 @@ public class ApplicationManager implements Serializable {
         return "apply";
     }
     
+    /**
+     *
+     * @return
+     */
     public AvailableJobs getCurrentJob(){
         currentJob = applicationFacade.getCurrentJob(jobID, locale);
         return currentJob;
     }
     
+    /**
+     *
+     * @param job
+     */
     public void setCurrentJob(AvailableJobs job){
         currentJob = job;
     }
