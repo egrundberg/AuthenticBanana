@@ -57,29 +57,29 @@ public class ApplicationManager implements Serializable {
      * New user variables
      */
     @Size(min = 4, max = 255, message = "{usernameSizeError}")
-    @NotNull
+    @NotNull (message = "{mayNotBeNull}")
     private String newUsername;
 
     @Size(min = 1, max = 255, message = "{nameSizeError}")
-    @NotNull
+    @NotNull (message = "{mayNotBeNull}")
     private String name;
 
     @Size(min = 1, max = 255, message = "{surnameSizeError}")
-    @NotNull
+    @NotNull (message = "{mayNotBeNull}")
     private String surname;
 
     @Size(min = 4, max = 255, message = "{ssnSizeError}")
-    @NotNull
+    @NotNull (message = "{mayNotBeNull}")
     private String ssn;
 
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|"
             + "}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9"
-            + "-]*[a-z0-9])?", message = "{invalidEmail")
+            + "-]*[a-z0-9])?", message = "{invalidEmail}")
     @Size(min = 4, max = 255, message = "{emailSizeError}")
-    @NotNull
+    @NotNull (message = "{mayNotBeNull}")
     private String email;
-
-    @NotNull
+ 
+    @NotNull (message = "{mayNotBeNull}")
     @Size(min = 4, max = 255, message = "{passwordSizeError}")
     private String newPassword;
 
@@ -255,15 +255,6 @@ public class ApplicationManager implements Serializable {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
-     * ??
-     *
-     * @return
-     
-    public String registerLink() {
-        return "success";
-    }*/
-
-    /**
      *
      * @return
      */
@@ -280,15 +271,6 @@ public class ApplicationManager implements Serializable {
             return "failure";
         }
     }
-
-    /**
-     * ??
-     *
-     * @return
-     
-    public String loginLink() {
-        return "success";
-    }*/
 
     /**
      *
@@ -320,6 +302,7 @@ public class ApplicationManager implements Serializable {
     public String logoutUser() {
         HttpSession session = SessionBean.getSession();
         session.invalidate();
+        user = null;
         return "index";
     }
 
@@ -361,16 +344,16 @@ public class ApplicationManager implements Serializable {
     /**
      * 
      * @param jobID
+     * @return 
      */
     
     public String apply(long jobID){
-        this.jobID=jobID;
+        this.jobID = jobID;
         return "apply";
     }
     
     public AvailableJobs getCurrentJob(){
-        currentJob = applicationFacade.getCurrentJob(jobID);
-        
+        currentJob = applicationFacade.getCurrentJob(jobID, locale);
         return currentJob;
     }
     
@@ -380,7 +363,7 @@ public class ApplicationManager implements Serializable {
          
     
     
-      /**
+     /**
      * @return the availableJobs
      */
     public List <Availability> getAvailabilityDates() {

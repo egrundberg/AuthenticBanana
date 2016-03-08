@@ -28,32 +28,32 @@
                
                 <p>
                     <h:outputLabel for="fname" value="#{msg.firstName} : "/> 
-                    <h:inputText id="firstname" value="#{applicationManager.name}" required = "true" requiredMessage="#{msg.nameSizeError}"/>
+                    <h:inputText id="firstname" value="#{applicationManager.name}"/>
                     <h:message for="firstname" style="color:red"/>
                 </p>
                 <p>
                     <h:outputLabel for="surname" value="#{msg.surname} : "/> 
-                    <h:inputText id="surname" value="#{applicationManager.surname}" required ="true" requiredMessage="#{msg.surnameSizeError}" />
+                    <h:inputText id="surname" value="#{applicationManager.surname}"/>
                     <h:message for="surname" style="color:red"/>
                 </p>
                 <p>
                     <h:outputLabel for="newUsername" value="#{msg.username} : "/> 
-                    <h:inputText id="newUsername" value="#{applicationManager.newUsername}" required="true" requiredMessage="#{msg.usernameSizeError}"/>
+                    <h:inputText id="newUsername" value="#{applicationManager.newUsername}"/>
                      <h:message for="newUsername" style="color:red"/>
                 </p>
                 <p>
                     <h:outputLabel for="newPassword" value="#{msg.password}: "/> 
-                    <h:inputSecret id="newPassword" value="#{applicationManager.newPassword}" required="true" requiredMessage="#{msg.passwordSizeError}"/>
+                    <h:inputSecret id="newPassword" value="#{applicationManager.newPassword}"/>
                      <h:message for="newPassword" style="color:red"/>
                 </p>
                 <p>
                     <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
-                    <h:inputText id="ssn" value="#{applicationManager.ssn}" required="true" requiredMessage="#{msg.ssnSizeError}"/>
+                    <h:inputText id="ssn" value="#{applicationManager.ssn}"/>
                      <h:message for="ssn" style="color:red"/>
                 </p>
                 <p>
                     <h:outputLabel for="mail" value="#{msg.mail}: "/> 
-                    <h:inputText id="mail" value="#{applicationManager.email}" required="true" requiredMessage="#{msg.emailSizeError}" />
+                    <h:inputText id="mail" value="#{applicationManager.email}" />
                     <h:message for="mail" style="color:red"/>
                 </p>
                 <p>

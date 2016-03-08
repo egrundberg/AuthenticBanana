@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author michelle
  */
-public class SessionBean {
+public class SessionBean {  
  
     /**
      *

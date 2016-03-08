@@ -57,7 +57,6 @@ public class ApplicationFacade {
                 .setParameter("username", username)
                 .getResultList();
         return returnPerson(i);
-
     }
 
     /**
@@ -141,7 +140,7 @@ public class ApplicationFacade {
             languagePK.setLang("en");
             word = em.find(Language.class, languagePK);
             if (word == null) {
-                return "No word?";
+                return languagePK.getL_id();
             } else {
                 return word.getWord();
             }
@@ -150,8 +149,17 @@ public class ApplicationFacade {
         }
     }
 
+    public AvailableJobs setJobTranslations(AvailableJobs availableJob, Locale locale) {
+        //Available
+        AvailableJobs job = new AvailableJobs(availableJob);
+        LanguagePK lPKDesc = generateLanguagePK(job.getDescription(), locale.getLanguage());
+        job.setDescription(getWord(lPKDesc));
+        LanguagePK lPKTitle = generateLanguagePK(job.getJobTitle(), locale.getLanguage());
+        job.setJobTitle(getWord(lPKTitle));
+        return job;
+    }
+
 //</editor-fold>
-    
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
                 .getResultList();
@@ -164,10 +172,7 @@ public class ApplicationFacade {
             AvailableJobs availableJob = em.find(AvailableJobs.class, jobId);
             Date date = new Date();
             if (availableJob.getApplicationDate().after(date)) {
-                AvailableJobs job = new AvailableJobs(availableJob);
-                LanguagePK lPK = generateLanguagePK(job.getDescription(), locale.getLanguage());
-                job.setDescription(getWord(lPK));
-                availableJobs.add(job);
+                availableJobs.add(setJobTranslations(availableJob, locale));
             }
         }
         return availableJobs;
@@ -183,22 +188,20 @@ public class ApplicationFacade {
             return null;
         }
         for (CompetenceProfile cp : list) {
-            Competence c = em.find(Competence.class, cp.getCompetenceId().getCompetenceId());
+            //Competence c = em.find(Competence.class, cp.getCompetenceId().getCompetenceId());
             CompetenceProfile cpNew = new CompetenceProfile(cp);
-            cpNew.setTrans(getWord(generateLanguagePK(c.getName(), locale.getLanguage())));
+            cpNew.setTrans(getWord(generateLanguagePK(cp.getCompetenceId().getName(), locale.getLanguage())));
             log.error("Compentece: " + cpNew.getTrans() + ", " + cpNew.getYearsOfExperience() + " years");
             cpList.add(cpNew);
         }
         return cpList;
     }
 
-    public AvailableJobs getCurrentJob(long jobID) {
-       
-        return em.find(AvailableJobs.class, jobID);
-    } 
-        
+    public AvailableJobs getCurrentJob(long jobID, Locale locale) {
+        return setJobTranslations(em.find(AvailableJobs.class, jobID), locale);
+    }
+
     public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
-       
         List<Availability> list = em.createNamedQuery("Availability.findByUsername")
                 .setParameter("username", user)
                 .getResultList();
@@ -206,7 +209,6 @@ public class ApplicationFacade {
             log.error("No from-date");
             return null;
         }
-     
         return list;
     }
 }

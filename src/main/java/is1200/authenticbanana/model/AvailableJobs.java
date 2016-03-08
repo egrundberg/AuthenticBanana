@@ -98,6 +98,7 @@ public class AvailableJobs implements Serializable {
         this.description = job.getDescription();
         this.fromPeriod = job.getFromPeriod();
         this.toPeriod = job.getToPeriod();
+        this.jobTitle = job.getJobTitle();
     }
     
     

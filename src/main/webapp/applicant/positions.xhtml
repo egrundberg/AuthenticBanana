@@ -21,12 +21,12 @@ and open the template in the editor.
                     <div>#{msg.availableP}</div>
                     <h:form>
                         <table>
-                            <th>#{msg.description}</th>
+                            <th>#{msg.jobTitle}</th>
                             <th>#{msg.applicationDate}</th>
                             <c:forEach var="job" items="#{applicationManager.availableJobs}">
                                 <tr>
                                     <td>
-                                        <h:outputText value="#{job.description}"/>
+                                        <h:outputText value="#{job.jobTitle}"/>
                                     </td>
                                     <td>
                                         <h:outputText value="#{job.applicationDate}"/>

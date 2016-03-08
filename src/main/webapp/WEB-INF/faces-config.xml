@@ -19,7 +19,7 @@
         <navigation-case>
             <from-action>#{applicationManager.loginUser}</from-action>
             <from-outcome>recruiter</from-outcome>
-            <to-view-id>/IMG/Banana.png</to-view-id>
+            <to-view-id>recruiter/home.xhtml</to-view-id>
         </navigation-case>
        
     </navigation-rule>
@@ -29,6 +29,14 @@
             <from-action>#{applicationManager.apply(job.jobId)}</from-action>
             <from-outcome>apply</from-outcome>
             <to-view-id>/applicant/apply.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-action>#{applicationManager.logoutUser}</from-action>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/public/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
    
