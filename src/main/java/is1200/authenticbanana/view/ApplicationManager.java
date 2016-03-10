@@ -5,6 +5,9 @@
  */
 package is1200.authenticbanana.view;
 
+import is1200.authenticbanana.execptions.ApplicantLoggedInException;
+import is1200.authenticbanana.execptions.RecruiterLoggedInException;
+import is1200.authenticbanana.execptions.NotLoggedInException;
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.Availability;
@@ -18,11 +21,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,29 +62,29 @@ public class ApplicationManager implements Serializable {
      * New user variables
      */
     @Size(min = 4, max = 255, message = "{usernameSizeError}")
-    @NotNull (message = "{mayNotBeNull}")
+    @NotNull(message = "{mayNotBeNull}")
     private String newUsername;
 
     @Size(min = 1, max = 255, message = "{nameSizeError}")
-    @NotNull (message = "{mayNotBeNull}")
+    @NotNull(message = "{mayNotBeNull}")
     private String name;
 
     @Size(min = 1, max = 255, message = "{surnameSizeError}")
-    @NotNull (message = "{mayNotBeNull}")
+    @NotNull(message = "{mayNotBeNull}")
     private String surname;
 
     @Size(min = 4, max = 255, message = "{ssnSizeError}")
-    @NotNull (message = "{mayNotBeNull}")
+    @NotNull(message = "{mayNotBeNull}")
     private String ssn;
 
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|"
             + "}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9"
             + "-]*[a-z0-9])?", message = "{invalidEmail}")
     @Size(min = 4, max = 255, message = "{emailSizeError}")
-    @NotNull (message = "{mayNotBeNull}")
+    @NotNull(message = "{mayNotBeNull}")
     private String email;
- 
-    @NotNull (message = "{mayNotBeNull}")
+
+    @NotNull(message = "{mayNotBeNull}")
     @Size(min = 4, max = 255, message = "{passwordSizeError}")
     private String newPassword;
 
@@ -89,6 +94,7 @@ public class ApplicationManager implements Serializable {
     private String error;
     private long jobID;
     private AvailableJobs currentJob;
+    private String role;
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
@@ -252,165 +258,6 @@ public class ApplicationManager implements Serializable {
         this.locale = locale;
     }
 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="User Management">
-    /**
-     * The user registers. 
-     * If user was able to be registered
-     * @return success
-     * otherwise return failure
-     * 
-     */
-    public String registerUser() {
-        if (applicationFacade.findPerson(newUsername) == null) {
-            try {
-                applicationFacade.registerUser(createPersonDTO());
-            } catch (DataBaseException ex) {
-                LOG.error(ex.getMessage());
-                return "failure";
-            }
-            return "success";
-        } else {
-            return "failure";
-        }
-    }
-
-    /**
-     * Handles login.
-     * If user exists, session starts and roleName is set
-     * @return roleName
-     * otherwise return "" 
-     */
-    public String loginUser() throws NullPointerException {
-        user = applicationFacade.loginPerson(username, password);
-        if (user == null) {
-            error = "NotNull";
-            throw new NullPointerException("Could not create user");
-        } else {
-            error = null;
-            HttpSession session = SessionBean.getSession();
-            String roleName = applicationFacade.getRoleName(user.getRoleId());
-            if (roleName.equals("recruiter")) {
-                session.setAttribute("recruiter", roleName);
-            } else {
-                session.setAttribute("applicant", roleName);
-            }
-            return roleName;
-        }
-    }
-    
-    /**
-     * Logout user.
-     * close session and sets user to null
-     * @return index
-     */
-    public String logoutUser() {
-        HttpSession session = SessionBean.getSession();
-        session.invalidate();
-        user = null;
-        return "index";
-    }
-
-    private PersonDTO createPersonDTO() {
-        PersonDTO person = new Person();
-        person.setUsername(newUsername);
-        person.setPassword(newPassword);
-        person.setName(name);
-        person.setSurname(surname);
-        person.setEmail(email);
-        person.setSsn(ssn);
-        Role r = new Role();
-        r.setRoleId(APPLICANT);
-        person.setRoleId(r);
-        return person;
-    }
-
-    // </editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
-    private List<AvailableJobs> availableJobs;
-    private List<CompetenceProfile> competences;
-    private List <Availability> availabilitydates;
-
-    /**
-     * @return the availableJobs
-     */
-    public List<AvailableJobs> getAvailableJobs() {
-        availableJobs = applicationFacade.getAvailableJobs(locale);
-        return availableJobs;
-    }
-
-    /**
-     * @param availableJobs the availableJobs to set
-     */
-    public void setAvailableJobs(List<AvailableJobs> availableJobs) {
-        this.availableJobs = availableJobs;
-    }
-
-    /**
-     * Saves jobID for chosen available job
-     * @param jobID
-     * @return apply
-     */
-    
-    public String apply(long jobID){
-        this.jobID = jobID;
-        return "apply";
-    }
-    
-    /**
-     * 
-     * @return currentJob
-     */
-    public AvailableJobs getCurrentJob(){
-        currentJob = applicationFacade.getCurrentJob(jobID, locale);
-        return currentJob;
-    }
-    
-    /**
-     * Set currentJob
-     * @param job
-     */
-    public void setCurrentJob(AvailableJobs job){
-        currentJob = job;
-    }
-         
-    
-    
-     /**
-     * @return the available dates for user
-     */
-    public List <Availability> getAvailabilityDates() {
-        availabilitydates = applicationFacade.getAvailableDates(locale, user);
-        return availabilitydates;
-    }
-
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Set Locale">
-    /**
-     * Set locale to sv
-     * @return ""
-     */
-    public String setSvLocale() {
-        Locale.setDefault(new Locale("sv"));
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
-        locale = new Locale("sv");
-        return "";
-    }
-
-    /**
-     * Set locale to en
-     * @return ""
-     */
-    public String setEnLocale() {
-        Locale.setDefault(new Locale("en"));
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
-        locale = new Locale("en");
-        LOG.error("Set locale");
-        return "";
-    }
-//</editor-fold>
-    
-//</editor-fold>
     /**
      * @return the competences
      */
@@ -439,4 +286,197 @@ public class ApplicationManager implements Serializable {
     public void setError(String error) {
         this.error = error;
     }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="User Management">
+    /**
+     * The user registers. If user was able to be registered
+     *
+     * @return success otherwise return failure
+     *
+     */
+    public String registerUser() {
+        if (applicationFacade.findPerson(newUsername) == null) {
+            try {
+                applicationFacade.registerUser(createPersonDTO());
+            } catch (DataBaseException ex) {
+                LOG.error(ex.getMessage());
+                return "failure";
+            }
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+
+    /**
+     * Handles login. If user exists, session starts and roleName is set
+     *
+     * @return roleName otherwise return ""
+     */
+    public String loginUser() throws NullPointerException {
+        user = applicationFacade.loginPerson(username, password);
+        if (user == null) {
+            error = "NotNull";
+            throw new NullPointerException("Could not create user");
+        } else {
+            error = null;
+            HttpSession session = SessionBean.getSession();
+            String roleName = applicationFacade.getRoleName(user.getRoleId());
+            if (roleName.equals("recruiter")) {
+                session.setAttribute("recruiter", roleName);
+            } else {
+                session.setAttribute("applicant", roleName);
+            }
+            return roleName;
+        }
+    }
+
+    /**
+     * Logout user. close session and sets user to null
+     *
+     * @return index
+     */
+    public String logoutUser() {
+        HttpSession session = SessionBean.getSession();
+        session.invalidate();
+        user = null;
+        return "index";
+    }
+
+    private PersonDTO createPersonDTO() {
+        PersonDTO person = new Person();
+        person.setUsername(newUsername);
+        person.setPassword(newPassword);
+        person.setName(name);
+        person.setSurname(surname);
+        person.setEmail(email);
+        person.setSsn(ssn);
+        Role r = new Role();
+        r.setRoleId(APPLICANT);
+        person.setRoleId(r);
+        return person;
+    }
+
+    
+    /**
+     * Checks if the user has a role assigned to it
+     * @throws SecurityException If the user does not have the right privileges 
+     * to view the page
+     */
+    public void findApplicantRole() throws SecurityException{
+        if (user == null) {
+            throw new SecurityException("Not Logged In");
+        } else if (user.getRoleId().getName().equals("recruiter")){
+            throw new SecurityException("Logged In as Recruiter");
+        }
+    }
+    
+    /**
+     * Checks if the user has a role assigned to it
+     * @throws SecurityException If the user does not have the right privileges 
+     * to view the page
+     */
+    public void findRecruiterRole() throws SecurityException{
+        if (user == null) {
+            throw new SecurityException("Not Logged In");
+        } else if (user.getRoleId().getName().equals("applicant")){
+            throw new SecurityException("Logged In as Applicant");
+        }
+    }
+// </editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
+    private List<AvailableJobs> availableJobs;
+    private List<CompetenceProfile> competences;
+    private List<Availability> availabilitydates;
+
+    /**
+     * @return the availableJobs
+     */
+    public List<AvailableJobs> getAvailableJobs() {
+        availableJobs = applicationFacade.getAvailableJobs(locale);
+        return availableJobs;
+    }
+
+    /**
+     * @param availableJobs the availableJobs to set
+     */
+    public void setAvailableJobs(List<AvailableJobs> availableJobs) {
+        this.availableJobs = availableJobs;
+    }
+
+    /**
+     * Saves jobID for chosen available job
+     *
+     * @param jobID
+     * @return apply
+     */
+    public String apply(long jobID) {
+        this.jobID = jobID;
+        return "apply";
+    }
+
+    /**
+     *
+     * @return currentJob
+     */
+    public AvailableJobs getCurrentJob() {
+        currentJob = applicationFacade.getCurrentJob(jobID, locale);
+        return currentJob;
+    }
+
+    /**
+     * Set currentJob
+     *
+     * @param job
+     */
+    public void setCurrentJob(AvailableJobs job) {
+        currentJob = job;
+    }
+
+    /**
+     * @return the available dates for user
+     */
+    public List<Availability> getAvailabilityDates() {
+        availabilitydates = applicationFacade.getAvailableDates(locale, user);
+        return availabilitydates;
+    }
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Set Locale">
+    /**
+     * Set locale to sv
+     *
+     * @return ""
+     */
+    public String setSvLocale() {
+        Locale.setDefault(new Locale("sv"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("sv"));
+        locale = new Locale("sv");
+        return "";
+    }
+
+    /**
+     * Set locale to en
+     *
+     * @return ""
+     */
+    public String setEnLocale() {
+        Locale.setDefault(new Locale("en"));
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
+        locale = new Locale("en");
+        LOG.error("Set locale");
+        return "";
+    }
+//</editor-fold>
+
+//</editor-fold>
 }

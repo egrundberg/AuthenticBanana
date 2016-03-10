@@ -6,10 +6,18 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Error</title>
     </h:head> 
     <h:body>
-                <h2>Ooops, error</h2>
+        <ui:composition template="../templates/common.xhtml">
+                        
+            <ui:define name="content">
+                <div class="middle">
+                    <h2>#{msg.error}</h2>
+                </div>
+            </ui:define>			
+        </ui:composition> 
+
     </h:body>
 </html>
 

@@ -25,7 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author michelle
  */
-@WebFilter(filterName = "AuthFilter", urlPatterns = {"*.xhtml"})
+//@WebFilter(filterName = "AuthFilter", urlPatterns = {"*.xhtml"})
+//@WebFilter(filterName = "AuthFilter", servletNames = {"Faces Servlet"})
 public class AuthorizationFilter implements Filter {
 
     /**
