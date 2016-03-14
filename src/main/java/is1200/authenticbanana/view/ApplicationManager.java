@@ -18,6 +18,7 @@ import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
@@ -31,6 +32,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.security.*;
+import java.util.logging.Level;
 
 /**
  *
@@ -294,7 +297,6 @@ public class ApplicationManager implements Serializable {
         this.role = role;
     }
 
-
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
@@ -323,14 +325,16 @@ public class ApplicationManager implements Serializable {
      * @return roleName otherwise return ""
      */
     public String loginUser() throws NullPointerException {
-        user = applicationFacade.loginPerson(username, password);
+        user = applicationFacade.loginPerson(username, MD5(password));
         if (user == null) {
             error = "NotNull";
-            throw new NullPointerException("Could not create user");
+            //throw new NullPointerException("Could not create user");
+            return "";
         } else {
             error = null;
             HttpSession session = SessionBean.getSession();
             String roleName = applicationFacade.getRoleName(user.getRoleId());
+            LOG.error(roleName);
             if (roleName.equals("recruiter")) {
                 session.setAttribute("recruiter", roleName);
             } else {
@@ -355,7 +359,7 @@ public class ApplicationManager implements Serializable {
     private PersonDTO createPersonDTO() {
         PersonDTO person = new Person();
         person.setUsername(newUsername);
-        person.setPassword(newPassword);
+        person.setPassword(MD5(newPassword));
         person.setName(name);
         person.setSurname(surname);
         person.setEmail(email);
@@ -366,29 +370,30 @@ public class ApplicationManager implements Serializable {
         return person;
     }
 
-    
     /**
      * Checks if the user has a role assigned to it
-     * @throws SecurityException If the user does not have the right privileges 
+     *
+     * @throws SecurityException If the user does not have the right privileges
      * to view the page
      */
-    public void findApplicantRole() throws SecurityException{
+    public void findApplicantRole() throws SecurityException {
         if (user == null) {
             throw new SecurityException("Not Logged In");
-        } else if (user.getRoleId().getName().equals("recruiter")){
+        } else if (user.getRoleId().getName().equals("recruiter")) {
             throw new SecurityException("Logged In as Recruiter");
         }
     }
-    
+
     /**
      * Checks if the user has a role assigned to it
-     * @throws SecurityException If the user does not have the right privileges 
+     *
+     * @throws SecurityException If the user does not have the right privileges
      * to view the page
      */
-    public void findRecruiterRole() throws SecurityException{
+    public void findRecruiterRole() throws SecurityException {
         if (user == null) {
             throw new SecurityException("Not Logged In");
-        } else if (user.getRoleId().getName().equals("applicant")){
+        } else if (user.getRoleId().getName().equals("applicant")) {
             throw new SecurityException("Logged In as Applicant");
         }
     }
@@ -478,5 +483,17 @@ public class ApplicationManager implements Serializable {
     }
 //</editor-fold>
 
+    public static String MD5(String word) {
+        MessageDigest m;
+        try {
+            m = MessageDigest.getInstance("MD5");
+            m.update(word.getBytes(), 0, word.length());
+            LOG.error("MD5: " + new BigInteger(1, m.digest()).toString(16));
+            return new BigInteger(1, m.digest()).toString(16);
+        } catch (NoSuchAlgorithmException ex) {
+            java.util.logging.Logger.getLogger(ApplicationManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return word;
+    }
 //</editor-fold>
 }

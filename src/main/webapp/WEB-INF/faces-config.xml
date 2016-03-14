@@ -39,6 +39,14 @@
             <to-view-id>/public/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/public/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{applicationManager.registerUser}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/public/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
         
     <application>
         <resource-bundle>

@@ -74,13 +74,13 @@ public class ApplicationFacade {
                 .setParameter("username", username)
                 .setParameter("password", password)
                 .getResultList();
-        log.error("Michelle är bäst");
         return returnPerson(i);
     }
 
     private PersonDTO returnPerson(List i) {
         if (i.isEmpty()) {
             loginsFailed++;
+            log.error("Login failed");
             if (loginsFailed == 3) {
                 log.error("Login failed three times in a row");
                 loginsFailed = 0;
