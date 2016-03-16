@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * is1200.authenticbanana.controller is a package for comunication between the view and the database
  */
 package is1200.authenticbanana.controller;
 
 import is1200.authenticbanana.execptions.DataBaseException;
+import is1200.authenticbanana.model.Application;
 import is1200.authenticbanana.model.Availability;
 import is1200.authenticbanana.model.AvailableJobs;
 import is1200.authenticbanana.model.AvailableJobsDTO;
@@ -37,6 +37,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * This class acts as a controller for fetching and storing data in a database
+ *
  * @author Erik
  */
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -53,6 +54,7 @@ public class ApplicationFacade {
     //<editor-fold defaultstate="collapsed" desc="Login/Register">
     /**
      * Find a user with a specific username
+     *
      * @param username The specific username
      * @return a user if found, null otherwise
      */
@@ -65,11 +67,14 @@ public class ApplicationFacade {
 
     /**
      * Find a user with matching username and password
+     *
      * @param username The specific username
      * @param password The specific password
-     * @return a user if found, null otherwise 
+     * @return a user if found, null otherwise
      */
     public PersonDTO loginPerson(String username, String password) {
+        //log.error("Username: " + username);
+        //log.error("Password: " + password);
         List<String> i = em.createNamedQuery("Person.findByUsernameAndPassword")
                 .setParameter("username", username)
                 .setParameter("password", password)
@@ -94,6 +99,7 @@ public class ApplicationFacade {
 
     /**
      * Adds a user to the database
+     *
      * @param person The person to store in the database
      * @throws DataBaseException if the user could not be added
      */
@@ -120,7 +126,7 @@ public class ApplicationFacade {
     }
 
     /**
-     * 
+     *
      * @param roleId The id of the role
      * @return the name of a roleId
      * @see is1200.authenticbanana.model.Role
@@ -160,11 +166,11 @@ public class ApplicationFacade {
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Applicant methods">
-    
     /**
      *
      * @param locale The locale to get the correct translations
-     * @return a list with all the jobs that are currently available for applications
+     * @return a list with all the jobs that are currently available for
+     * applications
      */
     public List<AvailableJobs> getAvailableJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findBylateApplicationDate")
@@ -188,7 +194,8 @@ public class ApplicationFacade {
      *
      * @param locale The locale to get the correct translations
      * @param user The specific user to find competences for
-     * @return a list of a specific persons competences, translated to the chosen locales language
+     * @return a list of a specific persons competences, translated to the
+     * chosen locales language
      */
     public List<CompetenceProfile> getPersonCompetences(Locale locale, PersonDTO user) {
         List<CompetenceProfile> cpList = new ArrayList<>();
@@ -222,7 +229,8 @@ public class ApplicationFacade {
      *
      * @param locale The locale to get the correct translations
      * @param user The specific user to find dates for
-     * @return a list with all the dates when a specific user is available, null if no dates are found
+     * @return a list with all the dates when a specific user is available, null
+     * if no dates are found
      */
     public List<Availability> getAvailableDates(Locale locale, PersonDTO user) {
         List<Availability> list = em.createNamedQuery("Availability.findByUsername")
@@ -236,4 +244,34 @@ public class ApplicationFacade {
     }
 
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Recruiter methods">
+    public Application getApplication(Long applicationID) {
+        return em.find(Application.class, applicationID);
+    }
+
+    public List<Application> getApplications(long jobID) {
+        AvailableJobs job = em.find(AvailableJobs.class, jobID);
+        if (job == null) {
+            log.error("No appplications");
+            return null;
+        }
+        List<Application> applications = (List<Application>) job.getApplicationCollection();
+        return applications;
+    }
+//</editor-fold>
+
+    public List<AvailableJobs> getJobs(Locale locale) {
+        List<Long> list = em.createNamedQuery("AvailableJobs.findAllJobs")
+                .getResultList();
+        if (list.isEmpty()) {
+            log.error("No jobs");
+            return null;
+        }
+        List<AvailableJobs> jobs = new ArrayList<>();
+        for (Long jobId : list) {
+            AvailableJobs job = em.find(AvailableJobs.class, jobId);
+            jobs.add(setJobTranslations(job, locale));
+        }
+        return jobs;
+    }
 }

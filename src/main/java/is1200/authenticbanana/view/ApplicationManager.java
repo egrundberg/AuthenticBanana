@@ -5,14 +5,10 @@
  */
 package is1200.authenticbanana.view;
 
-import is1200.authenticbanana.execptions.ApplicantLoggedInException;
-import is1200.authenticbanana.execptions.RecruiterLoggedInException;
-import is1200.authenticbanana.execptions.NotLoggedInException;
 import is1200.authenticbanana.controller.ApplicationFacade;
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.Availability;
 import is1200.authenticbanana.model.AvailableJobs;
-import is1200.authenticbanana.model.AvailableJobsDTO;
 import is1200.authenticbanana.model.CompetenceProfile;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
@@ -22,18 +18,25 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.security.*;
-import java.util.logging.Level;
+import java.io.FileOutputStream;
+import java.io.StringReader;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import is1200.authenticbanana.model.Application;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -98,11 +101,12 @@ public class ApplicationManager implements Serializable {
     private long jobID;
     private AvailableJobs currentJob;
     private String role;
+    private String databaseError = null;
 
-    //</editor-fold>
+//</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Getters, Setters and Constructors">
     /**
-     *
+     * A constructor without parameters
      */
     public ApplicationManager() {
     }
@@ -297,6 +301,20 @@ public class ApplicationManager implements Serializable {
         this.role = role;
     }
 
+    /**
+     * @return the databaseError
+     */
+    public String getDatabaseError() {
+        return databaseError;
+    }
+
+    /**
+     * @param databaseError the databaseError to set
+     */
+    public void setDatabaseError(String databaseError) {
+        this.databaseError = databaseError;
+    }
+
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="User Management">
     /**
@@ -311,10 +329,13 @@ public class ApplicationManager implements Serializable {
                 applicationFacade.registerUser(createPersonDTO());
             } catch (DataBaseException ex) {
                 LOG.error(ex.getMessage());
+                setDatabaseError("NotNull");
                 return "failure";
             }
+            databaseError = null;
             return "success";
         } else {
+            setDatabaseError("NotNull");
             return "failure";
         }
     }
@@ -325,6 +346,7 @@ public class ApplicationManager implements Serializable {
      * @return roleName otherwise return ""
      */
     public String loginUser() throws NullPointerException {
+        //LOG.error("Password sent: " + MD5(password));
         user = applicationFacade.loginPerson(username, MD5(password));
         if (user == null) {
             error = "NotNull";
@@ -377,10 +399,9 @@ public class ApplicationManager implements Serializable {
      * to view the page
      */
     public void findApplicantRole() throws SecurityException {
-        if (user == null) {
-            throw new SecurityException("Not Logged In");
-        } else if (user.getRoleId().getName().equals("recruiter")) {
-            throw new SecurityException("Logged In as Recruiter");
+
+        if (user == null || !user.getRoleId().getName().equals("applicant")) {
+            throw new SecurityException("Not Logged In As Applicant");
         }
     }
 
@@ -391,14 +412,32 @@ public class ApplicationManager implements Serializable {
      * to view the page
      */
     public void findRecruiterRole() throws SecurityException {
-        if (user == null) {
-            throw new SecurityException("Not Logged In");
-        } else if (user.getRoleId().getName().equals("applicant")) {
-            throw new SecurityException("Logged In as Applicant");
+        if (user == null || !user.getRoleId().getName().equals("recruiter")) {
+            throw new SecurityException("Not Logged In As Recruiter");
         }
     }
+
+    /**
+     * Hashes a word with MD5 hash
+     *
+     * @param word The word to be hashed
+     * @return A hashed version of the word
+     */
+    public static String MD5(String word) {
+        MessageDigest m;
+        try {
+            m = MessageDigest.getInstance("MD5");
+            m.update(word.getBytes(), 0, word.length());
+            word = new BigInteger(1, m.digest()).toString(16);
+            //LOG.error("MD5: " + word);
+            return word;
+        } catch (NoSuchAlgorithmException ex) {
+            LOG.error("MD5: " + word);
+        }
+        return word;
+    }
 // </editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Appliacant stuff">
+    //<editor-fold defaultstate="collapsed" desc="Appliacant Stuff">
     private List<AvailableJobs> availableJobs;
     private List<CompetenceProfile> competences;
     private List<Availability> availabilitydates;
@@ -482,18 +521,102 @@ public class ApplicationManager implements Serializable {
         return "";
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Recruiter Stuff">
 
-    public static String MD5(String word) {
-        MessageDigest m;
-        try {
-            m = MessageDigest.getInstance("MD5");
-            m.update(word.getBytes(), 0, word.length());
-            LOG.error("MD5: " + new BigInteger(1, m.digest()).toString(16));
-            return new BigInteger(1, m.digest()).toString(16);
-        } catch (NoSuchAlgorithmException ex) {
-            java.util.logging.Logger.getLogger(ApplicationManager.class.getName()).log(Level.SEVERE, null, ex);
+    private List<Application> applications;
+    private List<AvailableJobs> jobs;
+
+    /**
+     * @return the applications
+     */
+    public List<Application> getApplications() {
+        if (jobID != 0) {
+            return applicationFacade.getApplications(jobID);
+        } else {
+            return null;
         }
-        return word;
+    }
+
+    /**
+     * @param applications the applications to set
+     */
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    /**
+     * Sets the id for which applications to show
+     *
+     * @param jobID
+     * @return The String view
+     */
+    public String findApplications(long jobID) {
+        this.jobID = jobID;
+        return "view";
+    }
+
+    /**
+     * Generate a PDF document of all applications for a specific job
+     *
+     * @param appId The id of the application to be generated
+     */
+    public void toPdf(Long appId) {
+        try {
+            Document document = new Document(PageSize.A4);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
+            String date = sdf.format(new Date());
+            System.out.println(date);
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Applications_" + date + ".pdf"));
+            document.open();
+            document.addAuthor("Authentic Banana");
+            document.addCreator(user.getName() + " " + user.getSurname());
+            document.addSubject("Application");
+            document.addCreationDate();
+            document.addTitle("Application");
+
+            Application application = applicationFacade.getApplication(appId);
+            XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
+
+            System.out.println(application.getUsername().getName());
+
+            //GET CONTENT TO PDF
+            String html = "<h2 style='color: Black'>Application for "
+                    + application.getJobId().getJobTitle()
+                    + "</h2>" 
+                    + "<h3 style='color: Black'>"
+                    + "First name: "
+                    + application.getUsername().getName()
+                    + "</h3><h3 style='color: Black'>"
+                    + "Surname: "
+                    + application.getUsername().getSurname()
+                    + "</h3><h3 style='color: Black'>"
+                    + "Email: "
+                    + application.getUsername().getEmail()
+                    + "</h3><p>"
+                    + application.getPLetter()
+                    + "</p>";
+
+            worker.parseXHtml(pdfWriter, document, new StringReader(html));
+            document.close();
+            System.out.println("PDF Done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @return the jobs
+     */
+    public List<AvailableJobs> getJobs() {
+        jobs = applicationFacade.getJobs(locale);
+        return jobs;
+    }
+
+    /**
+     * @param jobs the jobs to set
+     */
+    public void setJobs(List<AvailableJobs> jobs) {
+        this.jobs = jobs;
     }
 //</editor-fold>
 }
