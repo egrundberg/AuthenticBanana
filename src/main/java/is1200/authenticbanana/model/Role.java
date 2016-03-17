@@ -53,7 +53,7 @@ public class Role implements Serializable {
    
 
     /**
-     *
+     * The constructor
      */
     public Role() {
     }

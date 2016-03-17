@@ -52,7 +52,7 @@ public class Application implements Serializable {
     private Person username;
 
     /**
-     *
+     * The constructor
      */
     public Application() {
     }

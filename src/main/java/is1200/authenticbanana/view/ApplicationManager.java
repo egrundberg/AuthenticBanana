@@ -37,15 +37,17 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 import is1200.authenticbanana.model.Application;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.faces.context.ExternalContext;
+import javax.servlet.ServletContext;
 
 /**
- * Includes Variables, Getter, setter and constructors, User management, 
+ * Includes Variables, Getter, setter and constructors, User management,
  * applicant, recruiter and Set locale.
- * 
+ *
  * Handles validation constraints, login, register new user, logout, roles
- * (applicant/recruiter), encryption and pdf generator. 
- * 
- * 
+ * (applicant/recruiter), encryption and pdf generator.
+ *
+ *
  * @author Erik
  */
 @ManagedBean(name = "applicationManager")
@@ -561,52 +563,20 @@ public class ApplicationManager implements Serializable {
         return "view";
     }
 
+    private String pdfURL;
+
     /**
      * Generate a PDF document of all applications for a specific job
      *
      * @param appId The id of the application to be generated
+     * @return The String "success" if the pdf was successfully generated
      */
-    public void toPdf(Long appId) {
-        try {
-            Document document = new Document(PageSize.A4);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
-            String date = sdf.format(new Date());
-            System.out.println(date);
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Applications_" + date + ".pdf"));
-            document.open();
-            document.addAuthor("Authentic Banana");
-            document.addCreator(user.getName() + " " + user.getSurname());
-            document.addSubject("Application");
-            document.addCreationDate();
-            document.addTitle("Application");
-
-            Application application = applicationFacade.getApplication(appId);
-            XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
-
-            System.out.println(application.getUsername().getName());
-
-            //GET CONTENT TO PDF
-            String html = "<h2 style='color: Black'>Application for "
-                    + application.getJobId().getJobTitle()
-                    + "</h2>" 
-                    + "<h3 style='color: Black'>"
-                    + "First name: "
-                    + application.getUsername().getName()
-                    + "</h3><h3 style='color: Black'>"
-                    + "Surname: "
-                    + application.getUsername().getSurname()
-                    + "</h3><h3 style='color: Black'>"
-                    + "Email: "
-                    + application.getUsername().getEmail()
-                    + "</h3><p>"
-                    + application.getPLetter()
-                    + "</p>";
-
-            worker.parseXHtml(pdfWriter, document, new StringReader(html));
-            document.close();
-            System.out.println("PDF Done");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public String toPdf(Long appId) {
+        pdfURL = applicationFacade.toPdf(appId, user);
+        if (pdfURL == null) {
+            return null;
+        } else {
+            return "success";
         }
     }
 
@@ -623,6 +593,20 @@ public class ApplicationManager implements Serializable {
      */
     public void setJobs(List<AvailableJobs> jobs) {
         this.jobs = jobs;
+    }
+
+    /**
+     * @return the pdfURL
+     */
+    public String getPdfURL() {
+        return pdfURL;
+    }
+
+    /**
+     * @param pdfURL the pdfURL to set
+     */
+    public void setPdfURL(String pdfURL) {
+        this.pdfURL = pdfURL;
     }
 //</editor-fold>
 }

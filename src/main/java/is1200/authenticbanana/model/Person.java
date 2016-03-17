@@ -81,7 +81,7 @@ public class Person implements Serializable, PersonDTO {
     private Collection<CompetenceProfile> competenceProfileCollection;
 
     /**
-     *
+     * The constructor
      */
     public Person() {
     }

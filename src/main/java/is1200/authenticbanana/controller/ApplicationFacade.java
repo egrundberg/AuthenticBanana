@@ -8,6 +8,10 @@
  */
 package is1200.authenticbanana.controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import is1200.authenticbanana.execptions.DataBaseException;
 import is1200.authenticbanana.model.Application;
 import is1200.authenticbanana.model.Availability;
@@ -20,7 +24,10 @@ import is1200.authenticbanana.model.LanguagePK;
 import is1200.authenticbanana.model.Person;
 import is1200.authenticbanana.model.PersonDTO;
 import is1200.authenticbanana.model.Role;
+import java.io.FileOutputStream;
+import java.io.StringReader;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,6 +36,7 @@ import java.util.Locale;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -245,10 +253,21 @@ public class ApplicationFacade {
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Recruiter methods">
+
+    /**
+     *
+     * @param applicationID
+     * @return the applicationID
+     */
     public Application getApplication(Long applicationID) {
         return em.find(Application.class, applicationID);
     }
 
+    /**
+     *
+     * @param jobID
+     * @return A list of applications for a specific job
+     */
     public List<Application> getApplications(long jobID) {
         AvailableJobs job = em.find(AvailableJobs.class, jobID);
         if (job == null) {
@@ -258,8 +277,69 @@ public class ApplicationFacade {
         List<Application> applications = (List<Application>) job.getApplicationCollection();
         return applications;
     }
+    
+    
+    /**
+     * Generates a PDF of an application
+     * @param appId
+     * @param user
+     * @return The path to the saved PDF
+     */
+    public String toPdf(Long appId, PersonDTO user) {
+        try {
+            Document document = new Document(PageSize.A4);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
+            String date = sdf.format(new Date());
+            System.out.println(date);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            System.out.println(ec.getRealPath(""));
+            String pdfURL = "/recruiter/Applications_" + date + ".pdf";
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(ec.getRealPath("") + pdfURL));
+            document.open();
+            document.addAuthor("Authentic Banana");
+            document.addCreator(user.getName() + " " + user.getSurname());
+            document.addSubject("Application");
+            document.addCreationDate();
+            document.addTitle("Application");
+
+            Application application = getApplication(appId);
+            XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
+
+            System.out.println(application.getUsername().getName());
+
+            //GET CONTENT TO PDF
+            String html = "<h2 style='color: Black'>Application for "
+                    + application.getJobId().getJobTitle()
+                    + "</h2>"
+                    + "<h3 style='color: Black'>"
+                    + "First name: "
+                    + application.getUsername().getName()
+                    + "</h3><h3 style='color: Black'>"
+                    + "Surname: "
+                    + application.getUsername().getSurname()
+                    + "</h3><h3 style='color: Black'>"
+                    + "Email: "
+                    + application.getUsername().getEmail()
+                    + "</h3><p>"
+                    + application.getPLetter()
+                    + "</p>";
+
+            worker.parseXHtml(pdfWriter, document, new StringReader(html));
+            document.close();
+            System.out.println("PDF Done");
+            return pdfURL;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 //</editor-fold>
 
+    /**
+     *
+     * @param locale
+     * @return A translated list of all jobs
+     */
     public List<AvailableJobs> getJobs(Locale locale) {
         List<Long> list = em.createNamedQuery("AvailableJobs.findAllJobs")
                 .getResultList();

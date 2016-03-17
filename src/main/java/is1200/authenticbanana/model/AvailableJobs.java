@@ -76,7 +76,7 @@ public class AvailableJobs implements Serializable {
     private Competence competenceId;
 
     /**
-     *
+     * The constructor
      */
     public AvailableJobs() {
     }

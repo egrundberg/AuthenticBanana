@@ -60,7 +60,7 @@ public class Availability implements Serializable, AvailabilityDTO {
     private Person username;
 
     /**
-     *
+     * The constructor
      */
     public Availability() {
     }

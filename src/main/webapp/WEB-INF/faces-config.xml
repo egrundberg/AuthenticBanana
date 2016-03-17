@@ -54,6 +54,14 @@
             <to-view-id>/public/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/recruiter/applicationList.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{applicationManager.toPdf(jobapplication.appId)}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>#{applicationManager.pdfURL}</to-view-id>
+        </navigation-case>
+    </navigation-rule>
         
     <application>
         <resource-bundle>

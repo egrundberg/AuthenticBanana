@@ -55,7 +55,7 @@ public class Competence implements Serializable {
   
 
     /**
-     *
+     * The constructor
      */
     public Competence() {
     }

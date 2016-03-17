@@ -33,6 +33,7 @@ public interface CompetenceDTO {
     public String getName();
 
     /**
+     * @param name
      */
     public void setName(String name);
    /**

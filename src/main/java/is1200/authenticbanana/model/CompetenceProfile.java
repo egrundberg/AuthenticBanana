@@ -63,7 +63,7 @@ public class CompetenceProfile implements Serializable, CompetenceProfileDTO {
     private Person username;
 
     /**
-     *
+     * The constructor
      */
     public CompetenceProfile() {
     }

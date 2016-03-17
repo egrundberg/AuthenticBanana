@@ -71,7 +71,7 @@ public class Language implements Serializable {
     private String word;
 
     /**
-     *
+     * The constructor
      */
     public Language() {
     }
