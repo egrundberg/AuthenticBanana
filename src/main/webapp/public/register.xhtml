@@ -3,69 +3,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition template="../templates/common.xhtml">
-         
-            <ui:define name="nav">
-              <div class="left">  
-                 <ul>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.loginP}" outcome="index" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.registerA}" outcome="register" /></p></li>
-                    <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positionsOff" /></p></li>
 
-                </ul>
-              </div>
+            <ui:define name="nav">
+                <div class="left">  
+                    <ul>
+                        <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.loginP}" outcome="index" /></p></li>
+                        <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.registerA}" outcome="register" /></p></li>
+                        <li><p><img  src="../IMG/Banana.png" alt="Banana"/><h:link value="#{msg.availableP}" outcome="positionsOff" /></p></li>
+
+                    </ul>
+                </div>
             </ui:define>
             <ui:define name="content">
-            <div class="middle">
-                <h1><h:outputText value="#{msg.newUser}"/></h1>
-            
-             <h:form>
-               
-                <p>
-                    <h:outputLabel for="fname" value="#{msg.firstName} : "/> 
-                    <h:inputText id="firstname" value="#{applicationManager.name}"/>
-                    <h:message for="firstname" style="color:red"/>
-                </p>
-                <p>
-                    <h:outputLabel for="surname" value="#{msg.surname} : "/> 
-                    <h:inputText id="surname" value="#{applicationManager.surname}"/>
-                    <h:message for="surname" style="color:red"/>
-                </p>
-                <p>
-                    <h:outputLabel for="newUsername" value="#{msg.username} : "/> 
-                    <h:inputText id="newUsername" value="#{applicationManager.newUsername}"/>
-                     <h:message for="newUsername" style="color:red"/>
-                </p>
-                <p>
-                    <h:outputLabel for="newPassword" value="#{msg.password}: "/> 
-                    <h:inputSecret id="newPassword" value="#{applicationManager.newPassword}"/>
-                     <h:message for="newPassword" style="color:red"/>
-                </p>
-                <p>
-                    <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
-                    <h:inputText id="ssn" value="#{applicationManager.ssn}"/>
-                     <h:message for="ssn" style="color:red"/>
-                </p>
-                <p>
-                    <h:outputLabel for="mail" value="#{msg.mail}: "/> 
-                    <h:inputText id="mail" value="#{applicationManager.email}" />
-                    <h:message for="mail" style="color:red"/>
-                </p>
-                <p>
-                    <h:commandButton value="#{msg.register}" action="#{applicationManager.registerUser}"/>
-                </p>
-                 
-             </h:form>
-            </div>
-         </ui:define> 
-         
-            		
-      </ui:composition> 
+                <div class="middle">
+                    <h1><h:outputText value="#{msg.newUser}"/></h1>
+
+                    <h:form>
+
+                        <p>
+                            <h:outputLabel for="firstname" value="#{msg.firstName} : "/> 
+                            <h:inputText id="firstname" value="#{applicationManager.name}"/>
+                            <h:message for="firstname" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:outputLabel for="surname" value="#{msg.surname} : "/> 
+                            <h:inputText id="surname" value="#{applicationManager.surname}"/>
+                            <h:message for="surname" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:outputLabel for="newUsername" value="#{msg.username} : "/> 
+                            <h:inputText id="newUsername" value="#{applicationManager.newUsername}"/>
+                            <h:message for="newUsername" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:outputLabel for="newPassword" value="#{msg.password}: "/> 
+                            <h:inputSecret id="newPassword" value="#{applicationManager.newPassword}"/>
+                            <h:message for="newPassword" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:outputLabel for="ssn" value="#{msg.ssn}: "/> 
+                            <h:inputText id="ssn" value="#{applicationManager.ssn}"/>
+                            <h:message for="ssn" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:outputLabel for="mail" value="#{msg.mail}: "/> 
+                            <h:inputText id="mail" value="#{applicationManager.email}" />
+                            <h:message for="mail" style="color:red"/>
+                        </p>
+                        <p>
+                            <h:commandButton value="#{msg.register}" action="#{applicationManager.registerUser}"/>
+                        </p>
+                        <p>
+                            <c:if test ="${applicationManager.databaseError != null}">
+                                <p style="color:red;">#{msg.couldNotCreateUser}</p>
+                            </c:if>
+                        </p>
+                    </h:form>
+                </div>
+            </ui:define> 
+
+
+        </ui:composition> 
 
     </h:body>
 </html>

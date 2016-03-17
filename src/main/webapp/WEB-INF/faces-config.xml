@@ -21,7 +21,6 @@
             <from-outcome>recruiter</from-outcome>
             <to-view-id>recruiter/home.xhtml</to-view-id>
         </navigation-case>
-       
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/applicant/positions.xhtml</from-view-id>
@@ -29,6 +28,14 @@
             <from-action>#{applicationManager.apply(job.jobId)}</from-action>
             <from-outcome>apply</from-outcome>
             <to-view-id>/applicant/apply.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/recruiter/applications.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{applicationManager.findApplications(job.jobId)}</from-action>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/recruiter/applicationList.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
