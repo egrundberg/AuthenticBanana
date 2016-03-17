@@ -22,23 +22,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.*;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.security.*;
-import java.io.FileOutputStream;
-import java.io.StringReader;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 import is1200.authenticbanana.model.Application;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.faces.context.ExternalContext;
-import javax.servlet.ServletContext;
 
 /**
  * Includes Variables, Getter, setter and constructors, User management,
@@ -362,14 +349,8 @@ public class ApplicationManager implements Serializable {
             return "";
         } else {
             error = null;
-            HttpSession session = SessionBean.getSession();
             String roleName = applicationFacade.getRoleName(user.getRoleId());
             LOG.error(roleName);
-            if (roleName.equals("recruiter")) {
-                session.setAttribute("recruiter", roleName);
-            } else {
-                session.setAttribute("applicant", roleName);
-            }
             return roleName;
         }
     }
@@ -380,8 +361,6 @@ public class ApplicationManager implements Serializable {
      * @return index
      */
     public String logoutUser() {
-        HttpSession session = SessionBean.getSession();
-        session.invalidate();
         user = null;
         return "index";
     }

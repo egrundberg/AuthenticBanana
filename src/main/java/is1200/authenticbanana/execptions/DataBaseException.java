@@ -11,7 +11,7 @@
 package is1200.authenticbanana.execptions;
 
 /**
- *
+ * An exception used for specifing errors in the database.
  * @author Erik
  */
 public class DataBaseException extends Exception {
