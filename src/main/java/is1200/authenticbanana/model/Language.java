@@ -24,7 +24,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *  This class represents the table Language in the database.
+ *  It holds all words that can be translated on the website, and in ones 
+ *  application. 
  * @author michelle
  */
 @Entity

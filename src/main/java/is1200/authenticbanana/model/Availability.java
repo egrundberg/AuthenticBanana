@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 //www.piliapp.com/mysql-syntax-check/nnotation.XmlRootElement;
 
 /**
- *
+ *  This class represents the table Availability in the database.
+ *  It indicates whether or not the applicant is available for specific dates
  * @author michelle
  */
 @Entity

@@ -9,7 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- *
+ * This class represents the composite primary key in the table Language
+ * and consists of L_id and Lang.
  * @author michelle
  */
  @Embeddable

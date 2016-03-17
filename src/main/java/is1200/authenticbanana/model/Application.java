@@ -21,7 +21,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ *  This class represents the table Application in the database. It holds the
+ *  information needed for a user to apply for a position
  * @author michelle
  */
 @Entity

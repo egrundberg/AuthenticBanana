@@ -24,7 +24,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *  This class represents the table Role in the database.
+ *  It holds information about a user which indicates their privileges that 
+ *  they would have on the website. A role can either be Applicant or Recruiter.
+ * 
  * @author michelle
  */
 @Entity

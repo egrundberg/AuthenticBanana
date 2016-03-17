@@ -23,7 +23,9 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ *  This class represents the table CompetenceProfile in the database.
+ *  It holds a collection of all competences that a user has, used in an 
+ *  application.
  * @author michelle
  */
 @Entity

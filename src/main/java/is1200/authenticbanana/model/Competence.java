@@ -24,7 +24,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *  This class represents the table Competence in the database.
+ *  It keeps record of competences that could be needed for a position, or 
+ *  competences that a user can put in their profile.
  * @author michelle
  */
 @Entity

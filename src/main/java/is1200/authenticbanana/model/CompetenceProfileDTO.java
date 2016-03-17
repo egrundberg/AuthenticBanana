@@ -8,7 +8,9 @@ package is1200.authenticbanana.model;
 import java.math.BigDecimal;
 
 /**
- *
+ *This class is a DTO, interface, to the table CompetenceProfile, which means that
+ *  the view can access the database's information securely - abstracting the
+ *  underlying structure of the database.
  * @author michelle
  */
 public interface CompetenceProfileDTO {

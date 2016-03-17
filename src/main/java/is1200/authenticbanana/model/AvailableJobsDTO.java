@@ -10,7 +10,9 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *This class is a DTO, interface, to the table AvailableJobs, which means that
+ *  the view can access the database's information securely - abstracting the
+ *  underlying structure of the database.
  * @author michelle
  */
 public interface AvailableJobsDTO {

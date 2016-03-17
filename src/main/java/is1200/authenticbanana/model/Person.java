@@ -24,7 +24,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *  This class represents the table Person in the database. It holds all 
+ *  information needed for registering a user, hold that user's profile 
+ *  data. A recruiter can also view the user's profile.
  * @author michelle
  */
 @Entity

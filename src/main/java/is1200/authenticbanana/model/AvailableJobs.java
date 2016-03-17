@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *  This class represents the table AvailableJobs in the database.
+ *  It holds information about the positions available on the market.
  * @author michelle
  */
 @Entity
