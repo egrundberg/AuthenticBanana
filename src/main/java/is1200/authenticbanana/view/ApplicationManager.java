@@ -39,7 +39,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
+ * Includes Variables, Getter, setter and constructors, User management, 
+ * applicant, recruiter and Set locale.
+ * 
+ * Handles validation constraints, login, register new user, logout, roles
+ * (applicant/recruiter), encryption and pdf generator. 
+ * 
+ * 
  * @author Erik
  */
 @ManagedBean(name = "applicationManager")
