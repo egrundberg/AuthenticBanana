@@ -55,7 +55,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/recruiter/recruiter.xhtml</from-view-id>
+        <from-view-id>/recruiter/*</from-view-id>
         <navigation-case>
             <from-action>#{applicationManager.toPdf(jobapplication.appId)}</from-action>
             <from-outcome>success</from-outcome>
