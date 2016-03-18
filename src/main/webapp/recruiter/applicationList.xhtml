@@ -10,9 +10,6 @@
     </h:head>
     <h:body>
         <ui:composition template="../templates/commonRec.xhtml">
-
-
-
             <ui:define name="content">
                 <div class="middle">
                     <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
@@ -28,8 +25,7 @@
                                     <td>
                                         <h:outputText value="#{jobapplication.username.email}"/>
                                     </td>
-                                    <td><h:commandButton class="button" value="#{msg.generatePDF}" 
-                                                         action="#{applicationManager.toPdf(jobapplication.appId)}"/></td>
+                                    <td><h:commandButton class="button" value="#{msg.generatePDF}" action="#{applicationManager.toPdf(jobapplication.appId)}"/></td>
                                 </tr>
                             </c:forEach>
                         </table>

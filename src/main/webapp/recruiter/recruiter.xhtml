@@ -10,17 +10,27 @@
     </h:head>
     <h:body>
         <ui:composition template="../templates/commonRec.xhtml">
-           
-           
-            
             <ui:define name="content">
-                 <div class="middle">
-                <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
-                <h:form>
-                    <p>Welcome #{applicationManager.user.name}</p>
-                   
-                </h:form>
-                 </div>
+                <div class="middle">
+                    <h1><h:outputLabel value="#{msg.ABinfo}"/></h1>
+                    <h:form>
+                        <table>
+                            <th>#{msg.username}</th>
+                            <th>#{msg.mail}</th>
+                            <c:forEach var="jobapplication" items="#{applicationManager.applications}">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{jobapplication.username.username}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{jobapplication.username.email}"/>
+                                    </td>
+                                    <td><h:commandButton class="button" value="#{msg.generatePDF}" action="#{applicationManager.toPdf(jobapplication.appId)}"/></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </h:form>
+                </div>
             </ui:define>			
         </ui:composition> 
     </h:body>

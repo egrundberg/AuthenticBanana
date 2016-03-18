@@ -539,6 +539,7 @@ public class ApplicationManager implements Serializable {
      */
     public String findApplications(long jobID) {
         this.jobID = jobID;
+        LOG.error("HEJ");
         return "view";
     }
 
